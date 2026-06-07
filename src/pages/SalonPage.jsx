@@ -125,7 +125,7 @@ function BookingModal({ salon, preService, onClose }) {
                 <div style={{ background:'#f8f4ff',borderRadius:10,padding:'12px 16px',marginBottom:16,border:'1px solid #e0d8f8',fontSize:12,color:'#5a4a8a',lineHeight:1.7 }}>
                   🔒 Secure payment via Stripe · PCI-DSS compliant · 10% platform fee included
                 </div>
-                <div style={{ display:'flex',gap:10' }}>
+                <div style={{ display:'flex',gap:10 }}>
                   <Button variant="ghost" onClick={() => setStep(2)}>← Back</Button>
                   <Button variant="primary" style={{ flex:1,justifyContent:'center' }} onClick={pay} disabled={loading}>
                     {loading ? <><Spinner size={14} color={T.white}/> Processing…</> : 'Confirm & Pay →'}
