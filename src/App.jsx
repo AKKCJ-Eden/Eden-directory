@@ -44,7 +44,7 @@ export default function App() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 26,
         }}>🌿</div>
-        <div style={{ color: '#6a7065', fontSize: 14 }}>Loading Eden...</div>
+        <div style={{ color: '#6a7065', fontSize: 14 }}>Loading Eden</div>
       </div>
     )
   }
