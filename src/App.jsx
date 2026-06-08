@@ -7,6 +7,8 @@ import SalonPage from './pages/SalonPage'
 import Dashboard from './pages/Dashboard'
 import Auth from './pages/Auth'
 import ListBusiness from './pages/ListBusiness'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
 import NotFound from './pages/NotFound'
 
 export const AppContext = ({ children }) => children
@@ -60,6 +62,8 @@ export default function App() {
       <Route path="/dashboard"     element={user ? <Dashboard user={user} /> : <Navigate to="/auth" />} />
       <Route path="/auth"          element={!user ? <Auth /> : <Navigate to="/dashboard" />} />
       <Route path="/list-business" element={<ListBusiness user={user} />} />
+      <Route path="/privacy"       element={<PrivacyPolicy   user={user} />} />
+      <Route path="/terms"         element={<TermsOfService  user={user} />} />
       <Route path="*"              element={<NotFound />} />
     </Routes>
   )
