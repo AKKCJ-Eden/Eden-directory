@@ -201,7 +201,7 @@ export default function TermsOfService({ user }) {
                   'Attempt to gain unauthorised access to any part of Eden or its systems',
                   'Transmit any malware, viruses or malicious code',
                   'Use Eden for any commercial purpose other than as a legitimate beauty business listed on the platform',
-                  'Circumvent Eden\'s booking and payment system by arranging bookings off-platform after initial contact through Eden',
+                  'Circumvent Eden booking and payment system by arranging bookings off-platform after initial contact through Eden',
                   'Harass, abuse or threaten other users, salon staff or Eden employees',
                   'Post content that is discriminatory, offensive, sexually explicit or promotes illegal activity',
                 ]}/>
