@@ -563,7 +563,7 @@ export default function Dashboard({ user }) {
   const filteredServices  = services.filter(s  => serviceFilter==='all'    || (serviceFilter==='active'?s.active:!s.active))
   const serviceCats = ['all','active','paused']
 
-  const TABS = ['overview','bookings','services','calendar','analytics','notifications','payments','settings']
+  const TABS = ['overview','bookings','services','calendar','clients','offers','gallery','reviews','analytics','notifications','payments','settings']
 
   if (loading) return (
     <div style={{ minHeight:'100vh', background:T.cream, display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -839,6 +839,244 @@ export default function Dashboard({ user }) {
                   <div key={key} style={{ display:'flex', alignItems:'center', gap:5, fontSize:11, color:T.inkSoft }}>
                     <div style={{ width:12, height:12, borderRadius:3, background:val.bg, border:`1px solid ${val.border}` }}/>
                     {val.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── CLIENTS ── */}
+          {tab==='clients' && (
+            <div style={{ animation:'fadeUp 0.4s ease' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:24 }}>
+                <div>
+                  <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>Client Profiles</div>
+                  <div style={{ fontSize:13, color:T.inkSoft, marginTop:4 }}>Every customer who has booked with you through Eden</div>
+                </div>
+              </div>
+              <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+                {[
+                  { name:'Emma Johnson',   email:'emma@email.com',   phone:'+44 7700 111 111', visits:4, lastVisit:'Today',      lastService:'Full Balayage',     totalSpent:620, avatar:'E' },
+                  { name:'Sarah Williams', email:'sarah@email.com',  phone:'+44 7700 222 222', visits:7, lastVisit:'Today',      lastService:'Cut and Blowdry',   totalSpent:490, avatar:'S' },
+                  { name:'Lucy Brown',     email:'lucy@email.com',   phone:'+44 7700 333 333', visits:2, lastVisit:'Last week',   lastService:'Colour Correction', totalSpent:400, avatar:'L' },
+                  { name:'Jade Clarke',    email:'jade@email.com',   phone:'+44 7700 444 444', visits:5, lastVisit:'2 weeks ago', lastService:'Full Highlights',   totalSpent:650, avatar:'J' },
+                  { name:'Mia Roberts',    email:'mia@email.com',    phone:'+44 7700 555 555', visits:3, lastVisit:'Last month',  lastService:'Keratin Treatment', totalSpent:580, avatar:'M' },
+                  { name:'Zara Ahmed',     email:'zara@email.com',   phone:'+44 7700 666 666', visits:9, lastVisit:'3 days ago',  lastService:'Balayage',          totalSpent:1240, avatar:'Z' },
+                ].map((c,i) => (
+                  <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`1px solid ${T.border}`, boxShadow:`0 1px 6px ${T.shadow}` }}>
+                    <div style={{ display:'flex', alignItems:'center', gap:16, flexWrap:'wrap' }}>
+                      <div style={{ width:48, height:48, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:22, color:T.forest, flexShrink:0 }}>{c.avatar}</div>
+                      <div style={{ flex:1, minWidth:120 }}>
+                        <div style={{ fontWeight:700, color:T.ink, fontSize:15 }}>{c.name}</div>
+                        <div style={{ fontSize:12, color:T.inkSoft, marginTop:2 }}>
+                          <a href={`mailto:${c.email}`} style={{ color:T.sage, textDecoration:'none' }}>{c.email}</a>
+                          {' - '}
+                          <a href={`tel:${c.phone}`} style={{ color:T.sage, textDecoration:'none' }}>{c.phone}</a>
+                        </div>
+                      </div>
+                      <div style={{ textAlign:'center', minWidth:80 }}>
+                        <div style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>{c.visits}</div>
+                        <div style={{ fontSize:10, color:T.inkSoft }}>visits</div>
+                      </div>
+                      <div style={{ textAlign:'center', minWidth:120 }}>
+                        <div style={{ fontSize:13, fontWeight:600, color:T.ink }}>{c.lastService}</div>
+                        <div style={{ fontSize:11, color:T.inkSoft }}>{c.lastVisit}</div>
+                      </div>
+                      <div style={{ textAlign:'right', minWidth:80 }}>
+                        <div style={{ fontFamily:F.display, fontSize:20, color:T.gold }}>£{c.totalSpent}</div>
+                        <div style={{ fontSize:10, color:T.inkSoft }}>total spent</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop:16, padding:'12px 16px', background:T.mint, borderRadius:8, fontSize:12, color:T.moss, border:`1px solid ${T.sagePale}` }}>
+                💡 Client profiles are built automatically from your Eden bookings. The more clients book through Eden, the richer your client history becomes.
+              </div>
+            </div>
+          )}
+
+          {/* ── OFFERS ── */}
+          {tab==='offers' && (
+            <div style={{ animation:'fadeUp 0.4s ease' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:24 }}>
+                <div>
+                  <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>Promotional Offers</div>
+                  <div style={{ fontSize:13, color:T.inkSoft, marginTop:4 }}>Create deals that appear on your Eden listing to attract new clients</div>
+                </div>
+                <Button variant="primary" onClick={() => {}}>+ Create Offer</Button>
+              </div>
+
+              {/* Active offers */}
+              <div style={{ marginBottom:24 }}>
+                <div style={{ fontSize:11, color:T.inkSoft, fontWeight:700, letterSpacing:1, textTransform:'uppercase', marginBottom:12 }}>Active Offers</div>
+                {[
+                  { title:'20% off first visit', desc:'For new clients only — any treatment', code:'EDEN20', uses:14, expiry:'30 Jun 2026', color:T.sage },
+                  { title:'Free Olaplex with any colour', desc:'Book a colour treatment and get a free Olaplex add-on', code:'COLOUR+', uses:8, expiry:'15 Jul 2026', color:T.gold },
+                ].map((o,i) => (
+                  <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`2px solid ${T.sagePale}`, marginBottom:10, display:'flex', gap:16, alignItems:'center', flexWrap:'wrap' }}>
+                    <div style={{ width:4, height:60, borderRadius:2, background:o.color, flexShrink:0 }}/>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontFamily:F.display, fontSize:17, color:T.forest, marginBottom:4 }}>{o.title}</div>
+                      <div style={{ fontSize:12, color:T.inkSoft }}>{o.desc}</div>
+                      <div style={{ fontSize:11, color:T.inkFaint, marginTop:4 }}>Code: <strong style={{ color:T.forest }}>{o.code}</strong> - Expires: {o.expiry}</div>
+                    </div>
+                    <div style={{ textAlign:'center' }}>
+                      <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>{o.uses}</div>
+                      <div style={{ fontSize:10, color:T.inkSoft }}>uses</div>
+                    </div>
+                    <div style={{ display:'flex', gap:8 }}>
+                      <button style={{ padding:'6px 14px', background:T.offwhite, border:`1px solid ${T.border}`, borderRadius:6, fontSize:11, fontWeight:600, cursor:'pointer', color:T.inkMid }}>Edit</button>
+                      <button style={{ padding:'6px 14px', background:'#fff0f0', border:'1px solid #f0c0c0', borderRadius:6, fontSize:11, fontWeight:600, cursor:'pointer', color:T.error }}>End</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Create new offer */}
+              <div style={{ background:T.offwhite, borderRadius:14, padding:24, border:`1px solid ${T.border}` }}>
+                <div style={{ fontFamily:F.display, fontSize:18, color:T.forest, marginBottom:20 }}>Create a New Offer</div>
+                <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0 20px' }}>
+                  <div style={{ marginBottom:14 }}>
+                    <div style={{ fontSize:11, color:T.inkSoft, fontWeight:600, letterSpacing:0.5, marginBottom:5, textTransform:'uppercase' }}>Offer Title</div>
+                    <input placeholder="e.g. 20% off first visit" style={{ width:'100%', padding:'11px 14px', background:T.white, border:`1px solid ${T.border}`, borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' }}/>
+                  </div>
+                  <div style={{ marginBottom:14 }}>
+                    <div style={{ fontSize:11, color:T.inkSoft, fontWeight:600, letterSpacing:0.5, marginBottom:5, textTransform:'uppercase' }}>Discount Code</div>
+                    <input placeholder="e.g. WELCOME20" style={{ width:'100%', padding:'11px 14px', background:T.white, border:`1px solid ${T.border}`, borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' }}/>
+                  </div>
+                  <div style={{ marginBottom:14 }}>
+                    <div style={{ fontSize:11, color:T.inkSoft, fontWeight:600, letterSpacing:0.5, marginBottom:5, textTransform:'uppercase' }}>Description</div>
+                    <input placeholder="Describe the offer for customers" style={{ width:'100%', padding:'11px 14px', background:T.white, border:`1px solid ${T.border}`, borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' }}/>
+                  </div>
+                  <div style={{ marginBottom:14 }}>
+                    <div style={{ fontSize:11, color:T.inkSoft, fontWeight:600, letterSpacing:0.5, marginBottom:5, textTransform:'uppercase' }}>Expiry Date</div>
+                    <input type="date" style={{ width:'100%', padding:'11px 14px', background:T.white, border:`1px solid ${T.border}`, borderRadius:8, fontSize:14, outline:'none', boxSizing:'border-box' }}/>
+                  </div>
+                </div>
+                <Button variant="primary">Create Offer</Button>
+              </div>
+            </div>
+          )}
+
+          {/* ── GALLERY ── */}
+          {tab==='gallery' && (
+            <div style={{ animation:'fadeUp 0.4s ease' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:24 }}>
+                <div>
+                  <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>Photo Gallery</div>
+                  <div style={{ fontSize:13, color:T.inkSoft, marginTop:4 }}>Upload and arrange photos that appear on your Eden listing</div>
+                </div>
+                <Button variant="primary">+ Upload Photos</Button>
+              </div>
+
+              {/* Upload area */}
+              <div style={{ background:T.white, borderRadius:14, border:`2px dashed ${T.sageLight}`, padding:'40px 24px', textAlign:'center', marginBottom:24, cursor:'pointer' }}
+                onMouseEnter={e => e.currentTarget.style.background = T.mint}
+                onMouseLeave={e => e.currentTarget.style.background = T.white}>
+                <div style={{ fontSize:40, marginBottom:12 }}>📸</div>
+                <div style={{ fontFamily:F.display, fontSize:18, color:T.forest, marginBottom:8 }}>Drag photos here or click to upload</div>
+                <div style={{ fontSize:13, color:T.inkSoft, marginBottom:16 }}>JPG, PNG or WEBP - up to 10MB each - up to 20 photos</div>
+                <Button variant="secondary">Choose Photos</Button>
+              </div>
+
+              {/* Current gallery */}
+              <div style={{ fontFamily:F.display, fontSize:16, color:T.forest, marginBottom:14 }}>Current Gallery Photos</div>
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(180px,1fr))', gap:12 }}>
+                {[
+                  { url:'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80', label:'Salon interior', main:true },
+                  { url:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80', label:'Balayage result', main:false },
+                  { url:'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80', label:'Colour work', main:false },
+                  { url:'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80', label:'Styling', main:false },
+                ].map((p,i) => (
+                  <div key={i} style={{ position:'relative', borderRadius:10, overflow:'hidden', border:`1px solid ${T.border}` }}>
+                    <img src={p.url} alt={p.label} style={{ width:'100%', height:160, objectFit:'cover', display:'block' }}/>
+                    {p.main && (
+                      <div style={{ position:'absolute', top:8, left:8, background:T.forest, color:T.white, fontSize:9, fontWeight:700, padding:'3px 8px', borderRadius:10, letterSpacing:1 }}>MAIN</div>
+                    )}
+                    <div style={{ padding:'8px 10px', background:T.white }}>
+                      <div style={{ fontSize:11, color:T.inkMid, marginBottom:6 }}>{p.label}</div>
+                      <div style={{ display:'flex', gap:6 }}>
+                        {!p.main && <button style={{ flex:1, padding:'4px', background:T.mint, border:`1px solid ${T.sagePale}`, borderRadius:4, fontSize:9, fontWeight:700, cursor:'pointer', color:T.moss }}>Set Main</button>}
+                        <button style={{ flex:1, padding:'4px', background:'#fff0f0', border:'1px solid #f0c0c0', borderRadius:4, fontSize:9, fontWeight:700, cursor:'pointer', color:T.error }}>Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop:14, padding:'12px 16px', background:T.mint, borderRadius:8, fontSize:12, color:T.moss, border:`1px solid ${T.sagePale}` }}>
+                💡 Your main photo appears at the top of your listing. High quality photos significantly increase booking rates.
+              </div>
+            </div>
+          )}
+
+          {/* ── REVIEWS ── */}
+          {tab==='reviews' && (
+            <div style={{ animation:'fadeUp 0.4s ease' }}>
+              <div style={{ fontFamily:F.display, fontSize:24, color:T.forest, marginBottom:6 }}>Review Management</div>
+              <div style={{ fontSize:13, color:T.inkSoft, marginBottom:24 }}>Read and respond to customer reviews on your Eden listing</div>
+
+              {/* Rating summary */}
+              <div style={{ display:'flex', gap:20, background:T.white, borderRadius:12, padding:20, marginBottom:24, border:`1px solid ${T.border}` }}>
+                <div style={{ textAlign:'center', flexShrink:0 }}>
+                  <div style={{ fontFamily:F.display, fontSize:52, color:T.forest, lineHeight:1 }}>4.9</div>
+                  <div style={{ color:T.gold, fontSize:16, letterSpacing:2 }}>★★★★★</div>
+                  <div style={{ fontSize:11, color:T.inkFaint, marginTop:4 }}>487 reviews</div>
+                </div>
+                <div style={{ flex:1 }}>
+                  {[5,4,3,2,1].map(n => (
+                    <div key={n} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
+                      <span style={{ fontSize:11, color:T.inkSoft, width:8 }}>{n}</span>
+                      <span style={{ color:T.gold, fontSize:11 }}>★</span>
+                      <div style={{ flex:1, height:7, background:T.border, borderRadius:4, overflow:'hidden' }}>
+                        <div style={{ width:`${n===5?68:n===4?22:n===3?7:n===2?2:1}%`, height:'100%', background:T.sage, borderRadius:4 }}/>
+                      </div>
+                      <span style={{ fontSize:10, color:T.inkFaint, width:28, textAlign:'right' }}>{n===5?68:n===4?22:n===3?7:n===2?2:1}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Individual reviews */}
+              <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
+                {[
+                  { author:'Sophie T.',  rating:5, service:'Full Balayage',    date:'2 days ago',  verified:true,  body:'The best balayage I have ever had. Isabella understood exactly what I wanted and the colour looks completely natural.', replied:false },
+                  { author:'James R.',   rating:5, service:'Cut and Blowdry',  date:'5 days ago',  verified:true,  body:'Marcus completely transformed my look. Worth every penny. Will not go anywhere else.', replied:true, reply:'Thank you so much James! It was a pleasure working with you.' },
+                  { author:'Priya M.',   rating:4, service:'Full Highlights',  date:'1 week ago',  verified:false, body:'Beautiful salon, wonderful atmosphere. Will definitely return.', replied:false },
+                  { author:'Anna L.',    rating:5, service:'Keratin Treatment',date:'2 weeks ago', verified:true,  body:'My hair has never felt so healthy. The keratin treatment was transformative.', replied:false },
+                ].map((r,i) => (
+                  <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`1px solid ${T.border}`, boxShadow:`0 1px 6px ${T.shadow}` }}>
+                    <div style={{ display:'flex', justifyContent:'space-between', marginBottom:8 }}>
+                      <div style={{ display:'flex', gap:10, alignItems:'center' }}>
+                        <div style={{ width:38, height:38, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:16, color:T.forest }}>{r.author[0]}</div>
+                        <div>
+                          <div style={{ fontWeight:700, fontSize:14, color:T.ink }}>{r.author}</div>
+                          <div style={{ fontSize:11, color:T.inkSoft }}>{r.service} - {r.date}</div>
+                        </div>
+                      </div>
+                      <div style={{ textAlign:'right' }}>
+                        <div style={{ color:T.gold, fontSize:13 }}>{'★'.repeat(r.rating)}{'☆'.repeat(5-r.rating)}</div>
+                        {r.verified && <div style={{ fontSize:10, color:T.sage }}>✓ Verified booking</div>}
+                      </div>
+                    </div>
+                    <p style={{ fontSize:13, color:T.inkMid, lineHeight:1.7, margin:'0 0 12px' }}>{r.body}</p>
+
+                    {/* Existing reply */}
+                    {r.replied && (
+                      <div style={{ background:T.mint, borderRadius:8, padding:'10px 14px', marginBottom:12, borderLeft:`3px solid ${T.sage}` }}>
+                        <div style={{ fontSize:11, color:T.moss, fontWeight:700, marginBottom:4 }}>Your reply:</div>
+                        <div style={{ fontSize:12, color:T.inkMid }}>{r.reply}</div>
+                      </div>
+                    )}
+
+                    {/* Reply box */}
+                    {!r.replied && (
+                      <div>
+                        <textarea placeholder={`Reply to ${r.author}...`}
+                          style={{ width:'100%', height:70, padding:'10px 14px', background:T.offwhite, border:`1px solid ${T.border}`, borderRadius:8, fontSize:12, outline:'none', resize:'none', boxSizing:'border-box', marginBottom:8 }}/>
+                        <Button variant="primary" size="sm">Post Reply</Button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
