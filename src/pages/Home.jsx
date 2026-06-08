@@ -303,9 +303,9 @@ export default function Home({ user }) {
       {/* ── FOOTER ── */}
       <footer style={{ background:T.forestDark,padding:'40px 24px',color:'rgba(255,255,255,0.4)',fontSize:12,textAlign:'center',lineHeight:2 }}>
         <div style={{ fontFamily:F.display,fontSize:18,color:T.white,marginBottom:8 }}>Eden</div>
-        <div>© 2026 AKKCJ LTD · Trading as Eden Technologies · Registered in England & Wales</div>
+        <div>© 2026 The Eden App LTD · Trading as The Eden App LTD · Registered in England & Wales</div>
         <div style={{ marginTop:4 }}>
-          <a href="mailto:hello@edendirectory.com" style={{ color:T.sageLight }}>hello@edendirectory.com</a>
+          <a href="mailto:hello@theedenappltd.com" style={{ color:T.sageLight }}>hello@theedenappltd.com</a>
           {' · '}
           <a href="/privacy" style={{ color:'rgba(255,255,255,0.4)' }}>Privacy Policy</a>
           {' · '}
