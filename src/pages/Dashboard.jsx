@@ -11,28 +11,13 @@ const PLANS = [
   { id:'premium',  name:'Premium', price:119, features:['Featured placement','AI spotlight','Unlimited gallery','SMS notifications','Account manager'] },
 ]
 
-const INITIAL_SERVICES = [
-  { id:1, name:"Women's Cut & Blowdry", category:'Cuts',      price:75,  duration:60,  popular:false, active:true  },
-  { id:2, name:'Full Balayage',          category:'Colour',    price:165, duration:180, popular:true,  active:true  },
-  { id:3, name:'Full Highlights',        category:'Colour',    price:135, duration:150, popular:false, active:true  },
-  { id:4, name:'Colour Correction',      category:'Colour',    price:200, duration:240, popular:false, active:true  },
-  { id:5, name:'Keratin Treatment',      category:'Treatments',price:210, duration:180, popular:false, active:true  },
-  { id:6, name:"Men's Cut",             category:'Cuts',      price:45,  duration:45,  popular:false, active:true  },
-  { id:7, name:'Olaplex Treatment',      category:'Treatments',price:55,  duration:45,  popular:true,  active:true  },
-  { id:8, name:'Bridal Hair',           category:'Occasions', price:280, duration:180, popular:false, active:false },
-]
+const INITIAL_SERVICES = []
 
-const INITIAL_BOOKINGS = [
-  { id:1, client:'Emma Johnson',   email:'emma@email.com',   phone:'+44 7700 111 111', service:'Full Balayage',     date:'2026-06-07', time:'14:00', duration:180, status:'confirmed',  amount:165, notes:'',                                    cancelReason:'', cancelFeeApplied:false },
-  { id:2, client:'Sarah Williams', email:'sarah@email.com',  phone:'+44 7700 222 222', service:'Cut & Blowdry',     date:'2026-06-07', time:'16:30', duration:60,  status:'confirmed',  amount:75,  notes:'',                                    cancelReason:'', cancelFeeApplied:false },
-  { id:3, client:'Lucy Brown',     email:'lucy@email.com',   phone:'+44 7700 333 333', service:'Colour Correction', date:'2026-06-08', time:'10:00', duration:240, status:'pending',    amount:200, notes:'First time client',                   cancelReason:'', cancelFeeApplied:false },
-  { id:4, client:'Jade Clarke',    email:'jade@email.com',   phone:'+44 7700 444 444', service:'Full Highlights',   date:'2026-06-12', time:'13:00', duration:150, status:'cancelled',  amount:135, notes:'',                                    cancelReason:'Feeling unwell — gave 3 hours notice', cancelFeeApplied:false },
-  { id:5, client:'Mia Roberts',    email:'mia@email.com',    phone:'+44 7700 555 555', service:'Keratin Treatment', date:'2026-06-13', time:'11:00', duration:180, status:'confirmed',  amount:210, notes:'Allergic to strong fragrances',        cancelReason:'', cancelFeeApplied:false },
-]
+const INITIAL_BOOKINGS = []
 
 const REVENUE = [
-  { m:'Jan', v:3840 }, { m:'Feb', v:4120 }, { m:'Mar', v:3780 },
-  { m:'Apr', v:4540 }, { m:'May', v:5190 }, { m:'Jun', v:5820 },
+  { m:'Jan', v:0 }, { m:'Feb', v:0 }, { m:'Mar', v:0 },
+  { m:'Apr', v:0 }, { m:'May', v:0 }, { m:'Jun', v:0 },
 ]
 
 const TIMES = ['8:00','8:30','9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00']
@@ -657,9 +642,9 @@ export default function Dashboard({ user }) {
 
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:16, marginBottom:28 }}>
                 {[
-                  { icon:'💷', label:'Revenue This Month',  val:'£5,820', chg:'↑ 12% vs last month'     },
+                  { icon:'💷', label:'Revenue This Month',  val:'£0', chg:'No bookings yet'     },
                   { icon:'📅', label:'Active Bookings',     val:bookings.filter(b=>['confirmed','pending'].includes(b.status)).length.toString(), chg:'This month' },
-                  { icon:'⭐', label:'Your Rating',          val:'4.9',    chg:'Top rated in your area'  },
+                  { icon:'⭐', label:'Your Rating',          val:'—', chg:'No reviews yet'  },
                   { icon:'🛎', label:'Services Listed',     val:services.filter(s=>s.active).length.toString(), chg:`${services.filter(s=>!s.active).length} paused` },
                 ].map(s => (
                   <div key={s.label} style={{ background:T.white, borderRadius:12, padding:'20px 18px', border:`1px solid ${T.border}`, boxShadow:`0 2px 8px ${T.shadow}` }}>
@@ -869,14 +854,7 @@ export default function Dashboard({ user }) {
                 </div>
               </div>
               <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-                {[
-                  { name:'Emma Johnson',   email:'emma@email.com',   phone:'+44 7700 111 111', visits:4, lastVisit:'Today',      lastService:'Full Balayage',     totalSpent:620, avatar:'E' },
-                  { name:'Sarah Williams', email:'sarah@email.com',  phone:'+44 7700 222 222', visits:7, lastVisit:'Today',      lastService:'Cut and Blowdry',   totalSpent:490, avatar:'S' },
-                  { name:'Lucy Brown',     email:'lucy@email.com',   phone:'+44 7700 333 333', visits:2, lastVisit:'Last week',   lastService:'Colour Correction', totalSpent:400, avatar:'L' },
-                  { name:'Jade Clarke',    email:'jade@email.com',   phone:'+44 7700 444 444', visits:5, lastVisit:'2 weeks ago', lastService:'Full Highlights',   totalSpent:650, avatar:'J' },
-                  { name:'Mia Roberts',    email:'mia@email.com',    phone:'+44 7700 555 555', visits:3, lastVisit:'Last month',  lastService:'Keratin Treatment', totalSpent:580, avatar:'M' },
-                  { name:'Zara Ahmed',     email:'zara@email.com',   phone:'+44 7700 666 666', visits:9, lastVisit:'3 days ago',  lastService:'Balayage',          totalSpent:1240, avatar:'Z' },
-                ].map((c,i) => (
+                {[].map((c,i) => (
                   <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`1px solid ${T.border}`, boxShadow:`0 1px 6px ${T.shadow}` }}>
                     <div style={{ display:'flex', alignItems:'center', gap:16, flexWrap:'wrap' }}>
                       <div style={{ width:48, height:48, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:22, color:T.forest, flexShrink:0 }}>{c.avatar}</div>
@@ -924,10 +902,7 @@ export default function Dashboard({ user }) {
               {/* Active offers */}
               <div style={{ marginBottom:24 }}>
                 <div style={{ fontSize:11, color:T.inkSoft, fontWeight:700, letterSpacing:1, textTransform:'uppercase', marginBottom:12 }}>Active Offers</div>
-                {[
-                  { title:'20% off first visit', desc:'For new clients only — any treatment', code:'EDEN20', uses:14, expiry:'30 Jun 2026', color:T.sage },
-                  { title:'Free Olaplex with any colour', desc:'Book a colour treatment and get a free Olaplex add-on', code:'COLOUR+', uses:8, expiry:'15 Jul 2026', color:T.gold },
-                ].map((o,i) => (
+                {[].map((o,i) => (
                   <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`2px solid ${T.sagePale}`, marginBottom:10, display:'flex', gap:16, alignItems:'center', flexWrap:'wrap' }}>
                     <div style={{ width:4, height:60, borderRadius:2, background:o.color, flexShrink:0 }}/>
                     <div style={{ flex:1 }}>
@@ -997,12 +972,7 @@ export default function Dashboard({ user }) {
               {/* Current gallery */}
               <div style={{ fontFamily:F.display, fontSize:16, color:T.forest, marginBottom:14 }}>Current Gallery Photos</div>
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(180px,1fr))', gap:12 }}>
-                {[
-                  { url:'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80', label:'Salon interior', main:true },
-                  { url:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80', label:'Balayage result', main:false },
-                  { url:'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80', label:'Colour work', main:false },
-                  { url:'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80', label:'Styling', main:false },
-                ].map((p,i) => (
+                {[].map((p,i) => (
                   <div key={i} style={{ position:'relative', borderRadius:10, overflow:'hidden', border:`1px solid ${T.border}` }}>
                     <img src={p.url} alt={p.label} style={{ width:'100%', height:160, objectFit:'cover', display:'block' }}/>
                     {p.main && (
@@ -1053,12 +1023,7 @@ export default function Dashboard({ user }) {
 
               {/* Individual reviews */}
               <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
-                {[
-                  { author:'Sophie T.',  rating:5, service:'Full Balayage',    date:'2 days ago',  verified:true,  body:'The best balayage I have ever had. Isabella understood exactly what I wanted and the colour looks completely natural.', replied:false },
-                  { author:'James R.',   rating:5, service:'Cut and Blowdry',  date:'5 days ago',  verified:true,  body:'Marcus completely transformed my look. Worth every penny. Will not go anywhere else.', replied:true, reply:'Thank you so much James! It was a pleasure working with you.' },
-                  { author:'Priya M.',   rating:4, service:'Full Highlights',  date:'1 week ago',  verified:false, body:'Beautiful salon, wonderful atmosphere. Will definitely return.', replied:false },
-                  { author:'Anna L.',    rating:5, service:'Keratin Treatment',date:'2 weeks ago', verified:true,  body:'My hair has never felt so healthy. The keratin treatment was transformative.', replied:false },
-                ].map((r,i) => (
+                {[].map((r,i) => (
                   <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`1px solid ${T.border}`, boxShadow:`0 1px 6px ${T.shadow}` }}>
                     <div style={{ display:'flex', justifyContent:'space-between', marginBottom:8 }}>
                       <div style={{ display:'flex', gap:10, alignItems:'center' }}>
@@ -1104,13 +1069,7 @@ export default function Dashboard({ user }) {
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:20 }}>
                 <div style={{ background:T.white, borderRadius:14, padding:22, border:`1px solid ${T.border}` }}>
                   <div style={{ fontFamily:F.display, fontSize:16, color:T.forest, marginBottom:16 }}>Most Popular Treatments</div>
-                  {[
-                    { name:'Full Balayage',     pct:34, val:'48 bookings' },
-                    { name:'Highlights',         pct:22, val:'31 bookings' },
-                    { name:'Colour Correction',  pct:18, val:'25 bookings' },
-                    { name:"Cut & Blowdry",      pct:16, val:'22 bookings' },
-                    { name:'Keratin Treatment',  pct:10, val:'14 bookings' },
-                  ].map(s => (
+                  {[].map(s => (
                     <div key={s.name} style={{ marginBottom:12 }}>
                       <div style={{ display:'flex', justifyContent:'space-between', fontSize:12, marginBottom:4 }}>
                         <span style={{ color:T.ink }}>{s.name}</span>
@@ -1124,12 +1083,7 @@ export default function Dashboard({ user }) {
                 </div>
                 <div style={{ background:T.white, borderRadius:14, padding:22, border:`1px solid ${T.border}` }}>
                   <div style={{ fontFamily:F.display, fontSize:16, color:T.forest, marginBottom:16 }}>How Clients Find You</div>
-                  {[
-                    { src:'Eden Search',        pct:62, color:T.sage   },
-                    { src:'Eden AI Concierge',  pct:18, color:T.forest },
-                    { src:'Featured Placement', pct:12, color:T.gold   },
-                    { src:'Returning Clients',  pct:8,  color:'#c4788a'},
-                  ].map(s => (
+                  {[].map(s => (
                     <div key={s.src} style={{ display:'flex', alignItems:'center', gap:12, marginBottom:12 }}>
                       <div style={{ width:10, height:10, borderRadius:'50%', background:s.color, flexShrink:0 }}/>
                       <div style={{ flex:1, fontSize:12, color:T.ink }}>{s.src}</div>
@@ -1203,11 +1157,7 @@ export default function Dashboard({ user }) {
                 </div>
               </div>
               <div style={{ fontFamily:F.display, fontSize:18, color:T.forest, marginBottom:14 }}>Recent Earnings</div>
-              {[
-                { date:'27 May 2026', bookings:14, earnings:'£1,656' },
-                { date:'20 May 2026', bookings:12, earnings:'£1,386' },
-                { date:'13 May 2026', bookings:11, earnings:'£1,161' },
-              ].map((p,i) => (
+              {[].map((p,i) => (
                 <div key={i} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', background:T.white, borderRadius:10, padding:'14px 20px', marginBottom:8, border:`1px solid ${T.border}`, fontSize:13, flexWrap:'wrap', gap:8 }}>
                   <span style={{ fontWeight:500, color:T.ink }}>{p.date}</span>
                   <span style={{ color:T.inkSoft }}>{p.bookings} bookings</span>
