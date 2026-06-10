@@ -14,15 +14,7 @@ const CATS = [
   { id:'makeup',     label:'Makeup',     icon:'💄' },
 ]
 
-const DEMO = [
-  { id:'1', name:'Verdant Hair Atelier',      category:'hair',        area:'Westminster, London',    postcode:'SW1A 1AA', rating:4.9, review_count:487, promoted:true,  plan:'premium',  verified:true,  tags:['Balayage','Colour','Extensions'],  images:['https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80'], services:[{name:"Women's Cut",price:75,duration:60},{name:'Balayage',price:165,duration:180,popular:true}] },
-  { id:'2', name:'The Craft Barber Co.',       category:'barber',      area:'Clerkenwell, London',   postcode:'EC1A 1BB', rating:4.9, review_count:621, promoted:true,  plan:'premium',  verified:true,  tags:['Skin Fades','Hot Towel','Classic'], images:['https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80'], services:[{name:'Classic Cut',price:28,duration:30},{name:'Skin Fade',price:34,duration:35,popular:true}] },
-  { id:'3', name:'Petal Nail Atelier',         category:'nails',       area:'Fitzrovia, London',     postcode:'W1T 1AA',  rating:4.8, review_count:334, promoted:false, plan:'standard', verified:true,  tags:['Gel','Chrome','Nail Art'],          images:['https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80'], services:[{name:'Gel Manicure',price:44,duration:55,popular:true},{name:'Nail Art',price:85,duration:90}] },
-  { id:'4', name:'Clarity Aesthetics Clinic',  category:'aesthetics',  area:'Islington, London',     postcode:'N1 9AA',   rating:4.8, review_count:256, promoted:true,  plan:'premium',  verified:true,  tags:['Botox','Fillers','Profhilo'],       images:['https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80'], services:[{name:'Consultation',price:0,duration:20},{name:'Anti-Wrinkle',price:295,duration:45,popular:true}] },
-  { id:'5', name:'Bloom Beauty Bar',           category:'beauty',      area:'Borough, London',       postcode:'SE1 7PB',  rating:4.6, review_count:198, promoted:false, plan:'standard', verified:true,  tags:['Facials','Waxing','Lashes'],        images:['https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80'], services:[{name:'Dermalogica Facial',price:65,duration:60,popular:true},{name:'Lash Lift',price:72,duration:65}] },
-  { id:'6', name:'The Sanctuary London',       category:'spa',         area:'Covent Garden, London', postcode:'WC2E 8RF', rating:4.9, review_count:892, promoted:true,  plan:'premium',  verified:true,  tags:['Hot Stone','Couples','Packages'],   images:['https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80'], services:[{name:'Hot Stone Massage',price:125,duration:75,popular:true},{name:'Couples Spa',price:310,duration:150}] },
-]
-
+const DEMO = []
 function SalonCard({ salon, selected, onSelect, isFav, onFav, inCompare, onCompare }) {
   const minPrice = salon.services ? Math.min(...salon.services.map(s => s.price === 0 ? 9999 : s.price)) : 0
   const img = salon.images?.[0] || salon.img
