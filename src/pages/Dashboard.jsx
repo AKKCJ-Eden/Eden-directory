@@ -516,7 +516,12 @@ export default function Dashboard({ user }) {
   const [services,        setServices]        = useState(INITIAL_SERVICES)
   const [managingBooking, setManagingBooking] = useState(null)
   const [cancelFeeBooking,setCancelFeeBooking]= useState(null)
-  const [editingService,  setEditingService]  = useState(null) // null=closed, {}=new, service=edit
+  const [editingService,  setEditingService]  = useState(null)
+  const [addingBooking,   setAddingBooking]   = useState(false)
+  const [blockingTime,    setBlockingTime]    = useState(false)
+  const [addingClient,    setAddingClient]    = useState(false)
+  const [editingClient,   setEditingClient]   = useState(null)
+  const [clients,         setClients]         = useState([])
   const [filterStatus,    setFilterStatus]    = useState('all')
   const [serviceFilter,   setServiceFilter]   = useState('all')
   const navigate = useNavigate()
@@ -567,6 +572,241 @@ export default function Dashboard({ user }) {
       <Spinner size={32}/>
     </div>
   )
+
+  // ── ADD BOOKING MODAL ──
+  function AddBookingModal({ onClose, onSave }) {
+    const [client,   setClient]   = useState('')
+    const [email,    setEmail]    = useState('')
+    const [phone,    setPhone]    = useState('')
+    const [service,  setService]  = useState('')
+    const [date,     setDate]     = useState('')
+    const [time,     setTime]     = useState('10:00')
+    const [duration, setDuration] = useState(60)
+    const [amount,   setAmount]   = useState('')
+    const [notes,    setNotes]    = useState('')
+    const [saving,   setSaving]   = useState(false)
+    const valid = client && date && service
+    const save = () => {
+      setSaving(true)
+      setTimeout(() => {
+        onSave({ id:Date.now(), client, email, phone, service, date, time, duration, amount:parseFloat(amount)||0, notes, status:'confirmed', cancelReason:'', cancelFeeApplied:false })
+        setSaving(false); onClose()
+      }, 600)
+    }
+    return (
+      <div style={{ position:'fixed',inset:0,background:'rgba(15,36,18,0.6)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:600,backdropFilter:'blur(4px)',padding:16 }} onClick={onClose}>
+        <div style={{ background:T.white,borderRadius:20,width:520,maxWidth:'100%',maxHeight:'90vh',overflowY:'auto',boxShadow:`0 32px 100px ${T.shadowLg}` }} onClick={e=>e.stopPropagation()}>
+          <div style={{ background:T.forest,padding:'22px 28px',borderRadius:'20px 20px 0 0',display:'flex',justifyContent:'space-between',alignItems:'center' }}>
+            <div>
+              <div style={{ fontSize:10,color:T.sageLight,letterSpacing:3,fontWeight:700,marginBottom:4 }}>NEW APPOINTMENT</div>
+              <div style={{ fontFamily:F.display,fontSize:20,color:T.white }}>Add Booking Manually</div>
+            </div>
+            <button onClick={onClose} style={{ background:'rgba(255,255,255,0.12)',border:'none',borderRadius:10,padding:'8px 12px',color:T.white,cursor:'pointer',fontSize:14 }}>✕</button>
+          </div>
+          <div style={{ padding:'24px 28px' }}>
+            <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 16px' }}>
+              {[
+                { label:'Client Name *',  val:client, set:setClient, ph:'Full name',         type:'text'  },
+                { label:'Mobile Number',  val:phone,  set:setPhone,  ph:'+44 7700 000 000',  type:'tel'   },
+                { label:'Email Address',  val:email,  set:setEmail,  ph:'client@email.com',  type:'email' },
+                { label:'Amount (£)',     val:amount, set:setAmount, ph:'0.00',              type:'number'},
+                { label:'Date *',         val:date,   set:setDate,   ph:'',                  type:'date'  },
+              ].map(f => (
+                <div key={f.label} style={{ marginBottom:14 }}>
+                  <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>{f.label}</div>
+                  <input type={f.type} value={f.val} onChange={e=>f.set(e.target.value)} placeholder={f.ph}
+                    style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',boxSizing:'border-box' }}/>
+                </div>
+              ))}
+              <div style={{ marginBottom:14 }}>
+                <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>Time *</div>
+                <select value={time} onChange={e=>setTime(e.target.value)}
+                  style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none' }}>
+                  {TIMES.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+            <div style={{ marginBottom:14 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>Service *</div>
+              <input value={service} onChange={e=>setService(e.target.value)} placeholder="e.g. Full Balayage, Skin Fade"
+                style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',boxSizing:'border-box' }}/>
+            </div>
+            <div style={{ marginBottom:14 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:8,textTransform:'uppercase' }}>Duration</div>
+              <div style={{ display:'flex',gap:8,flexWrap:'wrap' }}>
+                {DURATIONS.map(d => (
+                  <button key={d.val} onClick={()=>setDuration(d.val)} style={{ padding:'6px 12px',borderRadius:20,fontSize:11,fontWeight:600,cursor:'pointer',border:`1.5px solid ${duration===d.val?T.forest:T.border}`,background:duration===d.val?T.forest:T.white,color:duration===d.val?T.white:T.inkMid }}>{d.label}</button>
+                ))}
+              </div>
+            </div>
+            <div style={{ marginBottom:20 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>Notes</div>
+              <textarea value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Any notes about this booking..."
+                style={{ width:'100%',height:70,padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',resize:'none',boxSizing:'border-box' }}/>
+            </div>
+            <div style={{ display:'flex',gap:10 }}>
+              <button onClick={onClose} style={{ flex:1,padding:'12px',background:T.white,border:`1px solid ${T.border}`,borderRadius:10,color:T.inkMid,cursor:'pointer',fontSize:13 }}>Cancel</button>
+              <button onClick={save} disabled={!valid||saving} style={{ flex:2,padding:'12px',background:T.forest,border:'none',borderRadius:10,color:T.white,fontWeight:700,fontSize:14,cursor:'pointer',opacity:(!valid||saving)?0.6:1 }}>
+                {saving?'Saving...':'Add Booking →'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── BLOCK TIME MODAL ──
+  function BlockTimeModal({ onClose, onSave }) {
+    const [date,   setDate]   = useState('')
+    const [from,   setFrom]   = useState('09:00')
+    const [to,     setTo]     = useState('10:00')
+    const [reason, setReason] = useState('Lunch Break')
+    const [saving, setSaving] = useState(false)
+    const save = () => {
+      setSaving(true)
+      setTimeout(() => {
+        onSave({ id:Date.now(), client:'BLOCKED', service:reason, date, time:from, duration:60, status:'blocked', amount:0, notes:`Blocked until ${to}`, cancelReason:'', cancelFeeApplied:false })
+        setSaving(false); onClose()
+      }, 600)
+    }
+    return (
+      <div style={{ position:'fixed',inset:0,background:'rgba(15,36,18,0.6)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:600,backdropFilter:'blur(4px)',padding:16 }} onClick={onClose}>
+        <div style={{ background:T.white,borderRadius:20,width:440,maxWidth:'100%',boxShadow:`0 32px 100px ${T.shadowLg}` }} onClick={e=>e.stopPropagation()}>
+          <div style={{ background:'#c85050',padding:'22px 28px',borderRadius:'20px 20px 0 0',display:'flex',justifyContent:'space-between',alignItems:'center' }}>
+            <div>
+              <div style={{ fontSize:10,color:'rgba(255,255,255,0.6)',letterSpacing:3,fontWeight:700,marginBottom:4 }}>CALENDAR</div>
+              <div style={{ fontFamily:F.display,fontSize:20,color:T.white }}>Block Out Time</div>
+            </div>
+            <button onClick={onClose} style={{ background:'rgba(255,255,255,0.12)',border:'none',borderRadius:10,padding:'8px 12px',color:T.white,cursor:'pointer',fontSize:14 }}>✕</button>
+          </div>
+          <div style={{ padding:'24px 28px' }}>
+            <div style={{ marginBottom:14 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>Date</div>
+              <input type="date" value={date} onChange={e=>setDate(e.target.value)}
+                style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',boxSizing:'border-box' }}/>
+            </div>
+            <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14 }}>
+              {[['From',from,setFrom],['To',to,setTo]].map(([label,val,set]) => (
+                <div key={label}>
+                  <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>{label}</div>
+                  <select value={val} onChange={e=>set(e.target.value)}
+                    style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none' }}>
+                    {TIMES.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginBottom:20 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:8,textTransform:'uppercase' }}>Reason</div>
+              <div style={{ display:'flex',gap:8,flexWrap:'wrap',marginBottom:10 }}>
+                {['Lunch Break','Holiday','Training','Personal','Closed'].map(r => (
+                  <button key={r} onClick={()=>setReason(r)} style={{ padding:'6px 14px',borderRadius:20,fontSize:11,fontWeight:600,cursor:'pointer',border:`1.5px solid ${reason===r?'#c85050':T.border}`,background:reason===r?'#fff0f0':T.white,color:reason===r?'#c85050':T.inkMid }}>{r}</button>
+                ))}
+              </div>
+              <input value={reason} onChange={e=>setReason(e.target.value)} placeholder="Or type a custom reason"
+                style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',boxSizing:'border-box' }}/>
+            </div>
+            <div style={{ display:'flex',gap:10 }}>
+              <button onClick={onClose} style={{ flex:1,padding:'12px',background:T.white,border:`1px solid ${T.border}`,borderRadius:10,color:T.inkMid,cursor:'pointer',fontSize:13 }}>Cancel</button>
+              <button onClick={save} disabled={!date||saving} style={{ flex:2,padding:'12px',background:'#c85050',border:'none',borderRadius:10,color:T.white,fontWeight:700,fontSize:14,cursor:'pointer',opacity:(!date||saving)?0.6:1 }}>
+                {saving?'Saving...':'Block This Time →'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── CLIENT MODAL ──
+  function ClientModal({ client, onClose, onSave }) {
+    const isNew = !client
+    const [name,   setName]   = useState(client?.name  || '')
+    const [email,  setEmail]  = useState(client?.email || '')
+    const [phone,  setPhone]  = useState(client?.phone || '')
+    const [notes,  setNotes]  = useState(client?.notes || '')
+    const [vip,    setVip]    = useState(client?.vip   || false)
+    const [tag,    setTag]    = useState('')
+    const [tags,   setTags]   = useState(client?.tags  || [])
+    const [saving, setSaving] = useState(false)
+    const valid = name && email
+    const addTag = () => { if(tag && !tags.includes(tag)){ setTags(t=>[...t,tag]); setTag('') } }
+    const save = () => {
+      setSaving(true)
+      setTimeout(() => {
+        onSave({ ...(client||{}), id:client?.id||Date.now(), name, email, phone, notes, vip, tags, visits:client?.visits||0, totalSpent:client?.totalSpent||0, lastService:client?.lastService||'', lastVisit:client?.lastVisit||'' })
+        setSaving(false); onClose()
+      }, 600)
+    }
+    return (
+      <div style={{ position:'fixed',inset:0,background:'rgba(15,36,18,0.6)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:600,backdropFilter:'blur(4px)',padding:16 }} onClick={onClose}>
+        <div style={{ background:T.white,borderRadius:20,width:480,maxWidth:'100%',maxHeight:'90vh',overflowY:'auto',boxShadow:`0 32px 100px ${T.shadowLg}` }} onClick={e=>e.stopPropagation()}>
+          <div style={{ background:T.forest,padding:'22px 28px',borderRadius:'20px 20px 0 0',display:'flex',justifyContent:'space-between',alignItems:'center' }}>
+            <div>
+              <div style={{ fontSize:10,color:T.sageLight,letterSpacing:3,fontWeight:700,marginBottom:4 }}>{isNew?'ADD CLIENT':'EDIT CLIENT'}</div>
+              <div style={{ fontFamily:F.display,fontSize:20,color:T.white }}>{isNew?'New Client Profile':client.name}</div>
+            </div>
+            <button onClick={onClose} style={{ background:'rgba(255,255,255,0.12)',border:'none',borderRadius:10,padding:'8px 12px',color:T.white,cursor:'pointer',fontSize:14 }}>✕</button>
+          </div>
+          <div style={{ padding:'24px 28px' }}>
+            {[
+              { label:'Full Name *',     val:name,  set:setName,  ph:'Client name',        type:'text'  },
+              { label:'Email Address *', val:email, set:setEmail, ph:'client@email.com',   type:'email' },
+              { label:'Mobile Number',   val:phone, set:setPhone, ph:'+44 7700 000 000',   type:'tel'   },
+            ].map(f => (
+              <div key={f.label} style={{ marginBottom:14 }}>
+                <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>{f.label}</div>
+                <input type={f.type} value={f.val} onChange={e=>f.set(e.target.value)} placeholder={f.ph}
+                  style={{ width:'100%',padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',boxSizing:'border-box' }}/>
+              </div>
+            ))}
+            <div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',background:T.goldPale,borderRadius:10,padding:'12px 16px',marginBottom:14,border:`1px solid ${T.goldLight}` }}>
+              <div>
+                <div style={{ fontSize:13,fontWeight:600,color:T.gold }}>VIP Client</div>
+                <div style={{ fontSize:11,color:'#a06810' }}>Highlights this client with a gold VIP badge</div>
+              </div>
+              <div onClick={()=>setVip(!vip)} style={{ width:44,height:24,borderRadius:12,background:vip?T.gold:T.border,position:'relative',cursor:'pointer',transition:'background 0.2s',flexShrink:0 }}>
+                <div style={{ position:'absolute',top:3,left:vip?23:3,width:18,height:18,borderRadius:'50%',background:T.white,boxShadow:'0 1px 4px rgba(0,0,0,0.2)',transition:'left 0.2s' }}/>
+              </div>
+            </div>
+            <div style={{ marginBottom:14 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:8,textTransform:'uppercase' }}>Tags</div>
+              <div style={{ display:'flex',gap:6,flexWrap:'wrap',marginBottom:8 }}>
+                {tags.map(t => (
+                  <span key={t} style={{ fontSize:11,padding:'4px 10px',borderRadius:20,background:T.mint,color:T.moss,display:'flex',alignItems:'center',gap:6 }}>
+                    {t}<button onClick={()=>setTags(p=>p.filter(x=>x!==t))} style={{ background:'none',border:'none',cursor:'pointer',color:T.moss,padding:0,fontSize:12 }}>x</button>
+                  </span>
+                ))}
+              </div>
+              <div style={{ display:'flex',gap:8 }}>
+                <input value={tag} onChange={e=>setTag(e.target.value)} onKeyDown={e=>e.key==='Enter'&&addTag()} placeholder="e.g. Colour Client, Regular, Referral"
+                  style={{ flex:1,padding:'8px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:12,color:T.ink,outline:'none' }}/>
+                <button onClick={addTag} style={{ padding:'8px 16px',background:T.sage,border:'none',borderRadius:8,color:T.white,fontSize:12,fontWeight:600,cursor:'pointer' }}>Add</button>
+              </div>
+            </div>
+            <div style={{ marginBottom:20 }}>
+              <div style={{ fontSize:11,color:T.inkSoft,fontWeight:600,letterSpacing:0.5,marginBottom:5,textTransform:'uppercase' }}>Private Notes</div>
+              <textarea value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Preferences, allergies, important info..."
+                style={{ width:'100%',height:80,padding:'10px 14px',background:T.offwhite,border:`1px solid ${T.border}`,borderRadius:8,fontSize:13,color:T.ink,outline:'none',resize:'none',boxSizing:'border-box' }}/>
+            </div>
+            {!isNew && (
+              <div style={{ background:'#fff8f8',borderRadius:10,padding:'12px 16px',marginBottom:16,border:'1px solid #f0d0d0',display:'flex',justifyContent:'space-between',alignItems:'center' }}>
+                <div style={{ fontSize:12,color:T.error }}>Remove this client from your records</div>
+                <button onClick={()=>{ if(window.confirm('Remove '+client.name+'?')){ onSave({...client,deleted:true}); onClose() }}} style={{ padding:'6px 14px',background:'#fff0f0',border:'1px solid #f0c0c0',borderRadius:6,color:T.error,fontSize:11,fontWeight:700,cursor:'pointer' }}>Remove</button>
+              </div>
+            )}
+            <div style={{ display:'flex',gap:10 }}>
+              <button onClick={onClose} style={{ flex:1,padding:'12px',background:T.white,border:`1px solid ${T.border}`,borderRadius:10,color:T.inkMid,cursor:'pointer',fontSize:13 }}>Cancel</button>
+              <button onClick={save} disabled={!valid||saving} style={{ flex:2,padding:'12px',background:T.forest,border:'none',borderRadius:10,color:T.white,fontWeight:700,fontSize:14,cursor:'pointer',opacity:(!valid||saving)?0.6:1 }}>
+                {saving?'Saving...':(isNew?'Add Client →':'Save Changes →')}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div style={{ minHeight:'100vh', background:T.cream, fontFamily:F.body }}>
@@ -695,6 +935,8 @@ export default function Dashboard({ user }) {
                       color: filterStatus===s?T.white:T.inkMid,
                     }}>{s==='all'?'All':s==='no_show'?'No Show':s.charAt(0).toUpperCase()+s.slice(1)}</button>
                   ))}
+                  <Button variant="primary" size="sm" onClick={() => setAddingBooking(true)}>+ Add Booking</Button>
+                  <Button variant="secondary" size="sm" onClick={() => setBlockingTime(true)}>⛔ Block Time</Button>
                 </div>
               </div>
 
@@ -852,39 +1094,58 @@ export default function Dashboard({ user }) {
                   <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>Client Profiles</div>
                   <div style={{ fontSize:13, color:T.inkSoft, marginTop:4 }}>Every customer who has booked with you through Eden</div>
                 </div>
+                <Button variant="primary" onClick={() => setAddingClient(true)}>+ Add Client</Button>
               </div>
-              <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-                {[].map((c,i) => (
-                  <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`1px solid ${T.border}`, boxShadow:`0 1px 6px ${T.shadow}` }}>
-                    <div style={{ display:'flex', alignItems:'center', gap:16, flexWrap:'wrap' }}>
-                      <div style={{ width:48, height:48, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:22, color:T.forest, flexShrink:0 }}>{c.avatar}</div>
-                      <div style={{ flex:1, minWidth:120 }}>
-                        <div style={{ fontWeight:700, color:T.ink, fontSize:15 }}>{c.name}</div>
-                        <div style={{ fontSize:12, color:T.inkSoft, marginTop:2 }}>
-                          <a href={`mailto:${c.email}`} style={{ color:T.sage, textDecoration:'none' }}>{c.email}</a>
-                          {' - '}
-                          <a href={`tel:${c.phone}`} style={{ color:T.sage, textDecoration:'none' }}>{c.phone}</a>
+              {clients.length === 0 ? (
+                <div style={{ textAlign:'center', padding:'60px 40px', background:T.white, borderRadius:14, border:`1px solid ${T.border}` }}>
+                  <div style={{ fontSize:40, marginBottom:16 }}>👥</div>
+                  <div style={{ fontFamily:F.display, fontSize:22, color:T.forest, marginBottom:8 }}>No clients yet</div>
+                  <div style={{ fontSize:13, color:T.inkSoft, marginBottom:20, lineHeight:1.7 }}>
+                    Client profiles are built automatically when customers book through Eden.<br/>
+                    You can also add clients manually using the button above.
+                  </div>
+                  <Button variant="primary" onClick={() => setAddingClient(true)}>Add Your First Client</Button>
+                </div>
+              ) : (
+                <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+                  {clients.map((c,i) => (
+                    <div key={i} style={{ background:T.white, borderRadius:12, padding:'18px 20px', border:`1px solid ${c.vip?T.gold:T.border}`, boxShadow:`0 1px 6px ${T.shadow}` }}>
+                      <div style={{ display:'flex', alignItems:'center', gap:16, flexWrap:'wrap' }}>
+                        <div style={{ width:48, height:48, borderRadius:'50%', background:c.vip?T.goldPale:T.mint, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:22, color:c.vip?T.gold:T.forest, flexShrink:0 }}>{c.name[0]}</div>
+                        <div style={{ flex:1, minWidth:120 }}>
+                          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+                            <div style={{ fontWeight:700, color:T.ink, fontSize:15 }}>{c.name}</div>
+                            {c.vip && <span style={{ fontSize:10, fontWeight:700, padding:'2px 8px', borderRadius:10, background:T.goldPale, color:T.gold, letterSpacing:0.5 }}>⭐ VIP</span>}
+                            {c.tags && c.tags.map(tag => (
+                              <span key={tag} style={{ fontSize:10, padding:'2px 8px', borderRadius:10, background:T.mint, color:T.moss }}>{tag}</span>
+                            ))}
+                          </div>
+                          <div style={{ fontSize:12, color:T.inkSoft, marginTop:2 }}>
+                            <a href={`mailto:${c.email}`} style={{ color:T.sage, textDecoration:'none' }}>{c.email}</a>
+                            {c.phone && <span> · <a href={`tel:${c.phone}`} style={{ color:T.sage, textDecoration:'none' }}>{c.phone}</a></span>}
+                          </div>
+                          {c.notes && <div style={{ fontSize:11, color:T.inkFaint, marginTop:4, fontStyle:'italic' }}>📝 {c.notes}</div>}
                         </div>
-                      </div>
-                      <div style={{ textAlign:'center', minWidth:80 }}>
-                        <div style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>{c.visits}</div>
-                        <div style={{ fontSize:10, color:T.inkSoft }}>visits</div>
-                      </div>
-                      <div style={{ textAlign:'center', minWidth:120 }}>
-                        <div style={{ fontSize:13, fontWeight:600, color:T.ink }}>{c.lastService}</div>
-                        <div style={{ fontSize:11, color:T.inkSoft }}>{c.lastVisit}</div>
-                      </div>
-                      <div style={{ textAlign:'right', minWidth:80 }}>
-                        <div style={{ fontFamily:F.display, fontSize:20, color:T.gold }}>£{c.totalSpent}</div>
-                        <div style={{ fontSize:10, color:T.inkSoft }}>total spent</div>
+                        <div style={{ textAlign:'center', minWidth:80 }}>
+                          <div style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>{c.visits || 0}</div>
+                          <div style={{ fontSize:10, color:T.inkSoft }}>visits</div>
+                        </div>
+                        <div style={{ textAlign:'center', minWidth:120 }}>
+                          <div style={{ fontSize:13, fontWeight:600, color:T.ink }}>{c.lastService || '—'}</div>
+                          <div style={{ fontSize:11, color:T.inkSoft }}>{c.lastVisit || 'No visits yet'}</div>
+                        </div>
+                        <div style={{ textAlign:'right', minWidth:80 }}>
+                          <div style={{ fontFamily:F.display, fontSize:20, color:T.gold }}>£{c.totalSpent || 0}</div>
+                          <div style={{ fontSize:10, color:T.inkSoft }}>total spent</div>
+                        </div>
+                        <button onClick={() => setEditingClient(c)} style={{ padding:'7px 16px', background:T.forest, border:'none', borderRadius:8, color:T.white, fontSize:11, fontWeight:700, cursor:'pointer', flexShrink:0 }}>
+                          Edit →
+                        </button>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop:16, padding:'12px 16px', background:T.mint, borderRadius:8, fontSize:12, color:T.moss, border:`1px solid ${T.sagePale}` }}>
-                💡 Client profiles are built automatically from your Eden bookings. The more clients book through Eden, the richer your client history becomes.
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -1214,6 +1475,32 @@ export default function Dashboard({ user }) {
           service={editingService?.id ? editingService : null}
           onClose={() => setEditingService(null)}
           onSave={(s) => { saveService(s); setEditingService(null) }}
+        />
+      )}
+      {addingBooking && (
+        <AddBookingModal
+          onClose={() => setAddingBooking(false)}
+          onSave={(b) => { setBookings(prev => [...prev, b]); setAddingBooking(false) }}
+        />
+      )}
+      {blockingTime && (
+        <BlockTimeModal
+          onClose={() => setBlockingTime(false)}
+          onSave={(b) => { setBookings(prev => [...prev, b]); setBlockingTime(false) }}
+        />
+      )}
+      {(addingClient || editingClient) && (
+        <ClientModal
+          client={editingClient}
+          onClose={() => { setAddingClient(false); setEditingClient(null) }}
+          onSave={(c) => {
+            if (c.deleted) {
+              setClients(prev => prev.filter(x => x.id !== c.id))
+            } else {
+              setClients(prev => prev.find(x=>x.id===c.id) ? prev.map(x=>x.id===c.id?c:x) : [...prev,c])
+            }
+            setAddingClient(false); setEditingClient(null)
+          }}
         />
       )}
     </div>
