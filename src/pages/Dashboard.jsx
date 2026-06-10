@@ -565,6 +565,17 @@ export default function Dashboard({ user }) {
 
   const TABS = ['overview','bookings','services','calendar','clients','offers','gallery','reviews','analytics','notifications','payments','settings']
 
+  // Feature gating based on plan
+  const planLevel = salon?.plan === 'premium' ? 3 : salon?.plan === 'standard' ? 2 : 1
+  const canAccess = (feature) => {
+    const requirements = {
+      bookings:      1, services:   1, overview:  1, payments: 1, settings: 1,
+      calendar:      2, analytics:  2, clients:   2, gallery:  2, reviews:  2, notifications: 2,
+      offers:        3,
+    }
+    return planLevel >= (requirements[feature] || 1)
+  }
+
   if (loading) return (
     <div style={{ minHeight:'100vh', background:T.cream, display:'flex', alignItems:'center', justifyContent:'center' }}>
       <style>{GLOBAL_CSS}</style>
@@ -593,18 +604,21 @@ export default function Dashboard({ user }) {
         {/* Sidebar */}
         <div style={{ width:230, background:T.white, borderRight:`1px solid ${T.border}`, padding:'24px 0', flexShrink:0 }}>
           {TABS.map(t => (
-            <button key={t} onClick={() => setTab(t)} style={{
+            <button key={t} onClick={() => canAccess(t) ? setTab(t) : null} style={{
               width:'100%', padding:'12px 24px',
               background:tab===t?T.mint:'none',
               border:'none', borderLeft:`3px solid ${tab===t?T.forest:'transparent'}`,
-              color:tab===t?T.forest:T.inkSoft,
-              fontSize:13, fontWeight:tab===t?600:400, cursor:'pointer',
+              color: !canAccess(t) ? T.inkFaint : tab===t ? T.forest : T.inkSoft,
+              fontSize:13, fontWeight:tab===t?600:400,
+              cursor: canAccess(t) ? 'pointer' : 'not-allowed',
               textAlign:'left', textTransform:'capitalize', transition:'all 0.15s',
               display:'flex', alignItems:'center', justifyContent:'space-between',
+              opacity: canAccess(t) ? 1 : 0.5,
             }}>
               <span>{t}</span>
-              {t==='bookings' && pendingCount>0 && <span style={{ background:T.gold, color:T.white, borderRadius:10, fontSize:9, fontWeight:700, padding:'2px 7px' }}>{pendingCount}</span>}
-              {t==='bookings' && cancelledWithReason>0 && <span style={{ background:T.error, color:T.white, borderRadius:10, fontSize:9, fontWeight:700, padding:'2px 7px' }}>Fee</span>}
+              {!canAccess(t) && <span style={{ fontSize:10 }}>🔒</span>}
+              {t==='bookings' && pendingCount>0 && canAccess(t) && <span style={{ background:T.gold, color:T.white, borderRadius:10, fontSize:9, fontWeight:700, padding:'2px 7px' }}>{pendingCount}</span>}
+              {t==='bookings' && cancelledWithReason>0 && canAccess(t) && <span style={{ background:T.error, color:T.white, borderRadius:10, fontSize:9, fontWeight:700, padding:'2px 7px' }}>Fee</span>}
             </button>
           ))}
           <div style={{ margin:'24px 16px 0', padding:'14px 16px', background:T.mint, borderRadius:10, border:`1px solid ${T.sagePale}` }}>
