@@ -13,16 +13,29 @@ import AdminPanel from './pages/AdminPanel'
 import NotFound from './pages/NotFound'
 
 export default function App() {
-  const [user, setUser] = useState(null)
+  const [user,    setUser]    = useState(null)
+  const [role,    setRole]    = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      const u = session?.user ?? null
+      setUser(u)
+      if (u) {
+        const { data } = await supabase.from('profiles').select('role').eq('id', u.id).single()
+        setRole(data?.role || 'customer')
+      }
       setLoading(false)
     })
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      const u = session?.user ?? null
+      setUser(u)
+      if (u) {
+        const { data } = await supabase.from('profiles').select('role').eq('id', u.id).single()
+        setRole(data?.role || 'customer')
+      } else {
+        setRole(null)
+      }
     })
     return () => subscription.unsubscribe()
   }, [])
@@ -50,13 +63,16 @@ export default function App() {
     )
   }
 
+  // Redirect after login — admin goes to /admin, everyone else to /dashboard
+  const afterLogin = role === 'admin' ? '/admin' : '/dashboard'
+
   return (
     <Routes>
       <Route path="/"              element={<Home user={user} />} />
       <Route path="/search"        element={<Results user={user} />} />
       <Route path="/salon/:id"     element={<SalonPage user={user} />} />
       <Route path="/dashboard"     element={user ? <Dashboard user={user} /> : <Navigate to="/auth" />} />
-      <Route path="/auth"          element={!user ? <Auth /> : <Navigate to="/dashboard" />} />
+      <Route path="/auth"          element={!user ? <Auth /> : <Navigate to={afterLogin} />} />
       <Route path="/list-business" element={<ListBusiness user={user} />} />
       <Route path="/privacy"       element={<PrivacyPolicy user={user} />} />
       <Route path="/terms"         element={<TermsOfService user={user} />} />
