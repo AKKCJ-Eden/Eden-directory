@@ -14,32 +14,11 @@ const MAX_ATTEMPTS = 3
 const LOCKOUT_MINUTES = 30
 
 // ─── DEMO DATA ────────────────────────────────────
-const DEMO_SALONS = [
-  { id:'1', name:'Verdant Hair Atelier',     category:'hair',       plan:'premium',  status:'active',    owner:'isabella@verdant.co.uk', city:'London',     postcode:'SW1A 1AA', verified:true,  promoted:true,  revenue:5820,  bookings:48, joined:'01 Jan 2026', paymentStatus:'paid'    },
-  { id:'2', name:'The Craft Barber Co.',      category:'barber',     plan:'premium',  status:'active',    owner:'dean@craftbarber.co.uk', city:'London',     postcode:'EC1A 1BB', verified:true,  promoted:true,  revenue:3240,  bookings:89, joined:'15 Jan 2026', paymentStatus:'paid'    },
-  { id:'3', name:'Petal Nail Atelier',        category:'nails',      plan:'standard', status:'active',    owner:'mei@petalnails.co.uk',   city:'London',     postcode:'W1T 1AA',  verified:true,  promoted:false, revenue:2180,  bookings:34, joined:'20 Feb 2026', paymentStatus:'paid'    },
-  { id:'4', name:'Clarity Aesthetics Clinic', category:'aesthetics', plan:'premium',  status:'active',    owner:'sarah@clarity.co.uk',    city:'London',     postcode:'N1 9AA',   verified:true,  promoted:true,  revenue:8940,  bookings:27, joined:'05 Mar 2026', paymentStatus:'paid'    },
-  { id:'5', name:'Bloom Beauty Bar',          category:'beauty',     plan:'standard', status:'active',    owner:'grace@bloom.co.uk',      city:'London',     postcode:'SE1 7PB',  verified:true,  promoted:false, revenue:1640,  bookings:22, joined:'10 Mar 2026', paymentStatus:'overdue' },
-  { id:'6', name:'The Sanctuary London',      category:'spa',        plan:'premium',  status:'active',    owner:'helena@sanctuary.co.uk', city:'London',     postcode:'WC2E 8RF', verified:true,  promoted:true,  revenue:12400, bookings:67, joined:'01 Feb 2026', paymentStatus:'paid'    },
-  { id:'7', name:'Glow Skin Studio',          category:'aesthetics', plan:'free',     status:'pending',   owner:'anna@glowskin.co.uk',    city:'Manchester', postcode:'M1 1AA',   verified:false, promoted:false, revenue:0,     bookings:0,  joined:'07 Jun 2026', paymentStatus:'free'    },
-  { id:'8', name:'Scissors and Style',        category:'hair',       plan:'free',     status:'suspended', owner:'tom@scissors.co.uk',     city:'Birmingham', postcode:'B1 1AA',   verified:false, promoted:false, revenue:320,   bookings:8,  joined:'15 Apr 2026', paymentStatus:'free'    },
-]
+const DEMO_SALONS = []
 
-const DEMO_BOOKINGS = [
-  { id:'b1', salon:'Verdant Hair Atelier',    customer:'Emma Johnson',  service:'Full Balayage',     amount:165, date:'Today 2:00pm',   status:'confirmed', commission:16.50 },
-  { id:'b2', salon:'The Craft Barber Co.',    customer:'Marcus Lewis',  service:'Skin Fade',         amount:34,  date:'Today 3:30pm',   status:'confirmed', commission:3.40  },
-  { id:'b3', salon:'Clarity Aesthetics',      customer:'Nina Patel',    service:'Profhilo',          amount:380, date:'Today 4:00pm',   status:'confirmed', commission:38.00 },
-  { id:'b4', salon:'The Sanctuary London',    customer:'Olivia Harris', service:'Hot Stone Massage', amount:125, date:'Yesterday 11am', status:'completed', commission:12.50 },
-  { id:'b5', salon:'Petal Nail Atelier',      customer:'Ella Williams', service:'Chrome Gel',        amount:52,  date:'Yesterday 2pm',  status:'completed', commission:5.20  },
-  { id:'b6', salon:'Bloom Beauty Bar',        customer:'Grace Osei',    service:'Lash Lift',         amount:72,  date:'Yesterday 4pm',  status:'cancelled', commission:0     },
-]
+const DEMO_BOOKINGS = []
 
-const DEMO_USERS = [
-  { id:'u1', name:'Emma Johnson',   email:'emma@email.com',  joined:'01 Mar 2026', bookings:4, spent:620,  status:'active'    },
-  { id:'u2', name:'Sarah Williams', email:'sarah@email.com', joined:'15 Feb 2026', bookings:7, spent:490,  status:'active'    },
-  { id:'u3', name:'Olivia Harris',  email:'olivia@email.com',joined:'10 Jan 2026', bookings:9, spent:1240, status:'active'    },
-  { id:'u4', name:'Tom Bradley',    email:'tom@email.com',   joined:'20 Apr 2026', bookings:1, spent:34,   status:'suspended' },
-]
+const DEMO_USERS = []
 
 const PLAN_PRICES = { free: 0, standard: 59, premium: 119 }
 
