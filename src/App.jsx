@@ -9,6 +9,7 @@ import Auth from './pages/Auth'
 import ListBusiness from './pages/ListBusiness'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
+import AdminPanel from './pages/AdminPanel'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -44,7 +45,7 @@ export default function App() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 26,
         }}>🌿</div>
-        <div style={{ color: '#6a7065', fontSize: 14 }}>Loading Eden</div>
+        <div style={{ color: '#6a7065', fontSize: 14 }}>Loading Eden...</div>
       </div>
     )
   }
@@ -59,6 +60,7 @@ export default function App() {
       <Route path="/list-business" element={<ListBusiness user={user} />} />
       <Route path="/privacy"       element={<PrivacyPolicy user={user} />} />
       <Route path="/terms"         element={<TermsOfService user={user} />} />
+      <Route path="/admin"         element={user ? <AdminPanel user={user} /> : <Navigate to="/auth" />} />
       <Route path="*"              element={<NotFound />} />
     </Routes>
   )
