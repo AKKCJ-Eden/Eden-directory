@@ -53,7 +53,7 @@ export default function Auth({ user }) {
           {success && <div style={{ background:T.mint,border:`1px solid ${T.sagePale}`,borderRadius:8,padding:'10px 14px',fontSize:13,color:T.moss,marginBottom:16 }}>{success}</div>}
 
           <Button variant="primary" style={{ width:'100%',justifyContent:'center',marginBottom:16 }} onClick={handleSubmit} disabled={loading}>
-            {loading ? <><Spinner size={14} color={T.white}/> {mode==='signin'?'Signing in…':'Creating account…'}</> : mode==='signin' ? 'Sign In →' : 'Create Account →'}
+            {loading ? <><Spinner size={14} color={T.white}/> {mode==='signin'?'Signing in...':'Creating account...'}</> : mode==='signin' ? 'Sign In →' : 'Create Account →'}
           </Button>
 
           <div style={{ textAlign:'center',fontSize:13,color:T.inkSoft }}>
