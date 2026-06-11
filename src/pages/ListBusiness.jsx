@@ -73,7 +73,7 @@ const PLANS = [
 
 const BENEFITS = [
   { icon:'📍', text:'Thousands of local customers searching for your services right now' },
-  { icon:'📅', text:'Your booking calendar works 24/7 — even while you sleep' },
+  { icon:'📅', text:'Your booking calendar works 24/7 -- even while you sleep' },
   { icon:'⭐', text:'Build a 5-star reputation with verified customer reviews' },
   { icon:'🚀', text:'Most new listings receive their first Eden booking within 72 hours' },
 ]
@@ -160,7 +160,7 @@ export default function ListBusiness({ user }) {
               Most new businesses receive their first booking within 72 hours. 🎉
             </div>
             <div style={{ background:T.mint, borderRadius:12, padding:'16px 20px', marginBottom:28, border:`1px solid ${T.sagePale}`, fontSize:13, color:T.moss, lineHeight:2, textAlign:'left' }}>
-              ✓ Your listing is under review — goes live within 24 hours<br/>
+              ✓ Your listing is under review -- goes live within 24 hours<br/>
               ✓ New clients will start discovering you immediately<br/>
               ✓ Your booking calendar is ready to take appointments<br/>
               ✓ Your account manager will be in touch on day one
@@ -176,14 +176,14 @@ export default function ListBusiness({ user }) {
       ) : (
         <div style={{ display:'grid', gridTemplateColumns:'1fr 420px', minHeight:'calc(100vh - 62px)', maxWidth:1100, margin:'0 auto', gap:0 }}>
 
-          {/* Left — benefits panel */}
+          {/* Left -- benefits panel */}
           <div style={{ background:`linear-gradient(160deg,${T.forestDark},${T.forest},${T.moss})`, padding:'60px 48px', display:'flex', flexDirection:'column', justifyContent:'center' }}>
             <div style={{ fontSize:10, letterSpacing:4, color:T.sageLight, textTransform:'uppercase', marginBottom:16, fontWeight:600 }}>Join Eden</div>
             <h2 style={{ fontFamily:F.display, fontSize:'clamp(28px,4vw,44px)', fontWeight:300, color:T.white, lineHeight:1.2, marginBottom:20 }}>
               More clients.<br/><em style={{ color:T.goldLight }}>Less effort.</em>
             </h2>
             <p style={{ fontSize:15, color:'rgba(255,255,255,0.65)', lineHeight:1.8, marginBottom:40, maxWidth:380 }}>
-              Eden connects your salon with thousands of local customers actively searching for exactly what you offer — right now.
+              Eden connects your salon with thousands of local customers actively searching for exactly what you offer -- right now.
             </p>
             <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
               {BENEFITS.map((b,i) => (
@@ -201,11 +201,11 @@ export default function ListBusiness({ user }) {
             </div>
           </div>
 
-          {/* Right — form */}
+          {/* Right -- form */}
           <div style={{ background:T.white, padding:'40px 36px', overflowY:'auto' }}>
             <div style={{ marginBottom:24 }}>
               <div style={{ fontSize:10, color:T.sage, letterSpacing:2, fontWeight:700, marginBottom:6 }}>
-                STEP {step} OF 4 — {STEP_LABELS[step-1].toUpperCase()}
+                STEP {step} OF 4 -- {STEP_LABELS[step-1].toUpperCase()}
               </div>
               <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>{STEP_LABELS[step-1]}</div>
             </div>
@@ -216,13 +216,13 @@ export default function ListBusiness({ user }) {
               ))}
             </div>
 
-            {/* Step 1 — Details */}
+            {/* Step 1 -- Details */}
             {step === 1 && (
               <div style={{ animation:'fadeIn 0.2s ease' }}>
                 <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0 16px' }}>
                   <Input label="Business Name *" value={form.name} onChange={e=>set('name',e.target.value)} placeholder="e.g. Bloom Hair Studio"/>
                   <Select label="Category *" value={form.category} onChange={e=>set('category',e.target.value)}
-                    options={[{ value:'', label:'Select category…' }, ...CATS]}/>
+                    options={[{ value:'', label:'Select category...' }, ...CATS]}/>
                   <Input label="Phone Number *" value={form.phone} onChange={e=>set('phone',e.target.value)} placeholder="020 7000 0000"/>
                   <Input label="Business Email *" type="email" value={form.email} onChange={e=>set('email',e.target.value)} placeholder="hello@yoursalon.co.uk"/>
                   <Input label="Website (optional)" value={form.website} onChange={e=>set('website',e.target.value)} placeholder="www.yoursalon.co.uk"/>
@@ -233,7 +233,7 @@ export default function ListBusiness({ user }) {
                 <div style={{ marginBottom:20 }}>
                   <div style={{ fontSize:11, color:T.inkSoft, fontWeight:600, letterSpacing:0.5, marginBottom:5, textTransform:'uppercase' }}>Tell customers what makes you special</div>
                   <textarea value={form.bio} onChange={e=>set('bio',e.target.value)}
-                    placeholder="Share your story — your team, your specialisms, your approach to beauty…"
+                    placeholder="Share your story -- your team, your specialisms, your approach to beauty..."
                     style={{ width:'100%', height:90, padding:'11px 14px', background:T.offwhite, border:`1px solid ${T.border}`, borderRadius:8, color:T.ink, fontSize:14, outline:'none', resize:'none', boxSizing:'border-box' }}/>
                 </div>
                 <Button variant="primary" style={{ width:'100%', justifyContent:'center' }}
@@ -243,7 +243,7 @@ export default function ListBusiness({ user }) {
               </div>
             )}
 
-            {/* Step 2 — Services */}
+            {/* Step 2 -- Services */}
             {step === 2 && (
               <div style={{ animation:'fadeIn 0.2s ease' }}>
                 <div style={{ fontSize:13, color:T.inkSoft, marginBottom:18, lineHeight:1.7 }}>
@@ -277,11 +277,11 @@ export default function ListBusiness({ user }) {
               </div>
             )}
 
-            {/* Step 3 — Plan */}
+            {/* Step 3 -- Plan */}
             {step === 3 && (
               <div style={{ animation:'fadeIn 0.2s ease' }}>
                 <div style={{ fontSize:13, color:T.inkSoft, marginBottom:16, lineHeight:1.7 }}>
-                  Choose how you want to grow. Start free and upgrade whenever you're ready — no long-term commitment.
+                  Choose how you want to grow. Start free and upgrade whenever you're ready -- no long-term commitment.
                 </div>
                 <div style={{ display:'flex', flexDirection:'column', gap:12, marginBottom:24 }}>
                   {PLANS.map(p => (
@@ -319,7 +319,7 @@ export default function ListBusiness({ user }) {
               </div>
             )}
 
-            {/* Step 4 — Launch */}
+            {/* Step 4 -- Launch */}
             {step === 4 && (
               <div style={{ animation:'fadeIn 0.2s ease' }}>
                 <div style={{ background:T.mint, borderRadius:12, padding:'18px 20px', border:`1px solid ${T.sagePale}`, marginBottom:20 }}>
@@ -350,7 +350,7 @@ export default function ListBusiness({ user }) {
                 <div style={{ display:'flex', gap:10 }}>
                   <Button variant="ghost" onClick={() => setStep(3)}>← Back</Button>
                   <Button variant="primary" style={{ flex:1, justifyContent:'center' }} onClick={submit} disabled={loading}>
-                    {loading ? <><Spinner size={14} color={T.white}/> Setting up your listing…</> : 'Join Eden Now ✓'}
+                    {loading ? <><Spinner size={14} color={T.white}/> Setting up your listing...</> : 'Join Eden Now ✓'}
                   </Button>
                 </div>
 
