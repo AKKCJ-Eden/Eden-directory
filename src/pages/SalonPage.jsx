@@ -103,10 +103,10 @@ function BookingModal({ salon, preService, onClose }) {
               <div style={{ animation: 'fadeIn 0.2s ease' }}>
                 <Input label="Full Name" value={name} onChange={e => setName(e.target.value)} placeholder="Your full name"/>
                 <Input label="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"/>
-                <Input label="Mobile (optional — for SMS reminders)" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+44 7700 000000"/>
+                <Input label="Mobile (optional -- for SMS reminders)" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+44 7700 000000"/>
                 <div style={{ marginBottom: 16 }}>
                   <div style={{ fontSize: 11, color: T.inkSoft, fontWeight: 600, letterSpacing: 0.5, marginBottom: 5, textTransform: 'uppercase' }}>Notes (optional)</div>
-                  <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Allergies, preferences, accessibility needs…" style={{ width: '100%', padding: '11px 14px', background: T.offwhite, border: `1px solid ${T.border}`, borderRadius: 8, color: T.ink, fontSize: 14, outline: 'none', resize: 'none', height: 70, boxSizing: 'border-box' }}/>
+                  <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Allergies, preferences, accessibility needs..." style={{ width: '100%', padding: '11px 14px', background: T.offwhite, border: `1px solid ${T.border}`, borderRadius: 8, color: T.ink, fontSize: 14, outline: 'none', resize: 'none', height: 70, boxSizing: 'border-box' }}/>
                 </div>
                 <div style={{ display: 'flex', gap: 10 }}>
                   <Button variant="ghost" onClick={() => setStep(1)}>← Back</Button>
@@ -138,7 +138,7 @@ function BookingModal({ salon, preService, onClose }) {
                 <div style={{ display: 'flex', gap: 10 }}>
                   <Button variant="ghost" onClick={() => setStep(2)}>← Back</Button>
                   <Button variant="primary" style={{ flex: 1, justifyContent: 'center' }} onClick={pay} disabled={loading}>
-                    {loading ? <><Spinner size={14} color={T.white}/> Processing…</> : 'Confirm & Pay →'}
+                    {loading ? <><Spinner size={14} color={T.white}/> Processing...</> : 'Confirm & Pay →'}
                   </Button>
                 </div>
               </div>
@@ -188,7 +188,7 @@ function ReviewModal({ salon, onClose }) {
             <Input label="Your Name" value={reviewName} onChange={e => setReviewName(e.target.value)} placeholder="First name & initial e.g. Sophie T."/>
             <div style={{ marginBottom: 20 }}>
               <div style={{ fontSize: 11, color: T.inkSoft, fontWeight: 600, letterSpacing: 0.5, marginBottom: 5, textTransform: 'uppercase' }}>Your Experience</div>
-              <textarea value={reviewBody} onChange={e => setReviewBody(e.target.value)} placeholder="Tell others about your visit…" style={{ width: '100%', height: 110, padding: '11px 14px', background: T.offwhite, border: `1px solid ${T.border}`, borderRadius: 8, color: T.ink, fontSize: 14, outline: 'none', resize: 'none', boxSizing: 'border-box' }}/>
+              <textarea value={reviewBody} onChange={e => setReviewBody(e.target.value)} placeholder="Tell others about your visit..." style={{ width: '100%', height: 110, padding: '11px 14px', background: T.offwhite, border: `1px solid ${T.border}`, borderRadius: 8, color: T.ink, fontSize: 14, outline: 'none', resize: 'none', boxSizing: 'border-box' }}/>
             </div>
             <Button variant="primary" style={{ width: '100%', justifyContent: 'center' }} onClick={submit} disabled={!reviewName || !reviewBody}>
               Submit Review
