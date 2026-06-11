@@ -498,7 +498,7 @@ export default function AdminPanel({ user }) {
                 <div style={{ display:'flex', gap:8, flexWrap:'wrap', alignItems:'center' }}>
                   <input value={salonSearch} onChange={e=>setSalonSearch(e.target.value)} placeholder="Search..."
                     style={{ padding:'8px 14px', background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:8, color:T.white, fontSize:12, outline:'none', width:180 }}/>
-                  {['all','free','standard','premium','active','pending','suspended'].map(f => (
+                  {['all','free','standard','premium','active','pending','suspended','hair','barber','nails','aesthetics','beauty','spa','tattoo','tanning','fitness','pt','dog','mobile','laser','health','dental','afro','semiperm'].map(f => (
                     <button key={f} onClick={() => setSalonFilter(f)} style={{ padding:'5px 12px', borderRadius:20, fontSize:10, fontWeight:700, cursor:'pointer', border:`1px solid ${salonFilter===f?T.sage:'rgba(255,255,255,0.1)'}`, background:salonFilter===f?'rgba(90,138,98,0.15)':'transparent', color:salonFilter===f?T.sageLight:'rgba(255,255,255,0.35)', textTransform:'capitalize' }}>{f}</button>
                   ))}
                 </div>
