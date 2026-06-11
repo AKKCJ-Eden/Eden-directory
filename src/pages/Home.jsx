@@ -3,50 +3,50 @@ import { useNavigate } from 'react-router-dom'
 import { GLOBAL_CSS, T, F, Nav, Button, Badge, Stars } from '../lib/design'
 
 const CATS = [
-  { id:'all',        label:'All',            icon:'✦' },
-  { id:'hair',        label:'Hair Salons',              icon:'✂'  },
-  { id:'barber',      label:'Barbers',                  icon:'💈' },
-  { id:'nails',       label:'Nail Studios',             icon:'💅' },
-  { id:'aesthetics',  label:'Aesthetics',               icon:'✨' },
-  { id:'beauty',      label:'Beauty',                   icon:'🌸' },
-  { id:'spa',         label:'Spa & Wellness',           icon:'🧖' },
-  { id:'makeup',      label:'Makeup Artists',           icon:'💄' },
-  { id:'tattoo',      label:'Tattoo & Piercing',        icon:'🖋' },
-  { id:'tanning',     label:'Tanning Salons',           icon:'☀' },
-  { id:'fitness',     label:'Health & Fitness',         icon:'💪' },
-  { id:'pt',          label:'Personal Training',        icon:'🏋' },
-  { id:'dog',         label:'Dog Grooming',             icon:'🐾' },
-  { id:'mobile',      label:'Mobile & Home Services',   icon:'🚗' },
-  { id:'integration', label:'Hair Integration',         icon:'👱' },
-  { id:'laser',       label:'Laser Treatment & Removal',icon:'💡' },
-  { id:'health',      label:'Health Services',          icon:'🏥' },
-  { id:'dental',      label:'Dental Services',          icon:'🦷' },
-  { id:'afro',        label:'Afro Caribbean Hair',      icon:'✊' },
-  { id:'semiperm',    label:'Semi-Permanent Tattoo',    icon:'🎨' },
-  { id:'makeup',     label:'Makeup Artists', icon:'💄' },
+  { id:'all',        label:'All',            icon:'' },
+  { id:'hair',        label:'Hair Salons',              icon:''  },
+  { id:'barber',      label:'Barbers',                  icon:'' },
+  { id:'nails',       label:'Nail Studios',             icon:'' },
+  { id:'aesthetics',  label:'Aesthetics',               icon:'' },
+  { id:'beauty',      label:'Beauty',                   icon:'' },
+  { id:'spa',         label:'Spa & Wellness',           icon:'' },
+  { id:'makeup',      label:'Makeup Artists',           icon:'' },
+  { id:'tattoo',      label:'Tattoo & Piercing',        icon:'' },
+  { id:'tanning',     label:'Tanning Salons',           icon:'' },
+  { id:'fitness',     label:'Health & Fitness',         icon:'' },
+  { id:'pt',          label:'Personal Training',        icon:'' },
+  { id:'dog',         label:'Dog Grooming',             icon:'' },
+  { id:'mobile',      label:'Mobile & Home Services',   icon:'' },
+  { id:'integration', label:'Hair Integration',         icon:'' },
+  { id:'laser',       label:'Laser Treatment & Removal',icon:'' },
+  { id:'health',      label:'Health Services',          icon:'' },
+  { id:'dental',      label:'Dental Services',          icon:'' },
+  { id:'afro',        label:'Afro Caribbean Hair',      icon:'' },
+  { id:'semiperm',    label:'Semi-Permanent Tattoo',    icon:'' },
+  { id:'makeup',     label:'Makeup Artists', icon:'' },
 ]
 
 // Customer-facing features -- all about the value to them
 const CUSTOMER_FEATURES = [
-  { i:'🔍', t:'Find Beauty Near You',      d:'Search by postcode and find every salon, barber, spa and clinic within your chosen radius across the UK.' },
-  { i:'📊', t:'Compare & Choose',          d:'See services and prices side-by-side so you always find the perfect treatment at the right price.' },
-  { i:'📅', t:'Book in Seconds',           d:'Instant booking, instant confirmation. No phone calls, no waiting -- just seamless appointments.' },
-  { i:'🤖', t:'Your AI Beauty Advisor',    d:"Tell our AI what you're looking for and it'll find the perfect match -- personalised just for you." },
-  { i:'⭐', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars -- they mean something on Eden.' },
-  { i:'🔔', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before -- so you always arrive feeling prepared.' },
-  { i:'🌍', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen -- every town, every city, all in one beautiful place.' },
-  { i:'💅', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more -- whatever you need, Eden has it.' },
-  { i:'🔒', t:'Safe & Secure',             d:'Your bookings and payments are fully protected. Book with complete confidence, every time.' },
+  { i:'', t:'Find Beauty Near You',      d:'Search by postcode and find every salon, barber, spa and clinic within your chosen radius across the UK.' },
+  { i:'', t:'Compare & Choose',          d:'See services and prices side-by-side so you always find the perfect treatment at the right price.' },
+  { i:'', t:'Book in Seconds',           d:'Instant booking, instant confirmation. No phone calls, no waiting -- just seamless appointments.' },
+  { i:'', t:'Your AI Beauty Advisor',    d:"Tell our AI what you're looking for and it'll find the perfect match -- personalised just for you." },
+  { i:'', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars -- they mean something on Eden.' },
+  { i:'', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before -- so you always arrive feeling prepared.' },
+  { i:'', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen -- every town, every city, all in one beautiful place.' },
+  { i:'', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more -- whatever you need, Eden has it.' },
+  { i:'', t:'Safe & Secure',             d:'Your bookings and payments are fully protected. Book with complete confidence, every time.' },
 ]
 
 // Business-facing benefits -- all about growth, no fee language
 const BUSINESS_BENEFITS = [
-  { i:'📍', t:'Get Discovered',            d:'Appear in front of thousands of local customers actively searching for your services right now.' },
-  { i:'📅', t:'Fill Your Diary',           d:'Our smart booking calendar works around the clock -- taking appointments even while you sleep.' },
-  { i:'📈', t:'Grow Your Client Base',     d:'Reach new customers you would never have found on your own. Eden brings them directly to you.' },
-  { i:'⭐', t:'Build Your Reputation',     d:'Collect genuine verified reviews that build trust and bring in more bookings automatically.' },
-  { i:'🤖', t:'AI-Powered Spotlight',      d:'Our AI concierge recommends your salon to customers searching for exactly what you offer.' },
-  { i:'📊', t:'Understand Your Business',  d:'Easy-to-read dashboards show you which services are most popular and when your busiest times are.' },
+  { i:'', t:'Get Discovered',            d:'Appear in front of thousands of local customers actively searching for your services right now.' },
+  { i:'', t:'Fill Your Diary',           d:'Our smart booking calendar works around the clock -- taking appointments even while you sleep.' },
+  { i:'', t:'Grow Your Client Base',     d:'Reach new customers you would never have found on your own. Eden brings them directly to you.' },
+  { i:'', t:'Build Your Reputation',     d:'Collect genuine verified reviews that build trust and bring in more bookings automatically.' },
+  { i:'', t:'AI-Powered Spotlight',      d:'Our AI concierge recommends your salon to customers searching for exactly what you offer.' },
+  { i:'', t:'Understand Your Business',  d:'Easy-to-read dashboards show you which services are most popular and when your busiest times are.' },
 ]
 
 const PLANS = [
@@ -137,7 +137,7 @@ export default function Home({ user }) {
       <style>{GLOBAL_CSS}</style>
       <Nav user={user} onListBusiness={() => navigate('/list-business')}/>
 
-      {/* ── HERO ── */}
+      {/*  HERO  */}
       <section style={{
         background:`linear-gradient(150deg, ${T.forestDark} 0%, ${T.forest} 55%, ${T.moss} 100%)`,
         padding:'90px 24px 80px', textAlign:'center', position:'relative', overflow:'hidden',
@@ -162,9 +162,9 @@ export default function Home({ user }) {
           {/* Search */}
           <div style={{ maxWidth:640,margin:'0 auto 12px',background:T.white,borderRadius:14,display:'flex',overflow:'hidden',boxShadow:'0 12px 50px rgba(0,0,0,0.22)',border:`2px solid ${T.sagePale}` }}>
             <div style={{ display:'flex',alignItems:'center',padding:'0 14px',flexShrink:0,borderRight:`1px solid ${T.border}`,gap:4 }}>
-              <span style={{ fontSize:20,opacity:0.5 }}>📍</span>
-              {pcValid === true  && <span style={{ color:T.success,fontSize:12 }}>✓</span>}
-              {pcValid === false && <span style={{ color:T.error,  fontSize:12 }}>✗</span>}
+              <span style={{ fontSize:20,opacity:0.5 }}></span>
+              {pcValid === true  && <span style={{ color:T.success,fontSize:12 }}></span>}
+              {pcValid === false && <span style={{ color:T.error,  fontSize:12 }}></span>}
             </div>
             <input
               value={postcode} onChange={e => handlePC(e.target.value)}
@@ -198,7 +198,7 @@ export default function Home({ user }) {
         </div>
       </section>
 
-      {/* ── WHY CUSTOMERS LOVE EDEN ── */}
+      {/*  WHY CUSTOMERS LOVE EDEN  */}
       <section style={{ padding:'70px 24px', maxWidth:1100, margin:'0 auto' }}>
         <div style={{ textAlign:'center', marginBottom:48 }}>
           <div style={{ fontSize:10,letterSpacing:5,color:T.sage,textTransform:'uppercase',marginBottom:12,fontWeight:600 }}>For customers</div>
@@ -216,7 +216,7 @@ export default function Home({ user }) {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
+      {/*  TESTIMONIALS  */}
       <section style={{ background:T.offwhite, padding:'60px 24px' }}>
         <div style={{ maxWidth:900, margin:'0 auto' }}>
           <div style={{ textAlign:'center', marginBottom:40 }}>
@@ -226,7 +226,7 @@ export default function Home({ user }) {
           <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:20 }}>
             {TESTIMONIALS.map((t,i) => (
               <div key={i} style={{ background:T.white,borderRadius:14,padding:'24px 22px',border:`1px solid ${T.border}`,boxShadow:`0 2px 12px ${T.shadow}` }}>
-                <div style={{ fontSize:24,color:T.gold,marginBottom:12,letterSpacing:2 }}>★★★★★</div>
+                <div style={{ fontSize:24,color:T.gold,marginBottom:12,letterSpacing:2 }}></div>
                 <p style={{ fontSize:14,color:T.inkMid,lineHeight:1.8,marginBottom:16,fontStyle:'italic' }}>"{t.text}"</p>
                 <div style={{ display:'flex',gap:12,alignItems:'center' }}>
                   <div style={{ width:40,height:40,borderRadius:'50%',background:T.mint,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:F.display,fontSize:18,color:T.forest }}>{t.avatar}</div>
@@ -241,7 +241,7 @@ export default function Home({ user }) {
         </div>
       </section>
 
-      {/* ── FOR BUSINESSES ── */}
+      {/*  FOR BUSINESSES  */}
       <section style={{ padding:'70px 24px', maxWidth:1100, margin:'0 auto' }}>
         <div style={{ textAlign:'center', marginBottom:48 }}>
           <div style={{ fontSize:10,letterSpacing:5,color:T.sage,textTransform:'uppercase',marginBottom:12,fontWeight:600 }}>For beauty businesses</div>
@@ -261,7 +261,7 @@ export default function Home({ user }) {
         </div>
       </section>
 
-      {/* ── PLANS ── */}
+      {/*  PLANS  */}
       <section style={{ padding:'70px 24px', maxWidth:980, margin:'0 auto', textAlign:'center' }}>
         <div style={{ fontSize:10,letterSpacing:5,color:T.sage,textTransform:'uppercase',marginBottom:12,fontWeight:600 }}>Simple, transparent plans</div>
         <h2 style={{ fontFamily:F.display,fontSize:'clamp(26px,4vw,40px)',color:T.forest,fontWeight:300,marginBottom:8 }}>Start free. Grow when you're ready.</h2>
@@ -276,16 +276,16 @@ export default function Home({ user }) {
               background: p.popular ? T.forest : T.white,
               boxShadow: p.popular ? `0 16px 60px ${T.shadowLg}` : `0 2px 12px ${T.shadow}`,
             }}>
-              {p.popular && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:T.gold,color:T.white,fontSize:10,fontWeight:700,letterSpacing:1,padding:'4px 16px',borderRadius:20,whiteSpace:'nowrap' }}>★ MOST POPULAR</div>}
+              {p.popular && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:T.gold,color:T.white,fontSize:10,fontWeight:700,letterSpacing:1,padding:'4px 16px',borderRadius:20,whiteSpace:'nowrap' }}> MOST POPULAR</div>}
               <div style={{ fontFamily:F.display,fontSize:22,color:p.popular?T.white:T.forest,marginBottom:4 }}>{p.name}</div>
               <div style={{ fontSize:12,color:p.popular?T.sageLight:T.inkSoft,marginBottom:16 }}>{p.tagline}</div>
               <div style={{ marginBottom:20 }}>
-                <span style={{ fontFamily:F.display,fontSize:40,color:p.popular?T.goldLight:T.sage,fontWeight:300 }}>{p.price===0?'Free':`£${p.price}`}</span>
+                <span style={{ fontFamily:F.display,fontSize:40,color:p.popular?T.goldLight:T.sage,fontWeight:300 }}>{p.price===0?'Free':`${p.price}`}</span>
                 {p.price>0 && <span style={{ fontSize:13,color:p.popular?T.sageLight:T.inkFaint,marginLeft:4 }}>/month</span>}
               </div>
               {p.features.map(f => (
                 <div key={f} style={{ display:'flex',gap:10,marginBottom:8,alignItems:'flex-start' }}>
-                  <span style={{ color:p.popular?T.sageMid:T.sage,fontSize:13,flexShrink:0 }}>✓</span>
+                  <span style={{ color:p.popular?T.sageMid:T.sage,fontSize:13,flexShrink:0 }}></span>
                   <span style={{ fontSize:13,color:p.popular?'rgba(255,255,255,0.82)':T.inkMid,lineHeight:1.5 }}>{f}</span>
                 </div>
               ))}
@@ -293,7 +293,7 @@ export default function Home({ user }) {
                 width:'100%', marginTop:24, padding:'13px', borderRadius:10, border:'none',
                 background:p.popular?T.white:T.forest, color:p.popular?T.forest:T.white,
                 fontWeight:700, fontSize:13, cursor:'pointer', letterSpacing:0.3,
-              }}>{p.cta} →</button>
+              }}>{p.cta} </button>
             </div>
           ))}
         </div>
@@ -302,26 +302,26 @@ export default function Home({ user }) {
         </div>
       </section>
 
-      {/* ── FOOTER CTA ── */}
+      {/*  FOOTER CTA  */}
       <section style={{ background:`linear-gradient(135deg,${T.forest},${T.moss})`,padding:'60px 24px',textAlign:'center' }}>
         <h2 style={{ fontFamily:F.display,fontSize:'clamp(24px,4vw,36px)',color:T.white,fontWeight:300,marginBottom:12 }}>Ready to bring more clients through your door?</h2>
         <p style={{ color:T.sageLight,fontSize:15,marginBottom:28,maxWidth:440,margin:'0 auto 28px',lineHeight:1.7 }}>
           Join UK beauty, wellness, fitness and specialist businesses already growing with Eden. Free to start, easy to set up.
         </p>
         <Button variant="gold" size="lg" onClick={() => navigate('/list-business')}>
-          List Your Business Free →
+          List Your Business Free 
         </Button>
       </section>
 
-      {/* ── FOOTER ── */}
+      {/*  FOOTER  */}
       <footer style={{ background:T.forestDark,padding:'40px 24px',color:'rgba(255,255,255,0.4)',fontSize:12,textAlign:'center',lineHeight:2 }}>
         <div style={{ fontFamily:F.display,fontSize:18,color:T.white,marginBottom:8 }}>Eden</div>
-        <div>© 2026 The Eden App LTD · Trading as The Eden App LTD · Registered in England & Wales</div>
+        <div> 2026 The Eden App LTD  Trading as The Eden App LTD  Registered in England & Wales</div>
         <div style={{ marginTop:4 }}>
           <a href="mailto:hello@theedenappltd.com" style={{ color:T.sageLight }}>hello@theedenappltd.com</a>
-          {' · '}
+          {'  '}
           <a href="/privacy" style={{ color:'rgba(255,255,255,0.4)' }}>Privacy Policy</a>
-          {' · '}
+          {'  '}
           <a href="/terms" style={{ color:'rgba(255,255,255,0.4)' }}>Terms of Service</a>
         </div>
       </footer>
