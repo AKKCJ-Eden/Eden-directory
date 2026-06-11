@@ -136,13 +136,13 @@ export default function Results({ user }) {
         body: JSON.stringify({
           model:'claude-sonnet-4-20250514',
           max_tokens:500,
-          system:`You are Eden's friendly AI beauty concierge helping customers near ${postcode} find the perfect salon. Be warm, personal and specific — mention salon names, treatments and prices. Available venues: ${JSON.stringify(salons.slice(0,6).map(s=>({name:s.name,cat:s.category,rating:s.rating,tags:s.tags,services:(s.services||[]).slice(0,4).map(sv=>({n:sv.name,p:sv.price}))})))}. Reply in 2–3 sentences. End with one clear recommendation.`,
+          system:`You are Eden's friendly AI beauty concierge helping customers near ${postcode} find the perfect salon. Be warm, personal and specific -- mention salon names, treatments and prices. Available venues: ${JSON.stringify(salons.slice(0,6).map(s=>({name:s.name,cat:s.category,rating:s.rating,tags:s.tags,services:(s.services||[]).slice(0,4).map(sv=>({n:sv.name,p:sv.price}))})))}. Reply in 2-3 sentences. End with one clear recommendation.`,
           messages:[{ role:'user', content:aiQ }],
         }),
       })
       const d = await res.json()
-      setAiA(d.content?.map(c=>c.text||'').join('') || "I couldn't find a perfect match — try rephrasing your request.")
-    } catch { setAiA('Something went wrong — please try again.') }
+      setAiA(d.content?.map(c=>c.text||'').join('') || "I couldn't find a perfect match -- try rephrasing your request.")
+    } catch { setAiA('Something went wrong -- please try again.') }
     setAiLoading(false)
   }
 
@@ -184,7 +184,7 @@ export default function Results({ user }) {
             <div style={{ fontSize:9, letterSpacing:3, color:T.moss, fontWeight:700, marginBottom:7 }}>✦ YOUR PERSONAL BEAUTY ADVISOR</div>
             <div style={{ display:'flex', gap:8 }}>
               <input value={aiQ} onChange={e=>setAiQ(e.target.value)} onKeyDown={e=>e.key==='Enter'&&askAI()}
-                placeholder="e.g. 'I want a balayage' or 'best massage for stress relief'…"
+                placeholder="e.g. 'I want a balayage' or 'best massage for stress relief'..."
                 style={{ flex:1, padding:'9px 12px', background:T.white, border:`1px solid ${T.sageLight}`, borderRadius:8, color:T.ink, fontSize:12, outline:'none' }}/>
               <button onClick={askAI} disabled={aiLoading} style={{ padding:'9px 16px', background:T.forest, border:'none', borderRadius:8, color:T.white, fontSize:11, fontWeight:700, cursor:'pointer', display:'flex', alignItems:'center', gap:6, flexShrink:0 }}>
                 {aiLoading ? <Spinner size={12} color={T.white}/> : 'Ask'}
@@ -198,7 +198,7 @@ export default function Results({ user }) {
             {loading ? (
               <div style={{ textAlign:'center', padding:'40px 0', color:T.inkSoft }}>
                 <Spinner size={28}/>
-                <div style={{ marginTop:12, fontSize:13 }}>Finding the best salons near you…</div>
+                <div style={{ marginTop:12, fontSize:13 }}>Finding the best salons near you...</div>
               </div>
             ) : sorted.length === 0 ? (
               <div style={{ textAlign:'center', padding:'40px 0', color:T.inkSoft }}>
