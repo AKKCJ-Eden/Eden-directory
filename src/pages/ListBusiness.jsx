@@ -4,25 +4,25 @@ import { supabase } from '../lib/supabase'
 import { GLOBAL_CSS, T, F, Nav, Button, Input, Select, Spinner, Badge } from '../lib/design'
 
 const CATS = [
-  { value:'hair',        label:'✂ Hair Salon'                  },
-  { value:'barber',      label:'💈 Barber Shop'                 },
-  { value:'nails',       label:'💅 Nail Studio'                 },
-  { value:'aesthetics',  label:'✨ Aesthetics Clinic'           },
-  { value:'beauty',      label:'🌸 Beauty Salon'               },
-  { value:'spa',         label:'🧖 Spa & Wellness'             },
-  { value:'makeup',      label:'💄 Makeup Artist'              },
-  { value:'tattoo',      label:'🖋 Tattoo & Body Piercing'     },
-  { value:'tanning',     label:'☀ Tanning Salon'              },
-  { value:'fitness',     label:'💪 Health & Fitness'           },
-  { value:'pt',          label:'🏋 Personal Training'          },
-  { value:'dog',         label:'🐾 Dog Grooming'               },
-  { value:'mobile',      label:'🚗 Mobile & Home Services'     },
-  { value:'integration', label:'👱 Hair Integration'           },
-  { value:'laser',       label:'💡 Laser Treatment & Removal'  },
-  { value:'health',      label:'🏥 Health Services'            },
-  { value:'dental',      label:'🦷 Dental Services'            },
-  { value:'afro',        label:'✊ Afro Caribbean Hair'        },
-  { value:'semiperm',    label:'🎨 Semi-Permanent Tattoo'      },
+  { value:'hair',        label:' Hair Salon'                  },
+  { value:'barber',      label:' Barber Shop'                 },
+  { value:'nails',       label:' Nail Studio'                 },
+  { value:'aesthetics',  label:' Aesthetics Clinic'           },
+  { value:'beauty',      label:' Beauty Salon'               },
+  { value:'spa',         label:' Spa & Wellness'             },
+  { value:'makeup',      label:' Makeup Artist'              },
+  { value:'tattoo',      label:' Tattoo & Body Piercing'     },
+  { value:'tanning',     label:' Tanning Salon'              },
+  { value:'fitness',     label:' Health & Fitness'           },
+  { value:'pt',          label:' Personal Training'          },
+  { value:'dog',         label:' Dog Grooming'               },
+  { value:'mobile',      label:' Mobile & Home Services'     },
+  { value:'integration', label:' Hair Integration'           },
+  { value:'laser',       label:' Laser Treatment & Removal'  },
+  { value:'health',      label:' Health Services'            },
+  { value:'dental',      label:' Dental Services'            },
+  { value:'afro',        label:' Afro Caribbean Hair'        },
+  { value:'semiperm',    label:' Semi-Permanent Tattoo'      },
 ]
 
 const PLANS = [
@@ -72,10 +72,10 @@ const PLANS = [
 ]
 
 const BENEFITS = [
-  { icon:'📍', text:'Thousands of local customers searching for your services right now' },
-  { icon:'📅', text:'Your booking calendar works 24/7 -- even while you sleep' },
-  { icon:'⭐', text:'Build a 5-star reputation with verified customer reviews' },
-  { icon:'🚀', text:'Most new listings receive their first Eden booking within 72 hours' },
+  { icon:'', text:'Thousands of local customers searching for your services right now' },
+  { icon:'', text:'Your booking calendar works 24/7 -- even while you sleep' },
+  { icon:'', text:'Build a 5-star reputation with verified customer reviews' },
+  { icon:'', text:'Most new listings receive their first Eden booking within 72 hours' },
 ]
 
 export default function ListBusiness({ user }) {
@@ -152,23 +152,23 @@ export default function ListBusiness({ user }) {
       {done ? (
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', minHeight:'calc(100vh - 62px)', padding:24 }}>
           <div style={{ background:T.white, borderRadius:20, padding:'48px 40px', textAlign:'center', maxWidth:540, boxShadow:`0 8px 40px ${T.shadow}`, animation:'bloom 0.4s ease' }}>
-            <div style={{ width:80, height:80, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 24px', fontSize:38 }}>🌿</div>
+            <div style={{ width:80, height:80, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 24px', fontSize:38 }}></div>
             <div style={{ fontFamily:F.display, fontSize:32, color:T.forest, marginBottom:10 }}>You're on Eden!</div>
             <div style={{ fontSize:15, color:T.inkSoft, lineHeight:1.8, maxWidth:400, margin:'0 auto 28px' }}>
               Welcome to the family, <strong>{form.name}</strong>.<br/>
               Your listing is being reviewed and will go live within 24 hours.<br/>
-              Most new businesses receive their first booking within 72 hours. 🎉
+              Most new businesses receive their first booking within 72 hours. 
             </div>
             <div style={{ background:T.mint, borderRadius:12, padding:'16px 20px', marginBottom:28, border:`1px solid ${T.sagePale}`, fontSize:13, color:T.moss, lineHeight:2, textAlign:'left' }}>
-              ✓ Your listing is under review -- goes live within 24 hours<br/>
-              ✓ New clients will start discovering you immediately<br/>
-              ✓ Your booking calendar is ready to take appointments<br/>
-              ✓ Your account manager will be in touch on day one
+               Your listing is under review -- goes live within 24 hours<br/>
+               New clients will start discovering you immediately<br/>
+               Your booking calendar is ready to take appointments<br/>
+               Your account manager will be in touch on day one
             </div>
             <div style={{ display:'flex', gap:12, justifyContent:'center' }}>
               {user
-                ? <Button variant="primary" size="lg" onClick={() => navigate('/dashboard')}>Go to My Dashboard →</Button>
-                : <Button variant="primary" size="lg" onClick={() => navigate('/auth')}>Create Account to Manage Your Listing →</Button>
+                ? <Button variant="primary" size="lg" onClick={() => navigate('/dashboard')}>Go to My Dashboard </Button>
+                : <Button variant="primary" size="lg" onClick={() => navigate('/auth')}>Create Account to Manage Your Listing </Button>
               }
             </div>
           </div>
@@ -238,7 +238,7 @@ export default function ListBusiness({ user }) {
                 </div>
                 <Button variant="primary" style={{ width:'100%', justifyContent:'center' }}
                   onClick={() => setStep(2)} disabled={!form.name||!form.phone||!form.email||!form.postcode}>
-                  Continue →
+                  Continue 
                 </Button>
               </div>
             )}
@@ -251,7 +251,7 @@ export default function ListBusiness({ user }) {
                 </div>
                 <div style={{ display:'grid', gridTemplateColumns:'1fr 80px 80px', gap:'0 10px', marginBottom:6 }}>
                   <div style={{ fontSize:10, color:T.inkFaint, fontWeight:700, letterSpacing:0.5, textTransform:'uppercase', paddingBottom:4 }}>Treatment Name</div>
-                  <div style={{ fontSize:10, color:T.inkFaint, fontWeight:700, letterSpacing:0.5, textTransform:'uppercase', paddingBottom:4 }}>Price (£)</div>
+                  <div style={{ fontSize:10, color:T.inkFaint, fontWeight:700, letterSpacing:0.5, textTransform:'uppercase', paddingBottom:4 }}>Price ()</div>
                   <div style={{ fontSize:10, color:T.inkFaint, fontWeight:700, letterSpacing:0.5, textTransform:'uppercase', paddingBottom:4 }}>Mins</div>
                 </div>
                 {services.map((s, i) => (
@@ -271,8 +271,8 @@ export default function ListBusiness({ user }) {
                   + Add another treatment
                 </button>
                 <div style={{ display:'flex', gap:10 }}>
-                  <Button variant="ghost" onClick={() => setStep(1)}>← Back</Button>
-                  <Button variant="primary" style={{ flex:1, justifyContent:'center' }} onClick={() => setStep(3)}>Continue →</Button>
+                  <Button variant="ghost" onClick={() => setStep(1)}> Back</Button>
+                  <Button variant="primary" style={{ flex:1, justifyContent:'center' }} onClick={() => setStep(3)}>Continue </Button>
                 </div>
               </div>
             )}
@@ -301,20 +301,20 @@ export default function ListBusiness({ user }) {
                         <div style={{ fontSize:11, color:T.inkSoft, marginBottom:8 }}>{p.tagline}</div>
                         <div style={{ display:'flex', flexWrap:'wrap', gap:'2px 12px' }}>
                           {p.features.slice(0,3).map(f => (
-                            <span key={f} style={{ fontSize:11, color:T.inkMid }}>✓ {f}</span>
+                            <span key={f} style={{ fontSize:11, color:T.inkMid }}> {f}</span>
                           ))}
                         </div>
                       </div>
                       <div style={{ textAlign:'right', flexShrink:0 }}>
-                        <div style={{ fontFamily:F.display, fontSize:26, color:T.sage }}>{p.price===0?'Free':`£${p.price}`}</div>
+                        <div style={{ fontFamily:F.display, fontSize:26, color:T.sage }}>{p.price===0?'Free':`${p.price}`}</div>
                         {p.price>0 && <div style={{ fontSize:10, color:T.inkFaint }}>per month</div>}
                       </div>
                     </div>
                   ))}
                 </div>
                 <div style={{ display:'flex', gap:10 }}>
-                  <Button variant="ghost" onClick={() => setStep(2)}>← Back</Button>
-                  <Button variant="primary" style={{ flex:1, justifyContent:'center' }} onClick={() => setStep(4)}>Continue →</Button>
+                  <Button variant="ghost" onClick={() => setStep(2)}> Back</Button>
+                  <Button variant="primary" style={{ flex:1, justifyContent:'center' }} onClick={() => setStep(4)}>Continue </Button>
                 </div>
               </div>
             )}
@@ -340,7 +340,7 @@ export default function ListBusiness({ user }) {
 
                 <div style={{ background:'#f0f4ff', borderRadius:12, padding:'16px 18px', marginBottom:20, border:'1px solid #d0d8f8' }}>
                   <div style={{ fontSize:13, color:'#505898', lineHeight:1.8 }}>
-                    💳 <strong>Connect Stripe to receive your bookings seamlessly</strong><br/>
+                     <strong>Connect Stripe to receive your bookings seamlessly</strong><br/>
                     Customers pay through Eden and you receive your earnings automatically. Quick and easy to set up from your dashboard after registration.
                   </div>
                 </div>
@@ -348,9 +348,9 @@ export default function ListBusiness({ user }) {
                 {error && <div style={{ background:'#fff0f0', border:'1px solid #f0c0c0', borderRadius:8, padding:'10px 14px', fontSize:13, color:T.error, marginBottom:16 }}>{error}</div>}
 
                 <div style={{ display:'flex', gap:10 }}>
-                  <Button variant="ghost" onClick={() => setStep(3)}>← Back</Button>
+                  <Button variant="ghost" onClick={() => setStep(3)}> Back</Button>
                   <Button variant="primary" style={{ flex:1, justifyContent:'center' }} onClick={submit} disabled={loading}>
-                    {loading ? <><Spinner size={14} color={T.white}/> Setting up your listing...</> : 'Join Eden Now ✓'}
+                    {loading ? <><Spinner size={14} color={T.white}/> Setting up your listing...</> : 'Join Eden Now '}
                   </Button>
                 </div>
 
