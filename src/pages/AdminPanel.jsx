@@ -6,7 +6,7 @@ import { GLOBAL_CSS, T, F, Badge, Button, Spinner } from '../lib/design'
 // ─── SECURITY CONFIG ──────────────────────────────
 // Only this email can access the admin panel
 const ADMIN_EMAIL = 'admin@theedenappltd.com'
-// 6-digit PIN — known only to the platform owner
+// 6-digit PIN -- known only to the platform owner
 const ADMIN_PIN = '451301'
 // Lock out after this many wrong attempts
 const MAX_ATTEMPTS = 3
@@ -223,7 +223,7 @@ function SalonModal({ salon, onClose, onSave }) {
                 <div style={{ marginTop:12, padding:'16px', background:'rgba(196,154,60,0.08)', borderRadius:10, border:'1px solid rgba(196,154,60,0.2)' }}>
                   <div style={{ fontSize:12, fontWeight:700, color:T.goldLight, marginBottom:6 }}>🎁 Free Onboarding Override</div>
                   <div style={{ fontSize:12, color:'rgba(255,255,255,0.4)', marginBottom:10, lineHeight:1.7 }}>
-                    Grant this salon free access to any paid plan for a set period — no payment taken. Use this during onboarding to get salons live quickly.
+                    Grant this salon free access to any paid plan for a set period -- no payment taken. Use this during onboarding to get salons live quickly.
                   </div>
                   <div style={{ display:'flex', gap:10, alignItems:'center' }}>
                     <select value={freeMonths} onChange={e => setFreeMonths(Number(e.target.value))}
@@ -278,7 +278,7 @@ function SalonModal({ salon, onClose, onSave }) {
               <div style={{ marginBottom:24 }}>
                 <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', fontWeight:700, letterSpacing:1, marginBottom:8, textTransform:'uppercase' }}>Private Admin Note</div>
                 <textarea value={note} onChange={e => setNote(e.target.value)}
-                  placeholder="Internal note — not visible to the business..."
+                  placeholder="Internal note -- not visible to the business..."
                   style={{ width:'100%', height:80, padding:'10px 14px', background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:8, fontSize:13, color:T.white, outline:'none', resize:'none', boxSizing:'border-box' }}/>
               </div>
 
@@ -369,7 +369,7 @@ export default function AdminPanel({ user }) {
     </div>
   )
 
-  // PIN screen — shown before admin panel even if authorized
+  // PIN screen -- shown before admin panel even if authorized
   if (!pinPassed) return <PinScreen onSuccess={() => setPinPassed(true)} />
 
   // ── ADMIN PANEL ──
@@ -665,7 +665,7 @@ export default function AdminPanel({ user }) {
                   { label:'Max cancellation fee',      value:'50%',       note:'At salon discretion for late cancellations' },
                   { label:'Payout schedule',           value:'Weekly',    note:'Every Monday, 2-3 business days to arrive' },
                   { label:'Minimum payout',            value:'£25',       note:'Accumulated before payout is triggered' },
-                  { label:'Admin access',              value:'PIN + Email',note:'admin@theedenappltd.com only — PIN verified' },
+                  { label:'Admin access',              value:'PIN + Email',note:'admin@theedenappltd.com only -- PIN verified' },
                 ].map((s,i) => (
                   <div key={i} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', background:'rgba(255,255,255,0.03)', borderRadius:10, padding:'16px 20px', border:'1px solid rgba(255,255,255,0.07)' }}>
                     <div>
