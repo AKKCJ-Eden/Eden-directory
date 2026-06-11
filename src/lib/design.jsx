@@ -1,6 +1,6 @@
-// ═══════════════════════════════════════════
+// 
 //  EDEN -- Design System
-// ═══════════════════════════════════════════
+// 
 export const T = {
   forest:      '#1a3a1f',
   forestDark:  '#0f2412',
@@ -56,7 +56,7 @@ export const GLOBAL_CSS = `
   @keyframes slideUp  { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
 `
 
-// ─── REUSABLE COMPONENTS ─────────────────────────
+//  REUSABLE COMPONENTS 
 
 export const Spinner = ({ size = 18, color = '#5a8a62' }) => (
   <span style={{
@@ -69,7 +69,7 @@ export const Spinner = ({ size = 18, color = '#5a8a62' }) => (
 export const Stars = ({ r, size = 13 }) => (
   <span style={{ letterSpacing: 1 }}>
     {[1,2,3,4,5].map(i => (
-      <span key={i} style={{ color: i <= Math.round(r) ? '#c49a3c' : '#d8d4cc', fontSize: size }}>★</span>
+      <span key={i} style={{ color: i <= Math.round(r) ? '#c49a3c' : '#d8d4cc', fontSize: size }}></span>
     ))}
   </span>
 )
@@ -200,7 +200,7 @@ export const Nav = ({ user, onListBusiness }) => (
         background: 'linear-gradient(135deg, #1a3a1f, #5a8a62)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: 18, boxShadow: '0 2px 10px rgba(26,58,31,0.2)',
-      }}>🌿</div>
+      }}></div>
       <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 24, color: '#1a3a1f', fontWeight: 500 }}>Eden</span>
       <span style={{ fontSize: 9, color: '#9a9f95', letterSpacing: 4, textTransform: 'uppercase', marginTop: 2 }}>UK</span>
     </a>
