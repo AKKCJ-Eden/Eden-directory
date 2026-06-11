@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════
 //  EDEN — Design System
 // ═══════════════════════════════════════════
+import { useEffect } from "react"
 
 export const T = {
   forest:      '#1a3a1f',
