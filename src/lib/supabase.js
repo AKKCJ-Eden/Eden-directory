@@ -5,7 +5,7 @@ const supabaseKey  = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
-// ─── AUTH HELPERS ─────────────────────────────────
+//  AUTH HELPERS 
 
 export const signUp = async (email, password, meta) => {
   const { data, error } = await supabase.auth.signUp({
@@ -29,7 +29,7 @@ export const getUser = async () => {
   return user
 }
 
-// ─── SALON HELPERS ────────────────────────────────
+//  SALON HELPERS 
 
 export const getSalons = async ({ category, limit = 50 } = {}) => {
   let query = supabase
@@ -57,7 +57,7 @@ export const getSalonById = async (id) => {
   return { data, error }
 }
 
-// ─── BOOKING HELPERS ──────────────────────────────
+//  BOOKING HELPERS 
 
 export const createBooking = async (booking) => {
   const { data, error } = await supabase
@@ -77,7 +77,7 @@ export const getBookingsForSalon = async (salonId) => {
   return { data, error }
 }
 
-// ─── REVIEW HELPERS ───────────────────────────────
+//  REVIEW HELPERS 
 
 export const createReview = async (review) => {
   const { data, error } = await supabase
@@ -88,7 +88,7 @@ export const createReview = async (review) => {
   return { data, error }
 }
 
-// ─── FAVOURITES ───────────────────────────────────
+//  FAVOURITES 
 
 export const toggleFavourite = async (userId, salonId) => {
   const { data: existing } = await supabase
