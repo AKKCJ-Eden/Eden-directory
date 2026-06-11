@@ -1,8 +1,6 @@
 // ═══════════════════════════════════════════
-//  EDEN — Design System
+//  EDEN -- Design System
 // ═══════════════════════════════════════════
-import { useEffect } from "react"
-
 export const T = {
   forest:      '#1a3a1f',
   forestDark:  '#0f2412',
@@ -167,18 +165,12 @@ export const Select = ({ label, options = [], error, ...props }) => (
   </div>
 )
 
-export const Modal = ({ open, onClose, children, width = 500, title }) => {
-  useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = ''
-    return () => { document.body.style.overflow = '' }
-  }, [open])
-
+export const Modal = ({ open, onClose, children, width = 500 }) => {
   if (!open) return null
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 600,
-      background: 'rgba(15,36,18,0.6)', backdropFilter: 'blur(4px)',
+      background: 'rgba(15,36,18,0.6)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 16,
     }} onClick={onClose}>
@@ -186,7 +178,6 @@ export const Modal = ({ open, onClose, children, width = 500, title }) => {
         background: '#ffffff', borderRadius: 20, width, maxWidth: '100%',
         maxHeight: '92vh', overflowY: 'auto',
         boxShadow: '0 32px 100px rgba(26,58,31,0.24)',
-        animation: 'bloom 0.28s ease both',
       }} onClick={e => e.stopPropagation()}>
         {children}
       </div>
