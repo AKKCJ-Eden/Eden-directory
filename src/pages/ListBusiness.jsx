@@ -4,13 +4,25 @@ import { supabase } from '../lib/supabase'
 import { GLOBAL_CSS, T, F, Nav, Button, Input, Select, Spinner, Badge } from '../lib/design'
 
 const CATS = [
-  { value:'hair',       label:'✂ Hair Salon'        },
-  { value:'barber',     label:'💈 Barber Shop'      },
-  { value:'nails',      label:'💅 Nail Studio'      },
-  { value:'aesthetics', label:'✨ Aesthetics Clinic' },
-  { value:'beauty',     label:'🌸 Beauty Salon'     },
-  { value:'spa',        label:'🧖 Spa & Wellness'   },
-  { value:'makeup',     label:'💄 Makeup Artist'    },
+  { value:'hair',        label:'✂ Hair Salon'                  },
+  { value:'barber',      label:'💈 Barber Shop'                 },
+  { value:'nails',       label:'💅 Nail Studio'                 },
+  { value:'aesthetics',  label:'✨ Aesthetics Clinic'           },
+  { value:'beauty',      label:'🌸 Beauty Salon'               },
+  { value:'spa',         label:'🧖 Spa & Wellness'             },
+  { value:'makeup',      label:'💄 Makeup Artist'              },
+  { value:'tattoo',      label:'🖋 Tattoo & Body Piercing'     },
+  { value:'tanning',     label:'☀️ Tanning Salon'              },
+  { value:'fitness',     label:'💪 Health & Fitness'           },
+  { value:'pt',          label:'🏋 Personal Training'          },
+  { value:'dog',         label:'🐾 Dog Grooming'               },
+  { value:'mobile',      label:'🚗 Mobile & Home Services'     },
+  { value:'integration', label:'👱 Hair Integration'           },
+  { value:'laser',       label:'💡 Laser Treatment & Removal'  },
+  { value:'health',      label:'🏥 Health Services'            },
+  { value:'dental',      label:'🦷 Dental Services'            },
+  { value:'afro',        label:'✊ Afro Caribbean Hair'        },
+  { value:'semiperm',    label:'🎨 Semi-Permanent Tattoo'      },
 ]
 
 const PLANS = [
