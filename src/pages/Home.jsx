@@ -3,27 +3,26 @@ import { useNavigate } from 'react-router-dom'
 import { GLOBAL_CSS, T, F, Nav, Button, Badge, Stars } from '../lib/design'
 
 const CATS = [
-  { id:'all',        label:'All',            icon:'' },
-  { id:'hair',        label:'Hair Salons',              icon:''  },
-  { id:'barber',      label:'Barbers',                  icon:'' },
-  { id:'nails',       label:'Nail Studios',             icon:'' },
-  { id:'aesthetics',  label:'Aesthetics',               icon:'' },
-  { id:'beauty',      label:'Beauty',                   icon:'' },
-  { id:'spa',         label:'Spa & Wellness',           icon:'' },
-  { id:'makeup',      label:'Makeup Artists',           icon:'' },
-  { id:'tattoo',      label:'Tattoo & Piercing',        icon:'' },
-  { id:'tanning',     label:'Tanning Salons',           icon:'' },
-  { id:'fitness',     label:'Health & Fitness',         icon:'' },
-  { id:'pt',          label:'Personal Training',        icon:'' },
-  { id:'dog',         label:'Dog Grooming',             icon:'' },
-  { id:'mobile',      label:'Mobile & Home Services',   icon:'' },
-  { id:'integration', label:'Hair Integration',         icon:'' },
-  { id:'laser',       label:'Laser Treatment & Removal',icon:'' },
-  { id:'health',      label:'Health Services',          icon:'' },
-  { id:'dental',      label:'Dental Services',          icon:'' },
-  { id:'afro',        label:'Afro Caribbean Hair',      icon:'' },
-  { id:'semiperm',    label:'Semi-Permanent Tattoo',    icon:'' },
-  { id:'makeup',     label:'Makeup Artists', icon:'' },
+  { id:'all',        label:'All'                        },
+  { id:'hair',       label:'Hair Salons'                },
+  { id:'barber',     label:'Barbers'                    },
+  { id:'nails',      label:'Nail Studios'               },
+  { id:'aesthetics', label:'Aesthetics'                 },
+  { id:'beauty',     label:'Beauty'                     },
+  { id:'spa',        label:'Spa and Wellness'           },
+  { id:'makeup',     label:'Makeup Artists'             },
+  { id:'tattoo',     label:'Tattoo and Piercing'        },
+  { id:'tanning',    label:'Tanning Salons'             },
+  { id:'fitness',    label:'Health and Fitness'         },
+  { id:'pt',         label:'Personal Training'          },
+  { id:'dog',        label:'Dog Grooming'               },
+  { id:'mobile',     label:'Mobile and Home Services'   },
+  { id:'integration',label:'Hair Integration'           },
+  { id:'laser',      label:'Laser Treatment'            },
+  { id:'health',     label:'Health Services'            },
+  { id:'dental',     label:'Dental Services'            },
+  { id:'afro',       label:'Afro Caribbean Hair'        },
+  { id:'semiperm',   label:'Semi-Permanent Tattoo'      },
 ]
 
 // Customer-facing features -- all about the value to them
@@ -192,7 +191,7 @@ export default function Home({ user }) {
                 color: category===c.id ? T.forest : 'rgba(255,255,255,0.82)',
                 boxShadow: category===c.id ? '0 2px 12px rgba(26,58,31,0.2)' : 'none',
                 transition:'all 0.2s',
-              }}>{c.icon} {c.label}</button>
+              }}>{c.label}</button>
             ))}
           </div>
         </div>
