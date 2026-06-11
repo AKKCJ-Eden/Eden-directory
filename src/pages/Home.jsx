@@ -26,23 +26,23 @@ const CATS = [
   { id:'makeup',     label:'Makeup Artists', icon:'💄' },
 ]
 
-// Customer-facing features — all about the value to them
+// Customer-facing features -- all about the value to them
 const CUSTOMER_FEATURES = [
   { i:'🔍', t:'Find Beauty Near You',      d:'Search by postcode and find every salon, barber, spa and clinic within your chosen radius across the UK.' },
   { i:'📊', t:'Compare & Choose',          d:'See services and prices side-by-side so you always find the perfect treatment at the right price.' },
-  { i:'📅', t:'Book in Seconds',           d:'Instant booking, instant confirmation. No phone calls, no waiting — just seamless appointments.' },
-  { i:'🤖', t:'Your AI Beauty Advisor',    d:"Tell our AI what you're looking for and it'll find the perfect match — personalised just for you." },
-  { i:'⭐', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars — they mean something on Eden.' },
-  { i:'🔔', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before — so you always arrive feeling prepared.' },
-  { i:'🌍', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen — every town, every city, all in one beautiful place.' },
-  { i:'💅', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more — whatever you need, Eden has it.' },
+  { i:'📅', t:'Book in Seconds',           d:'Instant booking, instant confirmation. No phone calls, no waiting -- just seamless appointments.' },
+  { i:'🤖', t:'Your AI Beauty Advisor',    d:"Tell our AI what you're looking for and it'll find the perfect match -- personalised just for you." },
+  { i:'⭐', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars -- they mean something on Eden.' },
+  { i:'🔔', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before -- so you always arrive feeling prepared.' },
+  { i:'🌍', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen -- every town, every city, all in one beautiful place.' },
+  { i:'💅', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more -- whatever you need, Eden has it.' },
   { i:'🔒', t:'Safe & Secure',             d:'Your bookings and payments are fully protected. Book with complete confidence, every time.' },
 ]
 
-// Business-facing benefits — all about growth, no fee language
+// Business-facing benefits -- all about growth, no fee language
 const BUSINESS_BENEFITS = [
   { i:'📍', t:'Get Discovered',            d:'Appear in front of thousands of local customers actively searching for your services right now.' },
-  { i:'📅', t:'Fill Your Diary',           d:'Our smart booking calendar works around the clock — taking appointments even while you sleep.' },
+  { i:'📅', t:'Fill Your Diary',           d:'Our smart booking calendar works around the clock -- taking appointments even while you sleep.' },
   { i:'📈', t:'Grow Your Client Base',     d:'Reach new customers you would never have found on your own. Eden brings them directly to you.' },
   { i:'⭐', t:'Build Your Reputation',     d:'Collect genuine verified reviews that build trust and bring in more bookings automatically.' },
   { i:'🤖', t:'AI-Powered Spotlight',      d:'Our AI concierge recommends your salon to customers searching for exactly what you offer.' },
@@ -96,7 +96,7 @@ const PLANS = [
 ]
 
 const TESTIMONIALS = [
-  { name:'Sarah M.', role:'Hair Salon Owner, Manchester', text:"Since joining Eden we've been fully booked every week. The new clients just keep coming — it's transformed our business.", avatar:'S' },
+  { name:'Sarah M.', role:'Hair Salon Owner, Manchester', text:"Since joining Eden we've been fully booked every week. The new clients just keep coming -- it's transformed our business.", avatar:'S' },
   { name:'James K.', role:'Barber, London',               text:"I was sceptical at first but within two weeks I had more bookings than I could handle. Best decision I've made for the shop.", avatar:'J' },
   { name:'Priya T.', role:'Aesthetics Clinic, Birmingham', text:"Eden brought us clients we never would have found on social media. Professional, easy to use, and genuinely effective.", avatar:'P' },
 ]
@@ -156,7 +156,7 @@ export default function Home({ user }) {
             Find. Book. <em style={{ color:T.goldLight }}>Feel beautiful.</em>
           </h1>
           <p style={{ fontSize:17,color:'rgba(255,255,255,0.7)',lineHeight:1.8,marginBottom:48,maxWidth:500,margin:'0 auto 48px' }}>
-            The UK's most trusted beauty and wellness directory. Discover salons, barbers, spas, tattoo studios, fitness trainers, dental practices and more near you — and book instantly.
+            The UK's most trusted beauty and wellness directory. Discover salons, barbers, spas, tattoo studios, fitness trainers, dental practices and more near you -- and book instantly.
           </p>
 
           {/* Search */}
@@ -203,7 +203,7 @@ export default function Home({ user }) {
         <div style={{ textAlign:'center', marginBottom:48 }}>
           <div style={{ fontSize:10,letterSpacing:5,color:T.sage,textTransform:'uppercase',marginBottom:12,fontWeight:600 }}>For customers</div>
           <h2 style={{ fontFamily:F.display,fontSize:'clamp(28px,4vw,42px)',color:T.forest,fontWeight:300 }}>Everything you need to look and feel your best</h2>
-          <p style={{ fontSize:15,color:T.inkSoft,marginTop:12,maxWidth:500,margin:'12px auto 0',lineHeight:1.7 }}>Eden makes finding and booking beauty treatments effortless — so you can spend less time searching and more time enjoying.</p>
+          <p style={{ fontSize:15,color:T.inkSoft,marginTop:12,maxWidth:500,margin:'12px auto 0',lineHeight:1.7 }}>Eden makes finding and booking beauty treatments effortless -- so you can spend less time searching and more time enjoying.</p>
         </div>
         <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20 }}>
           {CUSTOMER_FEATURES.map((f,i) => (
@@ -298,7 +298,7 @@ export default function Home({ user }) {
           ))}
         </div>
         <div style={{ marginTop:24,fontSize:13,color:T.inkSoft }}>
-          All plans include new client discovery. Upgrade or cancel anytime — no long-term commitment.
+          All plans include new client discovery. Upgrade or cancel anytime -- no long-term commitment.
         </div>
       </section>
 
