@@ -57,22 +57,21 @@ export default function App() {
           background: 'linear-gradient(135deg, #1a3a1f, #5a8a62)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 26,
-        }}>🌿</div>
+        }}></div>
         <div style={{ color: '#6a7065', fontSize: 14 }}>Loading Eden...</div>
       </div>
     )
   }
 
-  // Redirect after login — admin goes to /admin, everyone else to /dashboard
-  const afterLogin = role === 'admin' ? '/admin' : '/dashboard'
-
+  // After login everyone goes to dashboard
+  // Admin accesses /admin directly via URL
   return (
     <Routes>
       <Route path="/"              element={<Home user={user} />} />
       <Route path="/search"        element={<Results user={user} />} />
       <Route path="/salon/:id"     element={<SalonPage user={user} />} />
       <Route path="/dashboard"     element={user ? <Dashboard user={user} /> : <Navigate to="/auth" />} />
-      <Route path="/auth"          element={!user ? <Auth /> : <Navigate to={afterLogin} />} />
+      <Route path="/auth"          element={!user ? <Auth /> : <Navigate to="/dashboard" />} />
       <Route path="/list-business" element={<ListBusiness user={user} />} />
       <Route path="/privacy"       element={<PrivacyPolicy user={user} />} />
       <Route path="/terms"         element={<TermsOfService user={user} />} />
