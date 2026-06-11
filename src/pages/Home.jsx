@@ -12,7 +12,7 @@ const CATS = [
   { id:'spa',         label:'Spa & Wellness',           icon:'🧖' },
   { id:'makeup',      label:'Makeup Artists',           icon:'💄' },
   { id:'tattoo',      label:'Tattoo & Piercing',        icon:'🖋' },
-  { id:'tanning',     label:'Tanning Salons',           icon:'☀️' },
+  { id:'tanning',     label:'Tanning Salons',           icon:'☀' },
   { id:'fitness',     label:'Health & Fitness',         icon:'💪' },
   { id:'pt',          label:'Personal Training',        icon:'🏋' },
   { id:'dog',         label:'Dog Grooming',             icon:'🐾' },
