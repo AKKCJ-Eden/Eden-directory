@@ -556,7 +556,7 @@ export default function Dashboard({ user }) {
   const TABS = ['overview','bookings','services','calendar','clients','offers','gallery','reviews','analytics','notifications','payments','settings']
 
   // Feature gating based on plan
-  const planLevel = salon?.plan === 'premium' ? 3 : salon?.plan === 'standard' ? 2 : 1
+  const planLevel = !salon ? 1 : salon.plan === 'premium' ? 3 : salon.plan === 'standard' ? 2 : 1
   const canAccess = (feature) => {
     const requirements = {
       bookings:      1, services:   1, overview:  1, payments: 1, settings: 1,
@@ -824,6 +824,16 @@ export default function Dashboard({ user }) {
         </div>
       </nav>
 
+      {!loading && !salon ? (
+        <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', padding:40, background:T.cream }}>
+          <div style={{ textAlign:'center', maxWidth:460 }}>
+            <div style={{ fontSize:56, marginBottom:16 }}>🌿</div>
+            <div style={{ fontFamily:F.display, fontSize:28, color:T.forest, marginBottom:8 }}>Welcome to Eden</div>
+            <div style={{ fontSize:15, color:T.inkSoft, lineHeight:1.8, marginBottom:28 }}>You do not have a salon listed yet. Register your business to get started.</div>
+            <Button variant="primary" onClick={() => navigate('/list-business')}>List Your Business →</Button>
+          </div>
+        </div>
+      ) : (
       <div style={{ display:'flex', minHeight:'calc(100vh - 62px)' }}>
 
         {/* Sidebar */}
@@ -1502,6 +1512,8 @@ export default function Dashboard({ user }) {
             setAddingClient(false); setEditingClient(null)
           }}
         />
+      )}
+      </div>
       )}
     </div>
   )
