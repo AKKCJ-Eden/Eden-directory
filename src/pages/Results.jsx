@@ -5,13 +5,25 @@ import { GLOBAL_CSS, T, F, Nav, Stars, Badge, Button, Spinner } from '../lib/des
 
 const CATS = [
   { id:'all',        label:'All',        icon:'✦' },
-  { id:'hair',       label:'Hair',       icon:'✂' },
-  { id:'barber',     label:'Barbers',    icon:'💈' },
-  { id:'nails',      label:'Nails',      icon:'💅' },
-  { id:'aesthetics', label:'Aesthetics', icon:'✨' },
-  { id:'beauty',     label:'Beauty',     icon:'🌸' },
-  { id:'spa',        label:'Spa',        icon:'🧖' },
-  { id:'makeup',     label:'Makeup',     icon:'💄' },
+  { id:'hair',        label:'Hair',               icon:'✂'  },
+  { id:'barber',      label:'Barbers',            icon:'💈' },
+  { id:'nails',       label:'Nails',              icon:'💅' },
+  { id:'aesthetics',  label:'Aesthetics',         icon:'✨' },
+  { id:'beauty',      label:'Beauty',             icon:'🌸' },
+  { id:'spa',         label:'Spa',                icon:'🧖' },
+  { id:'makeup',      label:'Makeup',             icon:'💄' },
+  { id:'tattoo',      label:'Tattoo',             icon:'🖋' },
+  { id:'tanning',     label:'Tanning',            icon:'☀️' },
+  { id:'fitness',     label:'Fitness',            icon:'💪' },
+  { id:'pt',          label:'Personal Training',  icon:'🏋' },
+  { id:'dog',         label:'Dog Grooming',       icon:'🐾' },
+  { id:'mobile',      label:'Mobile Services',    icon:'🚗' },
+  { id:'integration', label:'Hair Integration',   icon:'👱' },
+  { id:'laser',       label:'Laser',              icon:'💡' },
+  { id:'health',      label:'Health',             icon:'🏥' },
+  { id:'dental',      label:'Dental',             icon:'🦷' },
+  { id:'afro',        label:'Afro Caribbean',     icon:'✊' },
+  { id:'semiperm',    label:'Semi-Perm Tattoo',   icon:'🎨' },
 ]
 
 const DEMO = []
