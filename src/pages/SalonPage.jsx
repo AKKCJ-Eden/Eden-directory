@@ -4,7 +4,7 @@ import { getSalonById } from '../lib/supabase'
 import { GLOBAL_CSS, T, F, Nav, Stars, Badge, Button, Spinner, Modal, Input } from '../lib/design'
 
 const DEMO_SALONS = {}
-// ─── BOOKING MODAL ───────────────────────────────
+//  BOOKING MODAL 
 function BookingModal({ salon, preService, onClose }) {
   const [step,    setStep]    = useState(1)
   const [svc,     setSvc]     = useState(preService || '')
@@ -34,13 +34,13 @@ function BookingModal({ salon, preService, onClose }) {
       <div style={{ padding: '32px 36px' }}>
         {done ? (
           <div style={{ textAlign: 'center', padding: '20px 0', animation: 'fadeUp 0.4s ease' }}>
-            <div style={{ width: 72, height: 72, borderRadius: '50%', background: T.mint, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>🌿</div>
+            <div style={{ width: 72, height: 72, borderRadius: '50%', background: T.mint, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}></div>
             <div style={{ fontFamily: F.display, fontSize: 28, color: T.forest, marginBottom: 8 }}>Booking Confirmed!</div>
             <div style={{ fontSize: 14, color: T.inkSoft, lineHeight: 1.8, marginBottom: 20 }}>
               <strong>{name}</strong>, your appointment at <strong>{salon.name}</strong> is confirmed.<br/>
-              📧 Confirmation sent to <strong>{email}</strong><br/>
-              {phone && <span>📱 SMS reminder will be sent to <strong>{phone}</strong><br/></span>}
-              🗓 {date} at {time}
+               Confirmation sent to <strong>{email}</strong><br/>
+              {phone && <span> SMS reminder will be sent to <strong>{phone}</strong><br/></span>}
+               {date} at {time}
             </div>
             <Button variant="primary" onClick={onClose}>Done</Button>
           </div>
@@ -49,11 +49,11 @@ function BookingModal({ salon, preService, onClose }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
               <div>
                 <div style={{ fontSize: 10, color: T.sage, letterSpacing: 2, fontWeight: 700, marginBottom: 4 }}>
-                  BOOK APPOINTMENT · STEP {step} OF 3
+                  BOOK APPOINTMENT  STEP {step} OF 3
                 </div>
                 <div style={{ fontFamily: F.display, fontSize: 22, color: T.forest }}>{salon.name}</div>
               </div>
-              <button onClick={onClose} style={{ background: T.offwhite, border: 'none', borderRadius: '50%', width: 36, height: 36, cursor: 'pointer', fontSize: 16, color: T.inkSoft }}>✕</button>
+              <button onClick={onClose} style={{ background: T.offwhite, border: 'none', borderRadius: '50%', width: 36, height: 36, cursor: 'pointer', fontSize: 16, color: T.inkSoft }}></button>
             </div>
 
             <div style={{ display: 'flex', gap: 4, marginBottom: 24 }}>
@@ -76,7 +76,7 @@ function BookingModal({ salon, preService, onClose }) {
                         {s.popular && <span style={{ marginLeft: 8, fontSize: 9, color: T.sage, fontWeight: 700, letterSpacing: 0.5 }}>POPULAR</span>}
                         <div style={{ fontSize: 11, color: T.inkFaint }}>{s.duration} min</div>
                       </div>
-                      <span style={{ fontSize: 15, fontWeight: 700, color: T.gold }}>{s.price === 0 ? 'Free' : `£${s.price}`}</span>
+                      <span style={{ fontSize: 15, fontWeight: 700, color: T.gold }}>{s.price === 0 ? 'Free' : `${s.price}`}</span>
                     </div>
                   ))}
                 </div>
@@ -94,7 +94,7 @@ function BookingModal({ salon, preService, onClose }) {
                   </div>
                 </div>
                 <Button variant="primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setStep(2)} disabled={!canNext1}>
-                  Continue →
+                  Continue 
                 </Button>
               </div>
             )}
@@ -109,9 +109,9 @@ function BookingModal({ salon, preService, onClose }) {
                   <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Allergies, preferences, accessibility needs..." style={{ width: '100%', padding: '11px 14px', background: T.offwhite, border: `1px solid ${T.border}`, borderRadius: 8, color: T.ink, fontSize: 14, outline: 'none', resize: 'none', height: 70, boxSizing: 'border-box' }}/>
                 </div>
                 <div style={{ display: 'flex', gap: 10 }}>
-                  <Button variant="ghost" onClick={() => setStep(1)}>← Back</Button>
+                  <Button variant="ghost" onClick={() => setStep(1)}> Back</Button>
                   <Button variant="primary" style={{ flex: 1, justifyContent: 'center' }} onClick={() => setStep(3)} disabled={!canNext2}>
-                    Continue →
+                    Continue 
                   </Button>
                 </div>
               </div>
@@ -129,16 +129,16 @@ function BookingModal({ salon, preService, onClose }) {
                   ))}
                   <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0 0', fontSize: 15, fontWeight: 700 }}>
                     <span>Total</span>
-                    <span style={{ color: T.gold }}>{selectedSvc && selectedSvc.price === 0 ? 'Free' : selectedSvc ? `£${selectedSvc.price}` : ''}</span>
+                    <span style={{ color: T.gold }}>{selectedSvc && selectedSvc.price === 0 ? 'Free' : selectedSvc ? `${selectedSvc.price}` : ''}</span>
                   </div>
                 </div>
                 <div style={{ background: '#f8f4ff', borderRadius: 10, padding: '12px 16px', marginBottom: 16, border: '1px solid #e0d8f8', fontSize: 12, color: '#5a4a8a', lineHeight: 1.7 }}>
-                  🔒 Secure payment via Stripe · PCI-DSS compliant · 10% platform fee included
+                   Secure payment via Stripe  PCI-DSS compliant  10% platform fee included
                 </div>
                 <div style={{ display: 'flex', gap: 10 }}>
-                  <Button variant="ghost" onClick={() => setStep(2)}>← Back</Button>
+                  <Button variant="ghost" onClick={() => setStep(2)}> Back</Button>
                   <Button variant="primary" style={{ flex: 1, justifyContent: 'center' }} onClick={pay} disabled={loading}>
-                    {loading ? <><Spinner size={14} color={T.white}/> Processing...</> : 'Confirm & Pay →'}
+                    {loading ? <><Spinner size={14} color={T.white}/> Processing...</> : 'Confirm & Pay '}
                   </Button>
                 </div>
               </div>
@@ -150,7 +150,7 @@ function BookingModal({ salon, preService, onClose }) {
   )
 }
 
-// ─── REVIEW MODAL ────────────────────────────────
+//  REVIEW MODAL 
 function ReviewModal({ salon, onClose }) {
   const [rating,      setRating]      = useState(5)
   const [hover,       setHover]       = useState(0)
@@ -168,7 +168,7 @@ function ReviewModal({ salon, onClose }) {
       <div style={{ padding: '32px 36px' }}>
         {done ? (
           <div style={{ textAlign: 'center', padding: '20px 0' }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>✨</div>
+            <div style={{ fontSize: 48, marginBottom: 12 }}></div>
             <div style={{ fontFamily: F.display, fontSize: 22, color: T.forest }}>Thank you for your review!</div>
             <div style={{ fontSize: 13, color: T.inkSoft, marginTop: 8, marginBottom: 20 }}>Your feedback helps others find great salons.</div>
             <Button variant="primary" onClick={onClose}>Close</Button>
@@ -177,12 +177,12 @@ function ReviewModal({ salon, onClose }) {
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
               <div style={{ fontFamily: F.display, fontSize: 22, color: T.forest }}>Review {salon.name}</div>
-              <button onClick={onClose} style={{ background: T.offwhite, border: 'none', borderRadius: '50%', width: 36, height: 36, cursor: 'pointer', fontSize: 16, color: T.inkSoft }}>✕</button>
+              <button onClick={onClose} style={{ background: T.offwhite, border: 'none', borderRadius: '50%', width: 36, height: 36, cursor: 'pointer', fontSize: 16, color: T.inkSoft }}></button>
             </div>
             <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
               {[1,2,3,4,5].map(n => (
                 <button key={n} onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)} onClick={() => setRating(n)}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 36, color: n <= (hover || rating) ? T.gold : T.border, transition: 'color 0.1s' }}>★</button>
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 36, color: n <= (hover || rating) ? T.gold : T.border, transition: 'color 0.1s' }}></button>
               ))}
             </div>
             <Input label="Your Name" value={reviewName} onChange={e => setReviewName(e.target.value)} placeholder="First name & initial e.g. Sophie T."/>
@@ -200,7 +200,7 @@ function ReviewModal({ salon, onClose }) {
   )
 }
 
-// ─── MAIN SALON PAGE ─────────────────────────────
+//  MAIN SALON PAGE 
 export default function SalonPage({ user }) {
   const { id }        = useParams()
   const navigate      = useNavigate()
@@ -241,10 +241,10 @@ export default function SalonPage({ user }) {
       <div style={{ position: 'relative', height: 320, overflow: 'hidden' }}>
         <img src={salon.images && salon.images[0]} alt={salon.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
         <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 30%, ${T.cream})` }}/>
-        <button onClick={() => navigate(-1)} style={{ position: 'absolute', top: 16, left: 16, background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: 10, padding: '8px 16px', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: T.forest }}>← Back</button>
+        <button onClick={() => navigate(-1)} style={{ position: 'absolute', top: 16, left: 16, background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: 10, padding: '8px 16px', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: T.forest }}> Back</button>
         <div style={{ position: 'absolute', bottom: 16, left: 24, display: 'flex', gap: 6 }}>
-          {salon.verified && <Badge variant="green">✓ Verified</Badge>}
-          {salon.plan === 'premium' && <Badge variant="gold">★ Premium</Badge>}
+          {salon.verified && <Badge variant="green"> Verified</Badge>}
+          {salon.plan === 'premium' && <Badge variant="gold"> Premium</Badge>}
           {salon.promoted && <Badge variant="forest">Featured</Badge>}
         </div>
       </div>
@@ -255,7 +255,7 @@ export default function SalonPage({ user }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
           <div>
             <h1 style={{ fontFamily: F.display, fontSize: 34, color: T.forest, fontWeight: 400, marginBottom: 4 }}>{salon.name}</h1>
-            <div style={{ fontSize: 13, color: T.inkSoft }}>📍 {salon.area || salon.city} · {salon.postcode}</div>
+            <div style={{ fontSize: 13, color: T.inkSoft }}> {salon.area || salon.city}  {salon.postcode}</div>
           </div>
           <Button variant="primary" size="lg" onClick={() => setBooking(true)} style={{ flexShrink: 0 }}>Book Now</Button>
         </div>
@@ -269,9 +269,9 @@ export default function SalonPage({ user }) {
 
         {/* Contact */}
         <div style={{ fontSize: 13, color: T.inkSoft, marginBottom: 16 }}>
-          {salon.phone && <span>📞 {salon.phone} · </span>}
-          {salon.email && <span>✉️ {salon.email}</span>}
-          {salon.web && <span> · 🌐 {salon.web}</span>}
+          {salon.phone && <span> {salon.phone}  </span>}
+          {salon.email && <span> {salon.email}</span>}
+          {salon.web && <span>   {salon.web}</span>}
         </div>
 
         {/* Bio */}
@@ -337,7 +337,7 @@ export default function SalonPage({ user }) {
                     </td>
                     <td style={{ padding: '13px 0', fontSize: 12, color: T.inkSoft }}>{s.duration} min</td>
                     <td style={{ textAlign: 'right', padding: '13px 0', fontSize: 15, fontWeight: 700, color: T.gold }}>
-                      {s.price === 0 ? 'Free' : `£${s.price}`}
+                      {s.price === 0 ? 'Free' : `${s.price}`}
                     </td>
                     <td style={{ textAlign: 'right', paddingLeft: 12 }}>
                       <button onClick={() => setBooking(s.name)} style={{ padding: '5px 14px', background: T.forest, border: 'none', borderRadius: 6, color: T.white, fontSize: 10, fontWeight: 700, cursor: 'pointer' }}>Book</button>
@@ -347,7 +347,7 @@ export default function SalonPage({ user }) {
               </tbody>
             </table>
             <div style={{ marginTop: 14, padding: '12px 16px', background: T.mint, borderRadius: 8, fontSize: 11, color: T.moss, border: `1px solid ${T.sagePale}` }}>
-              🔒 Secure payments via Stripe · Instant email and SMS confirmation · Free cancellation up to 24 hours before
+               Secure payments via Stripe  Instant email and SMS confirmation  Free cancellation up to 24 hours before
             </div>
           </div>
         )}
@@ -365,7 +365,7 @@ export default function SalonPage({ user }) {
                 {[5,4,3,2,1].map(n => (
                   <div key={n} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                     <span style={{ fontSize: 11, color: T.inkSoft, width: 8 }}>{n}</span>
-                    <span style={{ color: T.gold, fontSize: 11 }}>★</span>
+                    <span style={{ color: T.gold, fontSize: 11 }}></span>
                     <div style={{ flex: 1, height: 7, background: T.border, borderRadius: 4, overflow: 'hidden' }}>
                       <div style={{ width: `${n===5?68:n===4?22:n===3?7:n===2?2:1}%`, height: '100%', background: T.sage, borderRadius: 4 }}/>
                     </div>
@@ -384,7 +384,7 @@ export default function SalonPage({ user }) {
                       </div>
                       <div>
                         <div style={{ fontWeight: 700, fontSize: 13, color: T.ink }}>{r.author_name}</div>
-                        {r.verified && <div style={{ fontSize: 10, color: T.sage }}>✓ Verified booking</div>}
+                        {r.verified && <div style={{ fontSize: 10, color: T.sage }}> Verified booking</div>}
                       </div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
@@ -399,7 +399,7 @@ export default function SalonPage({ user }) {
             </div>
 
             <button onClick={() => setReviewing(true)} style={{ width: '100%', padding: 13, background: 'transparent', border: `1.5px dashed ${T.sageLight}`, borderRadius: 10, color: T.sage, fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>
-              ✎ Write a Review
+               Write a Review
             </button>
           </div>
         )}
