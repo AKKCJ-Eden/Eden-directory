@@ -4,26 +4,26 @@ import { getSalons } from '../lib/supabase'
 import { GLOBAL_CSS, T, F, Nav, Stars, Badge, Button, Spinner } from '../lib/design'
 
 const CATS = [
-  { id:'all',        label:'All',        icon:'✦' },
-  { id:'hair',        label:'Hair',               icon:'✂'  },
-  { id:'barber',      label:'Barbers',            icon:'💈' },
-  { id:'nails',       label:'Nails',              icon:'💅' },
-  { id:'aesthetics',  label:'Aesthetics',         icon:'✨' },
-  { id:'beauty',      label:'Beauty',             icon:'🌸' },
-  { id:'spa',         label:'Spa',                icon:'🧖' },
-  { id:'makeup',      label:'Makeup',             icon:'💄' },
-  { id:'tattoo',      label:'Tattoo',             icon:'🖋' },
-  { id:'tanning',     label:'Tanning',            icon:'☀' },
-  { id:'fitness',     label:'Fitness',            icon:'💪' },
-  { id:'pt',          label:'Personal Training',  icon:'🏋' },
-  { id:'dog',         label:'Dog Grooming',       icon:'🐾' },
-  { id:'mobile',      label:'Mobile Services',    icon:'🚗' },
-  { id:'integration', label:'Hair Integration',   icon:'👱' },
-  { id:'laser',       label:'Laser',              icon:'💡' },
-  { id:'health',      label:'Health',             icon:'🏥' },
-  { id:'dental',      label:'Dental',             icon:'🦷' },
-  { id:'afro',        label:'Afro Caribbean',     icon:'✊' },
-  { id:'semiperm',    label:'Semi-Perm Tattoo',   icon:'🎨' },
+  { id:'all',        label:'All',        icon:'' },
+  { id:'hair',        label:'Hair',               icon:''  },
+  { id:'barber',      label:'Barbers',            icon:'' },
+  { id:'nails',       label:'Nails',              icon:'' },
+  { id:'aesthetics',  label:'Aesthetics',         icon:'' },
+  { id:'beauty',      label:'Beauty',             icon:'' },
+  { id:'spa',         label:'Spa',                icon:'' },
+  { id:'makeup',      label:'Makeup',             icon:'' },
+  { id:'tattoo',      label:'Tattoo',             icon:'' },
+  { id:'tanning',     label:'Tanning',            icon:'' },
+  { id:'fitness',     label:'Fitness',            icon:'' },
+  { id:'pt',          label:'Personal Training',  icon:'' },
+  { id:'dog',         label:'Dog Grooming',       icon:'' },
+  { id:'mobile',      label:'Mobile Services',    icon:'' },
+  { id:'integration', label:'Hair Integration',   icon:'' },
+  { id:'laser',       label:'Laser',              icon:'' },
+  { id:'health',      label:'Health',             icon:'' },
+  { id:'dental',      label:'Dental',             icon:'' },
+  { id:'afro',        label:'Afro Caribbean',     icon:'' },
+  { id:'semiperm',    label:'Semi-Perm Tattoo',   icon:'' },
 ]
 
 const DEMO = []
@@ -39,7 +39,7 @@ function SalonCard({ salon, selected, onSelect, isFav, onFav, inCompare, onCompa
     }}>
       {salon.promoted && (
         <div style={{ background:`linear-gradient(90deg,${T.forest},${T.moss})`,padding:'3px 12px',fontSize:9,fontWeight:700,letterSpacing:2,color:T.white }}>
-          ★ Featured Listing
+           Featured Listing
         </div>
       )}
       <div style={{ display:'flex' }}>
@@ -47,14 +47,14 @@ function SalonCard({ salon, selected, onSelect, isFav, onFav, inCompare, onCompa
           <img src={img} alt={salon.name} style={{ width:96,height:96,objectFit:'cover' }}/>
           {salon.verified && (
             <div style={{ position:'absolute',bottom:4,left:4,background:T.sage,borderRadius:'50%',width:18,height:18,display:'flex',alignItems:'center',justifyContent:'center' }}>
-              <span style={{ color:T.white,fontSize:10,fontWeight:700 }}>✓</span>
+              <span style={{ color:T.white,fontSize:10,fontWeight:700 }}></span>
             </div>
           )}
         </div>
         <div style={{ padding:'10px 12px', flex:1, minWidth:0 }}>
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
             <div style={{ fontFamily:F.display,fontSize:14,color:T.forest,lineHeight:1.3,flex:1,paddingRight:8 }}>{salon.name}</div>
-            <button onClick={e=>{e.stopPropagation();onFav();}} style={{ background:'none',border:'none',cursor:'pointer',fontSize:16,color:isFav?'#c4788a':T.border,padding:0,lineHeight:1,flexShrink:0 }}>♥</button>
+            <button onClick={e=>{e.stopPropagation();onFav();}} style={{ background:'none',border:'none',cursor:'pointer',fontSize:16,color:isFav?'#c4788a':T.border,padding:0,lineHeight:1,flexShrink:0 }}></button>
           </div>
           <div style={{ fontSize:11,color:T.inkSoft,marginBottom:4,marginTop:2 }}>{salon.area || salon.city}</div>
           <div style={{ display:'flex',alignItems:'center',gap:5,marginBottom:6 }}>
@@ -70,13 +70,13 @@ function SalonCard({ salon, selected, onSelect, isFav, onFav, inCompare, onCompa
         </div>
       </div>
       <div style={{ padding:'8px 12px',borderTop:`1px solid ${T.border}`,display:'flex',justifyContent:'space-between',alignItems:'center',background:T.offwhite }}>
-        <span style={{ fontSize:12,color:T.inkSoft }}>From <strong style={{ color:T.forest,fontSize:14 }}>£{minPrice === 9999 ? 0 : minPrice}</strong></span>
+        <span style={{ fontSize:12,color:T.inkSoft }}>From <strong style={{ color:T.forest,fontSize:14 }}>{minPrice === 9999 ? 0 : minPrice}</strong></span>
         <div style={{ display:'flex',gap:6 }}>
           <button onClick={e=>{e.stopPropagation();onCompare();}} style={{
             padding:'4px 10px',fontSize:9,fontWeight:700,letterSpacing:0.5,borderRadius:5,cursor:'pointer',
             background:inCompare?T.sagePale:'transparent',border:`1px solid ${T.border}`,
             color:inCompare?T.moss:T.inkSoft,
-          }}>⇄ Compare</button>
+          }}> Compare</button>
           <button onClick={e=>{e.stopPropagation();window.location.href=`/salon/${salon.id}`;}} style={{
             padding:'4px 14px',background:T.forest,border:'none',borderRadius:5,
             color:T.white,fontSize:10,fontWeight:700,cursor:'pointer',
@@ -158,9 +158,9 @@ export default function Results({ user }) {
           {/* Filter bar */}
           <div style={{ padding:'12px 16px', borderBottom:`1px solid ${T.border}`, background:T.white, position:'sticky', top:0, zIndex:10 }}>
             <div style={{ display:'flex', gap:10, alignItems:'center', marginBottom:10, flexWrap:'wrap' }}>
-              <button onClick={() => navigate('/')} style={{ background:'none', border:'none', color:T.sage, cursor:'pointer', fontSize:13, fontWeight:500 }}>← New Search</button>
+              <button onClick={() => navigate('/')} style={{ background:'none', border:'none', color:T.sage, cursor:'pointer', fontSize:13, fontWeight:500 }}> New Search</button>
               <span style={{ color:T.border }}>|</span>
-              <span style={{ fontSize:12, color:T.inkSoft }}>📍 <strong>{postcode}</strong> · {radius} miles · <strong>{sorted.length}</strong> results</span>
+              <span style={{ fontSize:12, color:T.inkSoft }}> <strong>{postcode}</strong>  {radius} miles  <strong>{sorted.length}</strong> results</span>
               <select value={sort} onChange={e=>setSort(e.target.value)} style={{ marginLeft:'auto', padding:'5px 10px', background:T.offwhite, border:`1px solid ${T.border}`, borderRadius:6, fontSize:11, color:T.inkMid }}>
                 <option value="rating">Top Rated</option>
                 <option value="reviews">Most Reviewed</option>
@@ -181,7 +181,7 @@ export default function Results({ user }) {
 
           {/* AI Concierge */}
           <div style={{ padding:'12px 14px', background:T.mint, borderBottom:`1px solid ${T.sagePale}` }}>
-            <div style={{ fontSize:9, letterSpacing:3, color:T.moss, fontWeight:700, marginBottom:7 }}>✦ YOUR PERSONAL BEAUTY ADVISOR</div>
+            <div style={{ fontSize:9, letterSpacing:3, color:T.moss, fontWeight:700, marginBottom:7 }}> YOUR PERSONAL BEAUTY ADVISOR</div>
             <div style={{ display:'flex', gap:8 }}>
               <input value={aiQ} onChange={e=>setAiQ(e.target.value)} onKeyDown={e=>e.key==='Enter'&&askAI()}
                 placeholder="e.g. 'I want a balayage' or 'best massage for stress relief'..."
@@ -202,7 +202,7 @@ export default function Results({ user }) {
               </div>
             ) : sorted.length === 0 ? (
               <div style={{ textAlign:'center', padding:'40px 0', color:T.inkSoft }}>
-                <div style={{ fontSize:36, marginBottom:12 }}>🌿</div>
+                <div style={{ fontSize:36, marginBottom:12 }}></div>
                 <div style={{ fontSize:14 }}>No salons found in this area yet.</div>
                 <div style={{ fontSize:12, marginTop:8 }}>Be the first to <a href="/list-business" style={{ color:T.sage }}>list your business!</a></div>
               </div>
@@ -221,11 +221,11 @@ export default function Results({ user }) {
             <div style={{ position:'relative' }}>
               <img src={selected.images?.[0]||selected.img} alt={selected.name} style={{ width:'100%', height:240, objectFit:'cover' }}/>
               <div style={{ position:'absolute', inset:0, background:`linear-gradient(180deg,transparent 35%,${T.white})` }}/>
-              <button onClick={() => setSelected(null)} style={{ position:'absolute', top:14, right:14, background:'rgba(255,255,255,0.92)', border:'none', borderRadius:'50%', width:38, height:38, cursor:'pointer', fontSize:16 }}>✕</button>
+              <button onClick={() => setSelected(null)} style={{ position:'absolute', top:14, right:14, background:'rgba(255,255,255,0.92)', border:'none', borderRadius:'50%', width:38, height:38, cursor:'pointer', fontSize:16 }}></button>
             </div>
             <div style={{ padding:'16px 28px 40px' }}>
               <h2 style={{ fontFamily:F.display, fontSize:28, color:T.forest, fontWeight:400, marginBottom:4 }}>{selected.name}</h2>
-              <div style={{ fontSize:13, color:T.inkSoft, marginBottom:8 }}>📍 {selected.area || selected.city} · {selected.postcode}</div>
+              <div style={{ fontSize:13, color:T.inkSoft, marginBottom:8 }}> {selected.area || selected.city}  {selected.postcode}</div>
               <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:16 }}>
                 <Stars r={Math.round(selected.rating)} size={15}/>
                 <span style={{ fontSize:16, fontWeight:700, color:T.gold }}>{selected.rating}</span>
@@ -233,7 +233,7 @@ export default function Results({ user }) {
               </div>
               {selected.bio && <p style={{ fontSize:14, color:T.inkMid, lineHeight:1.8, marginBottom:20 }}>{selected.bio}</p>}
               <a href={`/salon/${selected.id}`} style={{ display:'block', width:'100%', padding:'15px', background:T.forest, border:'none', borderRadius:12, color:T.white, fontWeight:700, fontSize:15, cursor:'pointer', textAlign:'center', boxShadow:`0 4px 20px ${T.shadowMd}`, textDecoration:'none', marginBottom:16 }}>
-                View Full Profile & Book →
+                View Full Profile & Book 
               </a>
               {selected.services && (
                 <div>
@@ -243,13 +243,13 @@ export default function Results({ user }) {
                       {selected.services.map((s,i) => (
                         <tr key={i} style={{ borderBottom:`1px solid ${T.border}` }}>
                           <td style={{ padding:'10px 0', fontSize:13, color:T.ink }}>{s.name}</td>
-                          <td style={{ textAlign:'right', fontSize:14, fontWeight:700, color:T.gold }}>{s.price===0?'Free':`£${s.price}`}</td>
+                          <td style={{ textAlign:'right', fontSize:14, fontWeight:700, color:T.gold }}>{s.price===0?'Free':`${s.price}`}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                   <div style={{ marginTop:14, padding:'12px 16px', background:T.mint, borderRadius:8, fontSize:11, color:T.moss, border:`1px solid ${T.sagePale}` }}>
-                    ✓ Instant booking confirmation · ✓ Free cancellation up to 24 hours before
+                     Instant booking confirmation   Free cancellation up to 24 hours before
                   </div>
                 </div>
               )}
@@ -259,7 +259,7 @@ export default function Results({ user }) {
         {!selected && (
           <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', background:T.offwhite }}>
             <div style={{ textAlign:'center', maxWidth:300 }}>
-              <div style={{ fontSize:48, marginBottom:16, opacity:0.25 }}>🌿</div>
+              <div style={{ fontSize:48, marginBottom:16, opacity:0.25 }}></div>
               <div style={{ fontFamily:F.display, fontSize:22, color:T.inkSoft, marginBottom:8 }}>Select a listing</div>
               <div style={{ fontSize:13, color:T.inkFaint, lineHeight:1.7 }}>Choose any salon to see full details, services, prices and booking options.</div>
             </div>
@@ -276,11 +276,11 @@ export default function Results({ user }) {
               {compare.map(s => (
                 <div key={s.id} style={{ background:'rgba(255,255,255,0.08)', borderRadius:8, padding:'8px 14px', minWidth:160, border:'1px solid rgba(255,255,255,0.1)', flexShrink:0 }}>
                   <div style={{ fontSize:12, fontWeight:700, color:T.white }}>{s.name}</div>
-                  <div style={{ fontSize:11, color:T.goldLight }}>From £{s.services?Math.min(...s.services.map(sv=>sv.price===0?9999:sv.price)):0}</div>
+                  <div style={{ fontSize:11, color:T.goldLight }}>From {s.services?Math.min(...s.services.map(sv=>sv.price===0?9999:sv.price)):0}</div>
                 </div>
               ))}
             </div>
-            <button onClick={() => setCompare([])} style={{ background:'rgba(255,255,255,0.1)', border:'none', borderRadius:6, color:'rgba(255,255,255,0.7)', padding:'6px 14px', cursor:'pointer', fontSize:12, flexShrink:0 }}>Clear ✕</button>
+            <button onClick={() => setCompare([])} style={{ background:'rgba(255,255,255,0.1)', border:'none', borderRadius:6, color:'rgba(255,255,255,0.7)', padding:'6px 14px', cursor:'pointer', fontSize:12, flexShrink:0 }}>Clear </button>
           </div>
         </div>
       )}
