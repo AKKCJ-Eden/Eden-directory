@@ -2,28 +2,29 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { getSalons } from '../lib/supabase'
 import { GLOBAL_CSS, T, F, Nav, Stars, Badge, Button, Spinner } from '../lib/design'
+import { CATEGORY_ICONS } from '../lib/icons'
 
 const CATS = [
-  { id:'all',        label:'All',        icon:'' },
-  { id:'hair',        label:'Hair',               icon:''  },
-  { id:'barber',      label:'Barbers',            icon:'' },
-  { id:'nails',       label:'Nails',              icon:'' },
-  { id:'aesthetics',  label:'Aesthetics',         icon:'' },
-  { id:'beauty',      label:'Beauty',             icon:'' },
-  { id:'spa',         label:'Spa',                icon:'' },
-  { id:'makeup',      label:'Makeup',             icon:'' },
-  { id:'tattoo',      label:'Tattoo',             icon:'' },
-  { id:'tanning',     label:'Tanning',            icon:'' },
-  { id:'fitness',     label:'Fitness',            icon:'' },
-  { id:'pt',          label:'Personal Training',  icon:'' },
-  { id:'dog',         label:'Dog Grooming',       icon:'' },
-  { id:'mobile',      label:'Mobile Services',    icon:'' },
-  { id:'integration', label:'Hair Integration',   icon:'' },
-  { id:'laser',       label:'Laser',              icon:'' },
-  { id:'health',      label:'Health',             icon:'' },
-  { id:'dental',      label:'Dental',             icon:'' },
-  { id:'afro',        label:'Afro Caribbean',     icon:'' },
-  { id:'semiperm',    label:'Semi-Perm Tattoo',   icon:'' },
+  { id:'all',        label:'All'                        },
+  { id:'hair',       label:'Hair'                       },
+  { id:'barber',     label:'Barbers'                    },
+  { id:'nails',      label:'Nails'                      },
+  { id:'aesthetics', label:'Aesthetics'                 },
+  { id:'beauty',     label:'Beauty'                     },
+  { id:'spa',        label:'Spa'                        },
+  { id:'makeup',     label:'Makeup'                     },
+  { id:'tattoo',     label:'Tattoo'                     },
+  { id:'tanning',    label:'Tanning'                    },
+  { id:'fitness',    label:'Fitness'                    },
+  { id:'pt',         label:'Personal Training'          },
+  { id:'dog',        label:'Dog Grooming'               },
+  { id:'mobile',     label:'Mobile Services'            },
+  { id:'integration',label:'Hair Integration'           },
+  { id:'laser',      label:'Laser'                      },
+  { id:'health',     label:'Health'                     },
+  { id:'dental',     label:'Dental'                     },
+  { id:'afro',       label:'Afro Caribbean'             },
+  { id:'semiperm',   label:'Semi-Perm Tattoo'           },
 ]
 
 const DEMO = []
@@ -174,7 +175,7 @@ export default function Results({ user }) {
                   background: category===c.id ? T.forest : T.offwhite,
                   color: category===c.id ? T.white : T.inkMid,
                   transition:'all 0.18s', flexShrink:0,
-                }}>{c.icon} {c.label}</button>
+                }}>{(() => { const IC = CATEGORY_ICONS[c.id]; return IC ? <IC size={14} color="currentColor"/> : null })()} {c.label}</button>
               ))}
             </div>
           </div>
