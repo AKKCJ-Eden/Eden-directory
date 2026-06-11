@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase, signOut } from '../lib/supabase'
 import { GLOBAL_CSS, T, F, Badge, Button, Spinner } from '../lib/design'
 
-// ─── SECURITY CONFIG ──────────────────────────────
+//  SECURITY CONFIG 
 // Only this email can access the admin panel
 const ADMIN_EMAIL = 'admin@theedenappltd.com'
 // 6-digit PIN -- known only to the platform owner
@@ -13,7 +13,7 @@ const MAX_ATTEMPTS = 3
 // Lockout duration in minutes
 const LOCKOUT_MINUTES = 30
 
-// ─── DEMO DATA ────────────────────────────────────
+//  DEMO DATA 
 const DEMO_SALONS = []
 
 const DEMO_BOOKINGS = []
@@ -22,7 +22,7 @@ const DEMO_USERS = []
 
 const PLAN_PRICES = { free: 0, standard: 59, premium: 119 }
 
-// ─── SMALL COMPONENTS ─────────────────────────────
+//  SMALL COMPONENTS 
 const PlanBadge = ({ plan }) => {
   const s = { free:{ bg:T.offwhite,color:T.inkSoft,label:'Free' }, standard:{ bg:T.mint,color:T.moss,label:'Growth' }, premium:{ bg:T.goldPale,color:T.gold,label:'Premium' } }[plan] || { bg:T.offwhite,color:T.inkSoft,label:'Free' }
   return <span style={{ padding:'3px 10px',borderRadius:20,fontSize:10,fontWeight:700,background:s.bg,color:s.color,letterSpacing:0.5,textTransform:'uppercase' }}>{s.label}</span>
@@ -44,7 +44,7 @@ const StatusBadge = ({ status }) => {
   return <span style={{ padding:'3px 10px',borderRadius:20,fontSize:10,fontWeight:700,background:s.bg,color:s.color,letterSpacing:0.5,textTransform:'uppercase',whiteSpace:'nowrap' }}>{s.label}</span>
 }
 
-// ─── PIN ENTRY SCREEN ─────────────────────────────
+//  PIN ENTRY SCREEN 
 function PinScreen({ onSuccess }) {
   const [pin,        setPin]        = useState(['','','','','',''])
   const [error,      setError]      = useState('')
@@ -111,7 +111,7 @@ function PinScreen({ onSuccess }) {
       <div style={{ background:'#0f1a0f', borderRadius:24, padding:'48px 40px', width:400, maxWidth:'100%', border:'1px solid rgba(90,138,98,0.2)', boxShadow:'0 32px 80px rgba(0,0,0,0.5)', textAlign:'center' }}>
 
         {/* Logo */}
-        <div style={{ width:64, height:64, borderRadius:16, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 20px', fontSize:30 }}>🌿</div>
+        <div style={{ width:64, height:64, borderRadius:16, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 20px', fontSize:30 }}></div>
 
         <div style={{ fontFamily:F.display, fontSize:26, color:T.white, marginBottom:6 }}>Eden Admin</div>
         <div style={{ fontSize:13, color:'rgba(255,255,255,0.35)', marginBottom:32 }}>Enter your 6-digit admin PIN to continue</div>
@@ -144,7 +144,7 @@ function PinScreen({ onSuccess }) {
         {/* Error / locked message */}
         {error && (
           <div style={{ background:'rgba(184,64,64,0.15)', border:'1px solid rgba(184,64,64,0.3)', borderRadius:10, padding:'10px 16px', marginBottom:20, fontSize:13, color:'#f87171', lineHeight:1.6 }}>
-            {isLocked ? `🔒 Admin panel locked. Try again in ${remaining} minute${remaining===1?'':'s'}.` : `⚠️ ${error}`}
+            {isLocked ? ` Admin panel locked. Try again in ${remaining} minute${remaining===1?'':'s'}.` : ` ${error}`}
           </div>
         )}
 
@@ -158,7 +158,7 @@ function PinScreen({ onSuccess }) {
   )
 }
 
-// ─── SALON MANAGEMENT MODAL ───────────────────────
+//  SALON MANAGEMENT MODAL 
 function SalonModal({ salon, onClose, onSave }) {
   const [plan,       setPlan]       = useState(salon.plan)
   const [status,     setStatus]     = useState(salon.status)
@@ -186,7 +186,7 @@ function SalonModal({ salon, onClose, onSave }) {
         onClick={e => e.stopPropagation()}>
         {saved ? (
           <div style={{ padding:'48px 36px', textAlign:'center' }}>
-            <div style={{ fontSize:48, marginBottom:12 }}>✅</div>
+            <div style={{ fontSize:48, marginBottom:12 }}></div>
             <div style={{ fontFamily:F.display, fontSize:22, color:T.white }}>Changes saved!</div>
           </div>
         ) : (
@@ -197,7 +197,7 @@ function SalonModal({ salon, onClose, onSave }) {
                 <div style={{ fontFamily:F.display, fontSize:20, color:T.white }}>{salon.name}</div>
                 <div style={{ fontSize:12, color:'rgba(255,255,255,0.4)', marginTop:2 }}>{salon.owner} - {salon.city}</div>
               </div>
-              <button onClick={onClose} style={{ background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:10, padding:'8px 12px', color:T.white, cursor:'pointer', fontSize:14 }}>✕</button>
+              <button onClick={onClose} style={{ background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:10, padding:'8px 12px', color:T.white, cursor:'pointer', fontSize:14 }}></button>
             </div>
 
             <div style={{ padding:'28px 32px' }}>
@@ -208,8 +208,8 @@ function SalonModal({ salon, onClose, onSave }) {
                 <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:10 }}>
                   {[
                     { id:'free',     label:'Starter', price:'Free'      },
-                    { id:'standard', label:'Growth',  price:'£59/mo'    },
-                    { id:'premium',  label:'Premium', price:'£119/mo'   },
+                    { id:'standard', label:'Growth',  price:'59/mo'    },
+                    { id:'premium',  label:'Premium', price:'119/mo'   },
                   ].map(p => (
                     <div key={p.id} onClick={() => setPlan(p.id)} style={{ padding:'14px', borderRadius:10, cursor:'pointer', border:`2px solid ${plan===p.id?T.sage:'rgba(255,255,255,0.1)'}`, background:plan===p.id?'rgba(90,138,98,0.15)':'rgba(255,255,255,0.03)', textAlign:'center', transition:'all 0.15s' }}>
                       <div style={{ fontFamily:F.display, fontSize:15, color:T.white, marginBottom:4 }}>{p.label}</div>
@@ -221,7 +221,7 @@ function SalonModal({ salon, onClose, onSave }) {
 
                 {/* Free onboarding */}
                 <div style={{ marginTop:12, padding:'16px', background:'rgba(196,154,60,0.08)', borderRadius:10, border:'1px solid rgba(196,154,60,0.2)' }}>
-                  <div style={{ fontSize:12, fontWeight:700, color:T.goldLight, marginBottom:6 }}>🎁 Free Onboarding Override</div>
+                  <div style={{ fontSize:12, fontWeight:700, color:T.goldLight, marginBottom:6 }}> Free Onboarding Override</div>
                   <div style={{ fontSize:12, color:'rgba(255,255,255,0.4)', marginBottom:10, lineHeight:1.7 }}>
                     Grant this salon free access to any paid plan for a set period -- no payment taken. Use this during onboarding to get salons live quickly.
                   </div>
@@ -311,7 +311,7 @@ function SalonModal({ salon, onClose, onSave }) {
   )
 }
 
-// ─── MAIN ADMIN PANEL ─────────────────────────────
+//  MAIN ADMIN PANEL 
 export default function AdminPanel({ user }) {
   const [pinPassed,     setPinPassed]     = useState(false)
   const [authorized,    setAuthorized]    = useState(false)
@@ -361,7 +361,7 @@ export default function AdminPanel({ user }) {
     <div style={{ minHeight:'100vh', background:'#0a120a', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.body }}>
       <style>{GLOBAL_CSS}</style>
       <div style={{ textAlign:'center', padding:40 }}>
-        <div style={{ fontSize:48, marginBottom:16 }}>🔒</div>
+        <div style={{ fontSize:48, marginBottom:16 }}></div>
         <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:8 }}>Access Denied</div>
         <div style={{ fontSize:14, color:'rgba(255,255,255,0.4)', marginBottom:20 }}>You do not have permission to access this area.</div>
         <button onClick={() => navigate('/')} style={{ padding:'10px 24px', background:T.sage, border:'none', borderRadius:10, color:T.white, fontWeight:600, cursor:'pointer', fontSize:13 }}>Back to Eden</button>
@@ -372,7 +372,7 @@ export default function AdminPanel({ user }) {
   // PIN screen -- shown before admin panel even if authorized
   if (!pinPassed) return <PinScreen onSuccess={() => setPinPassed(true)} />
 
-  // ── ADMIN PANEL ──
+  //  ADMIN PANEL 
   return (
     <div style={{ minHeight:'100vh', background:'#111a11', fontFamily:F.body }}>
       <style>{GLOBAL_CSS}</style>
@@ -380,7 +380,7 @@ export default function AdminPanel({ user }) {
       {/* Nav */}
       <nav style={{ background:'#0a120a', padding:'0 24px', height:62, display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid rgba(90,138,98,0.15)', position:'sticky', top:0, zIndex:200 }}>
         <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-          <div style={{ width:34, height:34, borderRadius:10, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18 }}>🌿</div>
+          <div style={{ width:34, height:34, borderRadius:10, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18 }}></div>
           <span style={{ fontFamily:F.display, fontSize:20, color:T.white }}>Eden</span>
           <span style={{ fontSize:10, background:T.error, color:T.white, padding:'2px 8px', borderRadius:10, fontWeight:700, letterSpacing:1 }}>ADMIN</span>
         </div>
@@ -415,7 +415,7 @@ export default function AdminPanel({ user }) {
         {/* Content */}
         <div style={{ flex:1, overflowY:'auto', padding:'32px' }}>
 
-          {/* ── OVERVIEW ── */}
+          {/*  OVERVIEW  */}
           {tab==='overview' && (
             <div style={{ animation:'fadeUp 0.4s ease' }}>
               <div style={{ fontFamily:F.display, fontSize:28, color:T.white, marginBottom:4 }}>Admin Overview</div>
@@ -423,12 +423,12 @@ export default function AdminPanel({ user }) {
 
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:16, marginBottom:28 }}>
                 {[
-                  { icon:'🏢', label:'Active Salons',        value:activeSalons,                           color:T.sageLight },
-                  { icon:'📅', label:'Total Bookings',       value:totalBookings,                          color:T.sageLight },
-                  { icon:'💷', label:'Platform Commission',  value:`£${totalCommission.toLocaleString()}`, color:T.goldLight },
-                  { icon:'📋', label:'Subscription Revenue', value:`£${subRevenue.toLocaleString()}/mo`,   color:T.goldLight },
-                  { icon:'⭐', label:'Premium Salons',       value:premiumCount,                           color:T.sageLight },
-                  { icon:'🔔', label:'Awaiting Approval',    value:salons.filter(s=>s.status==='pending').length, color:'#fbbf24' },
+                  { icon:'', label:'Active Salons',        value:activeSalons,                           color:T.sageLight },
+                  { icon:'', label:'Total Bookings',       value:totalBookings,                          color:T.sageLight },
+                  { icon:'', label:'Platform Commission',  value:`${totalCommission.toLocaleString()}`, color:T.goldLight },
+                  { icon:'', label:'Subscription Revenue', value:`${subRevenue.toLocaleString()}/mo`,   color:T.goldLight },
+                  { icon:'', label:'Premium Salons',       value:premiumCount,                           color:T.sageLight },
+                  { icon:'', label:'Awaiting Approval',    value:salons.filter(s=>s.status==='pending').length, color:'#fbbf24' },
                 ].map((s,i) => (
                   <div key={i} style={{ background:'rgba(255,255,255,0.04)', borderRadius:12, padding:'20px 18px', border:'1px solid rgba(255,255,255,0.07)' }}>
                     <div style={{ fontSize:26, marginBottom:10 }}>{s.icon}</div>
@@ -465,7 +465,7 @@ export default function AdminPanel({ user }) {
                     <div key={s.id} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'10px 0' }}>
                       <div>
                         <div style={{ fontSize:13, fontWeight:600, color:T.white }}>{s.name}</div>
-                        <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>{s.plan==='standard'?'Growth £59/mo':'Premium £119/mo'} - Payment overdue</div>
+                        <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>{s.plan==='standard'?'Growth 59/mo':'Premium 119/mo'} - Payment overdue</div>
                       </div>
                       <button onClick={() => setManagingSalon(s)} style={{ padding:'6px 14px', background:'rgba(184,64,64,0.15)', border:'1px solid rgba(184,64,64,0.25)', borderRadius:6, color:'#f87171', fontSize:11, fontWeight:700, cursor:'pointer' }}>Review</button>
                     </div>
@@ -476,9 +476,9 @@ export default function AdminPanel({ user }) {
               {/* Revenue */}
               <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16 }}>
                 {[
-                  { label:'Booking Commission',    value:`£${totalCommission.toLocaleString()}`,              sub:'10% of all bookings', color:T.sage    },
-                  { label:'Subscription Revenue',  value:`£${subRevenue.toLocaleString()}/mo`,                sub:`${premiumCount+standardCount} subscribers`, color:T.gold    },
-                  { label:'Total Platform Revenue',value:`£${(totalCommission+subRevenue).toLocaleString()}`, sub:'Combined this month', color:'#a78bfa' },
+                  { label:'Booking Commission',    value:`${totalCommission.toLocaleString()}`,              sub:'10% of all bookings', color:T.sage    },
+                  { label:'Subscription Revenue',  value:`${subRevenue.toLocaleString()}/mo`,                sub:`${premiumCount+standardCount} subscribers`, color:T.gold    },
+                  { label:'Total Platform Revenue',value:`${(totalCommission+subRevenue).toLocaleString()}`, sub:'Combined this month', color:'#a78bfa' },
                 ].map((r,i) => (
                   <div key={i} style={{ background:'rgba(255,255,255,0.04)', borderRadius:10, padding:18, border:'1px solid rgba(255,255,255,0.07)', textAlign:'center' }}>
                     <div style={{ fontFamily:F.display, fontSize:26, color:r.color, marginBottom:6 }}>{r.value}</div>
@@ -490,7 +490,7 @@ export default function AdminPanel({ user }) {
             </div>
           )}
 
-          {/* ── SALONS ── */}
+          {/*  SALONS  */}
           {tab==='salons' && (
             <div style={{ animation:'fadeUp 0.4s ease' }}>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:20, flexWrap:'wrap', gap:12 }}>
@@ -523,7 +523,7 @@ export default function AdminPanel({ user }) {
                         <td style={{ padding:'14px 16px' }}><PlanBadge plan={s.plan}/></td>
                         <td style={{ padding:'14px 16px' }}><StatusBadge status={s.status}/></td>
                         <td style={{ padding:'14px 16px', fontSize:13, color:'rgba(255,255,255,0.5)' }}>{s.bookings}</td>
-                        <td style={{ padding:'14px 16px', fontSize:13, fontWeight:700, color:T.goldLight }}>£{s.revenue.toLocaleString()}</td>
+                        <td style={{ padding:'14px 16px', fontSize:13, fontWeight:700, color:T.goldLight }}>{s.revenue.toLocaleString()}</td>
                         <td style={{ padding:'14px 16px' }}><StatusBadge status={s.paymentStatus}/></td>
                         <td style={{ padding:'14px 16px' }}>
                           <button onClick={() => setManagingSalon(s)} style={{ padding:'6px 14px', background:'rgba(90,138,98,0.15)', border:'1px solid rgba(90,138,98,0.25)', borderRadius:6, color:T.sageLight, fontSize:11, fontWeight:700, cursor:'pointer' }}>Manage</button>
@@ -536,7 +536,7 @@ export default function AdminPanel({ user }) {
             </div>
           )}
 
-          {/* ── BOOKINGS ── */}
+          {/*  BOOKINGS  */}
           {tab==='bookings' && (
             <div style={{ animation:'fadeUp 0.4s ease' }}>
               <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:20 }}>All Bookings</div>
@@ -556,8 +556,8 @@ export default function AdminPanel({ user }) {
                         <td style={{ padding:'12px 16px', fontSize:12, color:'rgba(255,255,255,0.45)' }}>{b.salon}</td>
                         <td style={{ padding:'12px 16px', fontSize:12, color:'rgba(255,255,255,0.45)' }}>{b.service}</td>
                         <td style={{ padding:'12px 16px', fontSize:12, color:'rgba(255,255,255,0.35)' }}>{b.date}</td>
-                        <td style={{ padding:'12px 16px', fontSize:13, fontWeight:700, color:T.goldLight }}>£{b.amount}</td>
-                        <td style={{ padding:'12px 16px', fontSize:12, color:T.sageLight }}>£{b.commission.toFixed(2)}</td>
+                        <td style={{ padding:'12px 16px', fontSize:13, fontWeight:700, color:T.goldLight }}>{b.amount}</td>
+                        <td style={{ padding:'12px 16px', fontSize:12, color:T.sageLight }}>{b.commission.toFixed(2)}</td>
                         <td style={{ padding:'12px 16px' }}><StatusBadge status={b.status}/></td>
                       </tr>
                     ))}
@@ -565,12 +565,12 @@ export default function AdminPanel({ user }) {
                 </table>
               </div>
               <div style={{ marginTop:14, padding:'12px 16px', background:'rgba(90,138,98,0.06)', borderRadius:8, border:'1px solid rgba(90,138,98,0.12)', fontSize:12, color:T.sageLight }}>
-                Total Eden commission from these bookings: <strong style={{ color:T.goldLight }}>£{DEMO_BOOKINGS.reduce((a,b)=>a+b.commission,0).toFixed(2)}</strong>
+                Total Eden commission from these bookings: <strong style={{ color:T.goldLight }}>{DEMO_BOOKINGS.reduce((a,b)=>a+b.commission,0).toFixed(2)}</strong>
               </div>
             </div>
           )}
 
-          {/* ── CUSTOMERS ── */}
+          {/*  CUSTOMERS  */}
           {tab==='customers' && (
             <div style={{ animation:'fadeUp 0.4s ease' }}>
               <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:20 }}>All Customers</div>
@@ -595,7 +595,7 @@ export default function AdminPanel({ user }) {
                         <td style={{ padding:'12px 16px', fontSize:12, color:'rgba(255,255,255,0.35)' }}>{u.email}</td>
                         <td style={{ padding:'12px 16px', fontSize:12, color:'rgba(255,255,255,0.35)' }}>{u.joined}</td>
                         <td style={{ padding:'12px 16px', fontSize:13, color:'rgba(255,255,255,0.5)' }}>{u.bookings}</td>
-                        <td style={{ padding:'12px 16px', fontSize:13, fontWeight:700, color:T.goldLight }}>£{u.spent}</td>
+                        <td style={{ padding:'12px 16px', fontSize:13, fontWeight:700, color:T.goldLight }}>{u.spent}</td>
                         <td style={{ padding:'12px 16px' }}><StatusBadge status={u.status}/></td>
                         <td style={{ padding:'12px 16px' }}>
                           <button style={{ padding:'5px 12px', background:'rgba(184,64,64,0.12)', border:'1px solid rgba(184,64,64,0.2)', borderRadius:6, color:'#f87171', fontSize:10, fontWeight:700, cursor:'pointer' }}>
@@ -610,16 +610,16 @@ export default function AdminPanel({ user }) {
             </div>
           )}
 
-          {/* ── REVENUE ── */}
+          {/*  REVENUE  */}
           {tab==='revenue' && (
             <div style={{ animation:'fadeUp 0.4s ease' }}>
               <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:24 }}>Revenue and Finance</div>
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:16, marginBottom:28 }}>
                 {[
-                  { label:'Booking Commission',    value:`£${totalCommission.toLocaleString()}`,                    sub:'This month at 10%',         icon:'💷' },
-                  { label:'Subscription Revenue',  value:`£${subRevenue.toLocaleString()}/mo`,                      sub:'Monthly recurring',         icon:'📋' },
-                  { label:'Total Platform Revenue',value:`£${(totalCommission+subRevenue).toLocaleString()}`,        sub:'Combined this month',       icon:'📈' },
-                  { label:'Projected Annual',      value:`£${((totalCommission+subRevenue)*12).toLocaleString()}`,   sub:'Based on current month',    icon:'🚀' },
+                  { label:'Booking Commission',    value:`${totalCommission.toLocaleString()}`,                    sub:'This month at 10%',         icon:'' },
+                  { label:'Subscription Revenue',  value:`${subRevenue.toLocaleString()}/mo`,                      sub:'Monthly recurring',         icon:'' },
+                  { label:'Total Platform Revenue',value:`${(totalCommission+subRevenue).toLocaleString()}`,        sub:'Combined this month',       icon:'' },
+                  { label:'Projected Annual',      value:`${((totalCommission+subRevenue)*12).toLocaleString()}`,   sub:'Based on current month',    icon:'' },
                 ].map((s,i) => (
                   <div key={i} style={{ background:'rgba(255,255,255,0.04)', borderRadius:12, padding:'20px 18px', border:'1px solid rgba(255,255,255,0.07)', textAlign:'center' }}>
                     <div style={{ fontSize:28, marginBottom:10 }}>{s.icon}</div>
@@ -643,7 +643,7 @@ export default function AdminPanel({ user }) {
                       <span style={{ fontSize:12, color:'rgba(255,255,255,0.35)' }}>{p.count} salons</span>
                     </div>
                     <div style={{ fontFamily:F.display, fontSize:18, color:p.color }}>
-                      {p.price===0 ? 'Free' : `£${(p.count*p.price).toLocaleString()}/mo`}
+                      {p.price===0 ? 'Free' : `${(p.count*p.price).toLocaleString()}/mo`}
                     </div>
                   </div>
                 ))}
@@ -651,7 +651,7 @@ export default function AdminPanel({ user }) {
             </div>
           )}
 
-          {/* ── SETTINGS ── */}
+          {/*  SETTINGS  */}
           {tab==='settings' && (
             <div style={{ animation:'fadeUp 0.4s ease' }}>
               <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:24 }}>Platform Settings</div>
@@ -659,12 +659,12 @@ export default function AdminPanel({ user }) {
                 {[
                   { label:'Platform commission rate',  value:'10%',       note:'Applied to all bookings via Stripe Connect' },
                   { label:'Starter plan',              value:'Free',      note:'No charge for basic listings' },
-                  { label:'Growth plan',               value:'£59/month', note:'Billed monthly, auto-renews' },
-                  { label:'Premium plan',              value:'£119/month',note:'Billed monthly, auto-renews' },
+                  { label:'Growth plan',               value:'59/month', note:'Billed monthly, auto-renews' },
+                  { label:'Premium plan',              value:'119/month',note:'Billed monthly, auto-renews' },
                   { label:'Free cancellation window',  value:'24 hours',  note:'Customers cancel free up to 24hrs before' },
                   { label:'Max cancellation fee',      value:'50%',       note:'At salon discretion for late cancellations' },
                   { label:'Payout schedule',           value:'Weekly',    note:'Every Monday, 2-3 business days to arrive' },
-                  { label:'Minimum payout',            value:'£25',       note:'Accumulated before payout is triggered' },
+                  { label:'Minimum payout',            value:'25',       note:'Accumulated before payout is triggered' },
                   { label:'Admin access',              value:'PIN + Email',note:'admin@theedenappltd.com only -- PIN verified' },
                 ].map((s,i) => (
                   <div key={i} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', background:'rgba(255,255,255,0.03)', borderRadius:10, padding:'16px 20px', border:'1px solid rgba(255,255,255,0.07)' }}>
