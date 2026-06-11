@@ -4,12 +4,25 @@ import { GLOBAL_CSS, T, F, Nav, Button, Badge, Stars } from '../lib/design'
 
 const CATS = [
   { id:'all',        label:'All',            icon:'✦' },
-  { id:'hair',       label:'Hair Salons',    icon:'✂' },
-  { id:'barber',     label:'Barbers',        icon:'💈' },
-  { id:'nails',      label:'Nail Studios',   icon:'💅' },
-  { id:'aesthetics', label:'Aesthetics',     icon:'✨' },
-  { id:'beauty',     label:'Beauty',         icon:'🌸' },
-  { id:'spa',        label:'Spa & Wellness', icon:'🧖' },
+  { id:'hair',        label:'Hair Salons',              icon:'✂'  },
+  { id:'barber',      label:'Barbers',                  icon:'💈' },
+  { id:'nails',       label:'Nail Studios',             icon:'💅' },
+  { id:'aesthetics',  label:'Aesthetics',               icon:'✨' },
+  { id:'beauty',      label:'Beauty',                   icon:'🌸' },
+  { id:'spa',         label:'Spa & Wellness',           icon:'🧖' },
+  { id:'makeup',      label:'Makeup Artists',           icon:'💄' },
+  { id:'tattoo',      label:'Tattoo & Piercing',        icon:'🖋' },
+  { id:'tanning',     label:'Tanning Salons',           icon:'☀️' },
+  { id:'fitness',     label:'Health & Fitness',         icon:'💪' },
+  { id:'pt',          label:'Personal Training',        icon:'🏋' },
+  { id:'dog',         label:'Dog Grooming',             icon:'🐾' },
+  { id:'mobile',      label:'Mobile & Home Services',   icon:'🚗' },
+  { id:'integration', label:'Hair Integration',         icon:'👱' },
+  { id:'laser',       label:'Laser Treatment & Removal',icon:'💡' },
+  { id:'health',      label:'Health Services',          icon:'🏥' },
+  { id:'dental',      label:'Dental Services',          icon:'🦷' },
+  { id:'afro',        label:'Afro Caribbean Hair',      icon:'✊' },
+  { id:'semiperm',    label:'Semi-Permanent Tattoo',    icon:'🎨' },
   { id:'makeup',     label:'Makeup Artists', icon:'💄' },
 ]
 
@@ -22,7 +35,7 @@ const CUSTOMER_FEATURES = [
   { i:'⭐', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars — they mean something on Eden.' },
   { i:'🔔', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before — so you always arrive feeling prepared.' },
   { i:'🌍', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen — every town, every city, all in one beautiful place.' },
-  { i:'💅', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, massage, makeup and more — whatever you need, Eden has it.' },
+  { i:'💅', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more — whatever you need, Eden has it.' },
   { i:'🔒', t:'Safe & Secure',             d:'Your bookings and payments are fully protected. Book with complete confidence, every time.' },
 ]
 
@@ -143,7 +156,7 @@ export default function Home({ user }) {
             Find. Book. <em style={{ color:T.goldLight }}>Feel beautiful.</em>
           </h1>
           <p style={{ fontSize:17,color:'rgba(255,255,255,0.7)',lineHeight:1.8,marginBottom:48,maxWidth:500,margin:'0 auto 48px' }}>
-            The UK's most trusted beauty directory. Discover incredible salons, barbers, spas and clinics near you — and book instantly.
+            The UK's most trusted beauty and wellness directory. Discover salons, barbers, spas, tattoo studios, fitness trainers, dental practices and more near you — and book instantly.
           </p>
 
           {/* Search */}
@@ -293,7 +306,7 @@ export default function Home({ user }) {
       <section style={{ background:`linear-gradient(135deg,${T.forest},${T.moss})`,padding:'60px 24px',textAlign:'center' }}>
         <h2 style={{ fontFamily:F.display,fontSize:'clamp(24px,4vw,36px)',color:T.white,fontWeight:300,marginBottom:12 }}>Ready to bring more clients through your door?</h2>
         <p style={{ color:T.sageLight,fontSize:15,marginBottom:28,maxWidth:440,margin:'0 auto 28px',lineHeight:1.7 }}>
-          Join thousands of UK beauty businesses already growing with Eden. Free to start, easy to set up.
+          Join UK beauty, wellness, fitness and specialist businesses already growing with Eden. Free to start, easy to set up.
         </p>
         <Button variant="gold" size="lg" onClick={() => navigate('/list-business')}>
           List Your Business Free →
