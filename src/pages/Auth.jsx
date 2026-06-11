@@ -34,7 +34,7 @@ export default function Auth({ user }) {
       <div style={{ display:'flex',alignItems:'center',justifyContent:'center',minHeight:'calc(100vh - 62px)',padding:24 }}>
         <div style={{ background:T.white,borderRadius:20,padding:'40px 36px',width:420,maxWidth:'100%',boxShadow:`0 8px 40px ${T.shadow}`,border:`1px solid ${T.border}`,animation:'bloom 0.3s ease' }}>
           <div style={{ textAlign:'center',marginBottom:28 }}>
-            <div style={{ fontSize:36,marginBottom:12 }}>🌿</div>
+            <div style={{ fontSize:36,marginBottom:12 }}></div>
             <div style={{ fontFamily:F.display,fontSize:26,color:T.forest,marginBottom:4 }}>
               {mode==='signin' ? 'Welcome back' : 'Join Eden'}
             </div>
@@ -47,13 +47,13 @@ export default function Auth({ user }) {
             <Input label="Full Name" value={name} onChange={e=>setName(e.target.value)} placeholder="Your name"/>
           )}
           <Input label="Email Address" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/>
-          <Input label="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••"/>
+          <Input label="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder=""/>
 
           {error   && <div style={{ background:'#fff0f0',border:'1px solid #f0c0c0',borderRadius:8,padding:'10px 14px',fontSize:13,color:T.error,marginBottom:16 }}>{error}</div>}
           {success && <div style={{ background:T.mint,border:`1px solid ${T.sagePale}`,borderRadius:8,padding:'10px 14px',fontSize:13,color:T.moss,marginBottom:16 }}>{success}</div>}
 
           <Button variant="primary" style={{ width:'100%',justifyContent:'center',marginBottom:16 }} onClick={handleSubmit} disabled={loading}>
-            {loading ? <><Spinner size={14} color={T.white}/> {mode==='signin'?'Signing in...':'Creating account...'}</> : mode==='signin' ? 'Sign In →' : 'Create Account →'}
+            {loading ? <><Spinner size={14} color={T.white}/> {mode==='signin'?'Signing in...':'Creating account...'}</> : mode==='signin' ? 'Sign In ' : 'Create Account '}
           </Button>
 
           <div style={{ textAlign:'center',fontSize:13,color:T.inkSoft }}>
@@ -65,7 +65,7 @@ export default function Auth({ user }) {
           </div>
 
           <div style={{ marginTop:20,padding:'14px 16px',background:T.mint,borderRadius:8,border:`1px solid ${T.sagePale}`,fontSize:11,color:T.moss,textAlign:'center',lineHeight:1.7 }}>
-            🔒 Your data is encrypted and secure.<br/>
+             Your data is encrypted and secure.<br/>
             Eden never shares your details with third parties.
           </div>
         </div>
