@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GLOBAL_CSS, T, F, Nav, Button, Badge, Stars } from '../lib/design'
+import { CATEGORY_ICONS } from '../lib/icons'
 
 const CATS = [
   { id:'all',        label:'All'                        },
@@ -27,25 +28,25 @@ const CATS = [
 
 // Customer-facing features -- all about the value to them
 const CUSTOMER_FEATURES = [
-  { i:'', t:'Find Beauty Near You',      d:'Search by postcode and find every salon, barber, spa and clinic within your chosen radius across the UK.' },
-  { i:'', t:'Compare & Choose',          d:'See services and prices side-by-side so you always find the perfect treatment at the right price.' },
-  { i:'', t:'Book in Seconds',           d:'Instant booking, instant confirmation. No phone calls, no waiting -- just seamless appointments.' },
-  { i:'', t:'Your AI Beauty Advisor',    d:"Tell our AI what you're looking for and it'll find the perfect match -- personalised just for you." },
-  { i:'', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars -- they mean something on Eden.' },
-  { i:'', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before -- so you always arrive feeling prepared.' },
-  { i:'', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen -- every town, every city, all in one beautiful place.' },
-  { i:'', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more -- whatever you need, Eden has it.' },
-  { i:'', t:'Safe & Secure',             d:'Your bookings and payments are fully protected. Book with complete confidence, every time.' },
+  { i:'\uD83D\uDCCD', t:'Find Beauty Near You',      d:'Search by postcode and find every salon, barber, spa and clinic within your chosen radius across the UK.' },
+  { i:'\uD83D\uDCB7', t:'Compare & Choose',          d:'See services and prices side-by-side so you always find the perfect treatment at the right price.' },
+  { i:'\u26A1', t:'Book in Seconds',           d:'Instant booking, instant confirmation. No phone calls, no waiting -- just seamless appointments.' },
+  { i:'\uD83E\uDD16', t:'Your AI Beauty Advisor',    d:"Tell our AI what you're looking for and it'll find the perfect match -- personalised just for you." },
+  { i:'\u2B50', t:'Honest Reviews',            d:'Every review is from a real verified booking. Trust the stars -- they mean something on Eden.' },
+  { i:'\uD83D\uDD14', t:'Never Miss an Appointment', d:'Smart reminders sent to you 24 hours and 2 hours before -- so you always arrive feeling prepared.' },
+  { i:'\uD83C\uDDEC\uD83C\uDDE7', t:'Everywhere in the UK',      d:'From London to Edinburgh, Cornwall to Aberdeen -- every town, every city, all in one beautiful place.' },
+  { i:'\uD83D\uDC85', t:'Every Treatment Covered',   d:'Hair, nails, aesthetics, tattoo, fitness, dental, dog grooming, mobile services and more -- whatever you need, Eden has it.' },
+  { i:'\uD83D\uDD12', t:'Safe & Secure',             d:'Your bookings and payments are fully protected. Book with complete confidence, every time.' },
 ]
 
 // Business-facing benefits -- all about growth, no fee language
 const BUSINESS_BENEFITS = [
-  { i:'', t:'Get Discovered',            d:'Appear in front of thousands of local customers actively searching for your services right now.' },
-  { i:'', t:'Fill Your Diary',           d:'Our smart booking calendar works around the clock -- taking appointments even while you sleep.' },
-  { i:'', t:'Grow Your Client Base',     d:'Reach new customers you would never have found on your own. Eden brings them directly to you.' },
-  { i:'', t:'Build Your Reputation',     d:'Collect genuine verified reviews that build trust and bring in more bookings automatically.' },
-  { i:'', t:'AI-Powered Spotlight',      d:'Our AI concierge recommends your salon to customers searching for exactly what you offer.' },
-  { i:'', t:'Understand Your Business',  d:'Easy-to-read dashboards show you which services are most popular and when your busiest times are.' },
+  { i:'\uD83D\uDD0D', t:'Get Discovered',            d:'Appear in front of thousands of local customers actively searching for your services right now.' },
+  { i:'\uD83D\uDCC5', t:'Fill Your Diary',           d:'Our smart booking calendar works around the clock -- taking appointments even while you sleep.' },
+  { i:'\uD83D\uDCC8', t:'Grow Your Client Base',     d:'Reach new customers you would never have found on your own. Eden brings them directly to you.' },
+  { i:'\u2B50', t:'Build Your Reputation',     d:'Collect genuine verified reviews that build trust and bring in more bookings automatically.' },
+  { i:'\u2728', t:'AI-Powered Spotlight',      d:'Our AI concierge recommends your salon to customers searching for exactly what you offer.' },
+  { i:'\uD83D\uDCCA', t:'Understand Your Business',  d:'Easy-to-read dashboards show you which services are most popular and when your busiest times are.' },
 ]
 
 const PLANS = [
@@ -161,9 +162,9 @@ export default function Home({ user }) {
           {/* Search */}
           <div style={{ maxWidth:640,margin:'0 auto 12px',background:T.white,borderRadius:14,display:'flex',overflow:'hidden',boxShadow:'0 12px 50px rgba(0,0,0,0.22)',border:`2px solid ${T.sagePale}` }}>
             <div style={{ display:'flex',alignItems:'center',padding:'0 14px',flexShrink:0,borderRight:`1px solid ${T.border}`,gap:4 }}>
-              <span style={{ fontSize:20,opacity:0.5 }}></span>
-              {pcValid === true  && <span style={{ color:T.success,fontSize:12 }}></span>}
-              {pcValid === false && <span style={{ color:T.error,  fontSize:12 }}></span>}
+              <span style={{ fontSize:20,opacity:0.5 }}>{'\uD83D\uDCCD'}</span>
+              {pcValid === true  && <span style={{ color:T.success,fontSize:12 }}>{'\u2713'}</span>}
+              {pcValid === false && <span style={{ color:T.error,  fontSize:12 }}>{'\u2715'}</span>}
             </div>
             <input
               value={postcode} onChange={e => handlePC(e.target.value)}
@@ -190,8 +191,8 @@ export default function Home({ user }) {
                 background: category===c.id ? T.white : 'rgba(255,255,255,0.13)',
                 color: category===c.id ? T.forest : 'rgba(255,255,255,0.82)',
                 boxShadow: category===c.id ? '0 2px 12px rgba(26,58,31,0.2)' : 'none',
-                transition:'all 0.2s',
-              }}>{c.label}</button>
+                transition:'all 0.2s', display:'inline-flex', alignItems:'center', gap:6,
+              }}>{(() => { const IC = CATEGORY_ICONS[c.id]; return IC ? <IC size={14} color="currentColor"/> : null })()}{c.label}</button>
             ))}
           </div>
         </div>
@@ -225,7 +226,7 @@ export default function Home({ user }) {
           <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:20 }}>
             {TESTIMONIALS.map((t,i) => (
               <div key={i} style={{ background:T.white,borderRadius:14,padding:'24px 22px',border:`1px solid ${T.border}`,boxShadow:`0 2px 12px ${T.shadow}` }}>
-                <div style={{ fontSize:24,color:T.gold,marginBottom:12,letterSpacing:2 }}></div>
+                <div style={{ fontSize:24,color:T.gold,marginBottom:12,letterSpacing:2 }}>{'\u2605\u2605\u2605\u2605\u2605'}</div>
                 <p style={{ fontSize:14,color:T.inkMid,lineHeight:1.8,marginBottom:16,fontStyle:'italic' }}>"{t.text}"</p>
                 <div style={{ display:'flex',gap:12,alignItems:'center' }}>
                   <div style={{ width:40,height:40,borderRadius:'50%',background:T.mint,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:F.display,fontSize:18,color:T.forest }}>{t.avatar}</div>
