@@ -34,7 +34,7 @@ function BookingModal({ salon, preService, onClose }) {
       <div style={{ padding: '32px 36px' }}>
         {done ? (
           <div style={{ textAlign: 'center', padding: '20px 0', animation: 'fadeUp 0.4s ease' }}>
-            <div style={{ width: 72, height: 72, borderRadius: '50%', background: T.mint, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}></div>
+            <div style={{ width: 72, height: 72, borderRadius: '50%', background: T.mint, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>{'\uD83C\uDF89'}</div>
             <div style={{ fontFamily: F.display, fontSize: 28, color: T.forest, marginBottom: 8 }}>Booking Confirmed!</div>
             <div style={{ fontSize: 14, color: T.inkSoft, lineHeight: 1.8, marginBottom: 20 }}>
               <strong>{name}</strong>, your appointment at <strong>{salon.name}</strong> is confirmed.<br/>
@@ -168,7 +168,7 @@ function ReviewModal({ salon, onClose }) {
       <div style={{ padding: '32px 36px' }}>
         {done ? (
           <div style={{ textAlign: 'center', padding: '20px 0' }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}></div>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>{'\u2B50'}</div>
             <div style={{ fontFamily: F.display, fontSize: 22, color: T.forest }}>Thank you for your review!</div>
             <div style={{ fontSize: 13, color: T.inkSoft, marginTop: 8, marginBottom: 20 }}>Your feedback helps others find great salons.</div>
             <Button variant="primary" onClick={onClose}>Close</Button>
