@@ -72,10 +72,10 @@ const PLANS = [
 ]
 
 const BENEFITS = [
-  { icon:'', text:'Thousands of local customers searching for your services right now' },
-  { icon:'', text:'Your booking calendar works 24/7 -- even while you sleep' },
-  { icon:'', text:'Build a 5-star reputation with verified customer reviews' },
-  { icon:'', text:'Most new listings receive their first Eden booking within 72 hours' },
+  { icon:'\uD83D\uDD0D', text:'Thousands of local customers searching for your services right now' },
+  { icon:'\uD83D\uDCC5', text:'Your booking calendar works 24/7 -- even while you sleep' },
+  { icon:'\u2B50', text:'Build a 5-star reputation with verified customer reviews' },
+  { icon:'\u26A1', text:'Most new listings receive their first Eden booking within 72 hours' },
 ]
 
 export default function ListBusiness({ user }) {
@@ -152,7 +152,7 @@ export default function ListBusiness({ user }) {
       {done ? (
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', minHeight:'calc(100vh - 62px)', padding:24 }}>
           <div style={{ background:T.white, borderRadius:20, padding:'48px 40px', textAlign:'center', maxWidth:540, boxShadow:`0 8px 40px ${T.shadow}`, animation:'bloom 0.4s ease' }}>
-            <div style={{ width:80, height:80, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 24px', fontSize:38 }}></div>
+            <div style={{ width:80, height:80, borderRadius:'50%', background:T.mint, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 24px', fontSize:38 }}>{'\uD83C\uDF89'}</div>
             <div style={{ fontFamily:F.display, fontSize:32, color:T.forest, marginBottom:10 }}>You're on Eden!</div>
             <div style={{ fontSize:15, color:T.inkSoft, lineHeight:1.8, maxWidth:400, margin:'0 auto 28px' }}>
               Welcome to the family, <strong>{form.name}</strong>.<br/>
