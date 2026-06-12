@@ -111,7 +111,7 @@ function PinScreen({ onSuccess }) {
       <div style={{ background:'#0f1a0f', borderRadius:24, padding:'48px 40px', width:400, maxWidth:'100%', border:'1px solid rgba(90,138,98,0.2)', boxShadow:'0 32px 80px rgba(0,0,0,0.5)', textAlign:'center' }}>
 
         {/* Logo */}
-        <div style={{ width:64, height:64, borderRadius:16, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 20px', fontSize:30 }}></div>
+        <div style={{ width:64, height:64, borderRadius:16, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 20px', fontSize:30 }}>{'\uD83D\uDD12'}</div>
 
         <div style={{ fontFamily:F.display, fontSize:26, color:T.white, marginBottom:6 }}>Eden Admin</div>
         <div style={{ fontSize:13, color:'rgba(255,255,255,0.35)', marginBottom:32 }}>Enter your 6-digit admin PIN to continue</div>
@@ -186,7 +186,7 @@ function SalonModal({ salon, onClose, onSave }) {
         onClick={e => e.stopPropagation()}>
         {saved ? (
           <div style={{ padding:'48px 36px', textAlign:'center' }}>
-            <div style={{ fontSize:48, marginBottom:12 }}></div>
+            <div style={{ fontSize:48, marginBottom:12 }}>{'\u2705'}</div>
             <div style={{ fontFamily:F.display, fontSize:22, color:T.white }}>Changes saved!</div>
           </div>
         ) : (
@@ -361,7 +361,7 @@ export default function AdminPanel({ user }) {
     <div style={{ minHeight:'100vh', background:'#0a120a', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.body }}>
       <style>{GLOBAL_CSS}</style>
       <div style={{ textAlign:'center', padding:40 }}>
-        <div style={{ fontSize:48, marginBottom:16 }}></div>
+        <div style={{ fontSize:48, marginBottom:16 }}>{'\uD83D\uDEAB'}</div>
         <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:8 }}>Access Denied</div>
         <div style={{ fontSize:14, color:'rgba(255,255,255,0.4)', marginBottom:20 }}>You do not have permission to access this area.</div>
         <button onClick={() => navigate('/')} style={{ padding:'10px 24px', background:T.sage, border:'none', borderRadius:10, color:T.white, fontWeight:600, cursor:'pointer', fontSize:13 }}>Back to Eden</button>
@@ -380,7 +380,7 @@ export default function AdminPanel({ user }) {
       {/* Nav */}
       <nav style={{ background:'#0a120a', padding:'0 24px', height:62, display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid rgba(90,138,98,0.15)', position:'sticky', top:0, zIndex:200 }}>
         <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-          <div style={{ width:34, height:34, borderRadius:10, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18 }}></div>
+          <div style={{ width:34, height:34, borderRadius:10, background:`linear-gradient(135deg,${T.forest},${T.sage})`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18 }}>{'\uD83C\uDF3F'}</div>
           <span style={{ fontFamily:F.display, fontSize:20, color:T.white }}>Eden</span>
           <span style={{ fontSize:10, background:T.error, color:T.white, padding:'2px 8px', borderRadius:10, fontWeight:700, letterSpacing:1 }}>ADMIN</span>
         </div>
@@ -423,12 +423,12 @@ export default function AdminPanel({ user }) {
 
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:16, marginBottom:28 }}>
                 {[
-                  { icon:'', label:'Active Salons',        value:activeSalons,                           color:T.sageLight },
-                  { icon:'', label:'Total Bookings',       value:totalBookings,                          color:T.sageLight },
-                  { icon:'', label:'Platform Commission',  value:`${totalCommission.toLocaleString()}`, color:T.goldLight },
-                  { icon:'', label:'Subscription Revenue', value:`${subRevenue.toLocaleString()}/mo`,   color:T.goldLight },
-                  { icon:'', label:'Premium Salons',       value:premiumCount,                           color:T.sageLight },
-                  { icon:'', label:'Awaiting Approval',    value:salons.filter(s=>s.status==='pending').length, color:'#fbbf24' },
+                  { icon:'\uD83D\uDC87', label:'Active Salons',        value:activeSalons,                           color:T.sageLight },
+                  { icon:'\uD83D\uDCC5', label:'Total Bookings',       value:totalBookings,                          color:T.sageLight },
+                  { icon:'\uD83D\uDCB7', label:'Platform Commission',  value:`\u00A3${totalCommission.toLocaleString()}`, color:T.goldLight },
+                  { icon:'\uD83D\uDCB3', label:'Subscription Revenue', value:`\u00A3${subRevenue.toLocaleString()}/mo`,   color:T.goldLight },
+                  { icon:'\u2B50', label:'Premium Salons',       value:premiumCount,                           color:T.sageLight },
+                  { icon:'\u23F3', label:'Awaiting Approval',    value:salons.filter(s=>s.status==='pending').length, color:'#fbbf24' },
                 ].map((s,i) => (
                   <div key={i} style={{ background:'rgba(255,255,255,0.04)', borderRadius:12, padding:'20px 18px', border:'1px solid rgba(255,255,255,0.07)' }}>
                     <div style={{ fontSize:26, marginBottom:10 }}>{s.icon}</div>
@@ -476,9 +476,9 @@ export default function AdminPanel({ user }) {
               {/* Revenue */}
               <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16 }}>
                 {[
-                  { label:'Booking Commission',    value:`${totalCommission.toLocaleString()}`,              sub:'10% of all bookings', color:T.sage    },
-                  { label:'Subscription Revenue',  value:`${subRevenue.toLocaleString()}/mo`,                sub:`${premiumCount+standardCount} subscribers`, color:T.gold    },
-                  { label:'Total Platform Revenue',value:`${(totalCommission+subRevenue).toLocaleString()}`, sub:'Combined this month', color:'#a78bfa' },
+                  { label:'Booking Commission',    value:`\u00A3${totalCommission.toLocaleString()}`,              sub:'10% of all bookings', color:T.sage    },
+                  { label:'Subscription Revenue',  value:`\u00A3${subRevenue.toLocaleString()}/mo`,                sub:`${premiumCount+standardCount} subscribers`, color:T.gold    },
+                  { label:'Total Platform Revenue',value:`\u00A3${(totalCommission+subRevenue).toLocaleString()}`, sub:'Combined this month', color:'#a78bfa' },
                 ].map((r,i) => (
                   <div key={i} style={{ background:'rgba(255,255,255,0.04)', borderRadius:10, padding:18, border:'1px solid rgba(255,255,255,0.07)', textAlign:'center' }}>
                     <div style={{ fontFamily:F.display, fontSize:26, color:r.color, marginBottom:6 }}>{r.value}</div>
@@ -616,10 +616,10 @@ export default function AdminPanel({ user }) {
               <div style={{ fontFamily:F.display, fontSize:24, color:T.white, marginBottom:24 }}>Revenue and Finance</div>
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:16, marginBottom:28 }}>
                 {[
-                  { label:'Booking Commission',    value:`${totalCommission.toLocaleString()}`,                    sub:'This month at 10%',         icon:'' },
-                  { label:'Subscription Revenue',  value:`${subRevenue.toLocaleString()}/mo`,                      sub:'Monthly recurring',         icon:'' },
-                  { label:'Total Platform Revenue',value:`${(totalCommission+subRevenue).toLocaleString()}`,        sub:'Combined this month',       icon:'' },
-                  { label:'Projected Annual',      value:`${((totalCommission+subRevenue)*12).toLocaleString()}`,   sub:'Based on current month',    icon:'' },
+                  { label:'Booking Commission',    value:`\u00A3${totalCommission.toLocaleString()}`,                    sub:'This month at 10%',         icon:'\uD83D\uDCB7' },
+                  { label:'Subscription Revenue',  value:`\u00A3${subRevenue.toLocaleString()}/mo`,                      sub:'Monthly recurring',         icon:'\uD83D\uDCB3' },
+                  { label:'Total Platform Revenue',value:`\u00A3${(totalCommission+subRevenue).toLocaleString()}`,        sub:'Combined this month',       icon:'\uD83D\uDCC8' },
+                  { label:'Projected Annual',      value:`\u00A3${((totalCommission+subRevenue)*12).toLocaleString()}`,   sub:'Based on current month',    icon:'\uD83C\uDFAF' },
                 ].map((s,i) => (
                   <div key={i} style={{ background:'rgba(255,255,255,0.04)', borderRadius:12, padding:'20px 18px', border:'1px solid rgba(255,255,255,0.07)', textAlign:'center' }}>
                     <div style={{ fontSize:28, marginBottom:10 }}>{s.icon}</div>
