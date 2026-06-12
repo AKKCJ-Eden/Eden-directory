@@ -113,7 +113,7 @@ function CancellationFeeModal({ booking, onClose, onDecision }) {
         <div style={{ background:T.offwhite, borderRadius:10, padding:'14px 16px', marginBottom:16, border:'1px solid ' + T.border }}>
           <div style={{ fontSize:13, fontWeight:700, color:T.ink }}>{booking.service_name || booking.service}</div>
           <div style={{ fontSize:12, color:T.inkSoft }}>{booking.customer_name || booking.client} - {booking.booking_date || booking.date}</div>
-          <div style={{ fontSize:13, fontWeight:700, color:T.sage, marginTop:4 }}>Original price: GBP {booking.amount}</div>
+          <div style={{ fontSize:13, fontWeight:700, color:T.sage, marginTop:4 }}>Original price: {'\u00A3'}{booking.amount}</div>
         </div>
         {booking.cancellation_reason && (
           <div style={{ background:'#fff8e8', borderRadius:8, padding:'10px 14px', marginBottom:16, border:'1px solid #f0d890' }}>
@@ -125,7 +125,7 @@ function CancellationFeeModal({ booking, onClose, onDecision }) {
         <div style={{ display:'flex', gap:10, marginBottom:20 }}>
           <div onClick={function() { setDecision('charge') }} style={{ flex:1, padding:14, borderRadius:10, cursor:'pointer', border:'2px solid ' + (decision === 'charge' ? T.error : '#f0c0c0'), background:decision === 'charge' ? '#fff0f0' : T.white, textAlign:'center' }}>
             <div style={{ fontWeight:700, color:T.error, marginBottom:4 }}>Apply Fee</div>
-            <div style={{ fontSize:20, fontWeight:700, color:T.ink, fontFamily:F.display }}>GBP {feeAmount}</div>
+            <div style={{ fontSize:20, fontWeight:700, color:T.ink, fontFamily:F.display }}>{'\u00A3'}{feeAmount}</div>
             <div style={{ fontSize:11, color:T.inkSoft }}>50% of booking value</div>
           </div>
           <div onClick={function() { setDecision('waive') }} style={{ flex:1, padding:14, borderRadius:10, cursor:'pointer', border:'2px solid ' + (decision === 'waive' ? T.sage : T.border), background:decision === 'waive' ? T.mint : T.white, textAlign:'center' }}>
@@ -146,6 +146,153 @@ function CancellationFeeModal({ booking, onClose, onDecision }) {
 }
 
 //  MANAGE BOOKING MODAL 
+function AddBookingModal({ services, onClose, onSave }) {
+  var [name,      setName]      = useState('')
+  var [email,     setEmail]     = useState('')
+  var [phone,     setPhone]     = useState('')
+  var [serviceId, setServiceId] = useState('')
+  var [date,      setDate]      = useState('')
+  var [time,      setTime]      = useState('')
+  var [duration,  setDuration]  = useState(60)
+  var [amount,    setAmount]    = useState('')
+  var [status,    setStatus]    = useState('confirmed')
+  var [notes,     setNotes]     = useState('')
+  var [saving,    setSaving]    = useState(false)
+  var [err,       setErr]       = useState('')
+
+  var activeServices = (services || []).filter(function(s) { return s.active !== false })
+
+  var pickService = function(id) {
+    setServiceId(id)
+    var s = activeServices.find(function(x) { return String(x.id) === String(id) })
+    if (s) {
+      if (s.duration)       setDuration(s.duration)
+      if (s.price != null)  setAmount(String(s.price))
+    }
+  }
+
+  var save = async function() {
+    if (!name.trim())   { setErr('Client name is required'); return }
+    if (!date || !time) { setErr('Date and time are required'); return }
+    setErr(''); setSaving(true)
+    var svc = activeServices.find(function(x) { return String(x.id) === String(serviceId) })
+    var ok = await onSave({
+      customer_name:  name.trim(),
+      customer_email: email.trim(),
+      customer_phone: phone.trim(),
+      service_id:     svc ? svc.id : null,
+      service_name:   svc ? svc.name : 'Custom appointment',
+      booking_date:   date,
+      booking_time:   time,
+      duration:       duration,
+      amount:         amount !== '' ? parseFloat(amount) : null,
+      status:         status,
+      notes:          notes.trim(),
+    })
+    setSaving(false)
+    if (ok === false) setErr('Could not save - please check the details and try again')
+  }
+
+  var inp = { width:'100%', padding:'9px 12px', background:T.offwhite, border:'1px solid ' + T.border, borderRadius:8, fontSize:13, outline:'none', boxSizing:'border-box' }
+  var lbl = { fontSize:11, color:T.inkSoft, fontWeight:600, marginBottom:6 }
+
+  return (
+    <Modal open onClose={onClose} width={560}>
+      <div style={{ padding:'28px 32px' }}>
+        <div style={{ marginBottom:20 }}>
+          <div style={{ fontSize:10, color:T.sage, letterSpacing:2, fontWeight:700, marginBottom:4 }}>NEW BOOKING</div>
+          <div style={{ fontFamily:F.display, fontSize:24, color:T.forest }}>{'\uD83D\uDCC5'} Add a booking</div>
+          <div style={{ fontSize:12, color:T.inkSoft, marginTop:4 }}>For walk-ins, phone bookings or appointments made outside Eden.</div>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:14 }}>
+          <div>
+            <div style={lbl}>CLIENT NAME *</div>
+            <input value={name} onChange={function(e) { setName(e.target.value) }} placeholder="e.g. Emma Johnson" style={inp}/>
+          </div>
+          <div>
+            <div style={lbl}>PHONE</div>
+            <input value={phone} onChange={function(e) { setPhone(e.target.value) }} placeholder="+44 7700 ..." style={inp}/>
+          </div>
+        </div>
+
+        <div style={{ marginBottom:14 }}>
+          <div style={lbl}>EMAIL <span style={{ fontWeight:400 }}>(used for confirmations - optional)</span></div>
+          <input value={email} onChange={function(e) { setEmail(e.target.value) }} placeholder="client@email.com" style={inp}/>
+        </div>
+
+        <div style={{ marginBottom:14 }}>
+          <div style={lbl}>SERVICE</div>
+          <select value={serviceId} onChange={function(e) { pickService(e.target.value) }} style={inp}>
+            <option value="">Custom appointment</option>
+            {activeServices.map(function(s) {
+              return <option key={s.id} value={s.id}>{s.name} - {'\u00A3'}{s.price} - {s.duration} min</option>
+            })}
+          </select>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:14 }}>
+          <div>
+            <div style={lbl}>DATE *</div>
+            <input type="date" value={date} onChange={function(e) { setDate(e.target.value) }} style={inp}/>
+          </div>
+          <div>
+            <div style={lbl}>TIME *</div>
+            <input type="time" value={time} onChange={function(e) { setTime(e.target.value) }} style={inp}/>
+          </div>
+        </div>
+
+        <div style={{ marginBottom:14 }}>
+          <div style={lbl}>DURATION</div>
+          <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+            {DURATIONS.map(function(d) {
+              return (
+                <button key={d.val} onClick={function() { setDuration(d.val) }} style={{ padding:'5px 12px', borderRadius:6, fontSize:11, cursor:'pointer', border:'1.5px solid ' + (duration === d.val ? T.forest : T.border), background:duration === d.val ? T.mint : T.white, color:duration === d.val ? T.forest : T.inkMid, fontWeight:duration === d.val ? 700 : 400 }}>
+                  {d.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:14 }}>
+          <div>
+            <div style={lbl}>PRICE</div>
+            <div style={{ position:'relative' }}>
+              <span style={{ position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:T.inkSoft, fontSize:13, fontWeight:600 }}>{'\u00A3'}</span>
+              <input type="number" min="0" step="0.01" value={amount} onChange={function(e) { setAmount(e.target.value) }} placeholder="0.00" style={Object.assign({}, inp, { paddingLeft:26 })}/>
+            </div>
+          </div>
+          <div>
+            <div style={lbl}>STATUS</div>
+            <div style={{ display:'flex', gap:6 }}>
+              {['confirmed','pending'].map(function(s) {
+                return (
+                  <button key={s} onClick={function() { setStatus(s) }} style={{ flex:1, padding:'8px 10px', borderRadius:6, fontSize:11, cursor:'pointer', border:'1.5px solid ' + (status === s ? T.forest : T.border), background:status === s ? T.mint : T.white, color:status === s ? T.forest : T.inkMid, fontWeight:status === s ? 700 : 400, textTransform:'capitalize' }}>
+                    {s}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginBottom:18 }}>
+          <div style={lbl}>NOTES</div>
+          <textarea value={notes} onChange={function(e) { setNotes(e.target.value) }} placeholder="Private notes about this booking (not visible to client)..." style={Object.assign({}, inp, { height:60, resize:'none' })}/>
+        </div>
+
+        {err && <div style={{ fontSize:12, color:T.error, fontWeight:600, marginBottom:12 }}>{err}</div>}
+
+        <div style={{ display:'flex', gap:10, justifyContent:'flex-end' }}>
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button variant="primary" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Add Booking'}</Button>
+        </div>
+      </div>
+    </Modal>
+  )
+}
+
 function ManageBookingModal({ booking, onClose, onSave, onCancelFee }) {
   var [date,     setDate]     = useState(booking.booking_date || booking.date || '')
   var [time,     setTime]     = useState(booking.booking_time || booking.time || '')
@@ -183,7 +330,7 @@ function ManageBookingModal({ booking, onClose, onSave, onCancelFee }) {
           <div style={{ display:'flex', gap:20, fontSize:13 }}>
             <span style={{ color:T.inkSoft }}>Email: <strong style={{ color:T.ink }}>{booking.customer_email || booking.email || 'N/A'}</strong></span>
             <span style={{ color:T.inkSoft }}>Phone: <strong style={{ color:T.ink }}>{booking.customer_phone || booking.phone || 'N/A'}</strong></span>
-            <span style={{ color:T.inkSoft }}>Amount: <strong style={{ color:T.forest }}>GBP {booking.amount || 0}</strong></span>
+            <span style={{ color:T.inkSoft }}>Amount: <strong style={{ color:T.forest }}>{'\u00A3'}{booking.amount || 0}</strong></span>
           </div>
         </div>
 
@@ -284,7 +431,7 @@ function ServiceModal({ service, onClose, onSave }) {
         <div style={{ marginBottom:14 }}>
           <div style={{ fontSize:11, color:T.inkSoft, fontWeight:600, marginBottom:6 }}>PRICE</div>
           <div style={{ position:'relative' }}>
-            <span style={{ position:'absolute', left:14, top:'50%', transform:'translateY(-50%)', color:T.inkSoft, fontSize:13, fontWeight:600 }}>GBP</span>
+            <span style={{ position:'absolute', left:14, top:'50%', transform:'translateY(-50%)', color:T.inkSoft, fontSize:13, fontWeight:600 }}>{'\u00A3'}</span>
             <input type="number" value={price} onChange={function(e) { setPrice(e.target.value) }} placeholder="0.00" style={{ width:'100%', padding:'10px 12px 10px 52px', background:T.offwhite, border:'1px solid ' + T.border, borderRadius:8, fontSize:13, outline:'none', boxSizing:'border-box' }}/>
           </div>
         </div>
@@ -396,6 +543,7 @@ export default function Dashboard({ user }) {
   var [reviews,          setReviews]          = useState([])
   var [managingBooking,  setManagingBooking]  = useState(null)
   var [cancelFeeBooking, setCancelFeeBooking] = useState(null)
+  var [addingBooking,    setAddingBooking]    = useState(false)
   var [editingService,   setEditingService]   = useState(null)
   var [editingOffer,     setEditingOffer]     = useState(null)
   var [filterStatus,     setFilterStatus]     = useState('all')
@@ -413,10 +561,21 @@ export default function Dashboard({ user }) {
     setSalon(sal.data)
     if (sal.data) {
       var sid = sal.data.id
-      var bk = await supabase.from('bookings').select('*').eq('salon_id', sid).order('booking_date', { ascending:false })
-      if (bk.data) setBookings(bk.data)
       var sv = await supabase.from('services').select('*').eq('salon_id', sid).order('created_at')
       if (sv.data) setServices(sv.data)
+      var bk = await supabase.from('bookings').select('*').eq('salon_id', sid).order('booking_date', { ascending:false })
+      if (bk.data) {
+        var svcById = {}
+        ;(sv.data || []).forEach(function(s) { svcById[s.id] = s })
+        setBookings(bk.data.map(function(b) {
+          var svc = b.service_id ? svcById[b.service_id] : null
+          return Object.assign({}, b, {
+            service_name: b.service_name || (svc ? svc.name : 'Appointment'),
+            duration:     b.duration != null ? b.duration : b.duration_minutes,
+            amount:       b.amount   != null ? b.amount   : b.subtotal,
+          })
+        }))
+      }
       var of = await supabase.from('offers').select('*').eq('salon_id', sid)
       if (of.data) setOffers(of.data)
       var rv = await supabase.from('reviews').select('*').eq('salon_id', sid).order('created_at', { ascending:false })
@@ -471,6 +630,33 @@ export default function Dashboard({ user }) {
 
   var updateBooking = function(updated) {
     setBookings(function(prev) { return prev.map(function(b) { return b.id === updated.id ? updated : b }) })
+  }
+
+  var addBooking = async function(nb) {
+    if (!salon) { alert('Your salon profile is still loading - please try again in a moment.'); return false }
+    var row = {
+      salon_id:         salon.id,
+      service_id:       nb.service_id || null,
+      customer_name:    nb.customer_name,
+      customer_email:   nb.customer_email || 'not-provided@eden.app',
+      customer_phone:   nb.customer_phone || null,
+      booking_date:     nb.booking_date,
+      booking_time:     nb.booking_time,
+      duration_minutes: nb.duration || null,
+      notes:            nb.notes || null,
+      status:           nb.status || 'confirmed',
+      subtotal:         nb.amount != null ? nb.amount : null,
+    }
+    var res = await supabase.from('bookings').insert(row).select().single()
+    if (res.error) { alert('Could not save booking: ' + res.error.message); return false }
+    var saved = res.data || row
+    var display = Object.assign({}, saved, {
+      service_name: nb.service_name || 'Appointment',
+      duration:     saved.duration_minutes,
+      amount:       saved.subtotal,
+    })
+    setBookings(function(prev) { return [display].concat(prev) })
+    return true
   }
 
   var TABS = ['overview','bookings','services','calendar','clients','offers','gallery','reviews','analytics','notifications','payments','settings']
@@ -550,7 +736,7 @@ export default function Dashboard({ user }) {
 
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))', gap:14, marginBottom:24 }}>
                 {[
-                  { label:'Revenue This Month', value:'GBP ' + totalRevenue.toLocaleString() },
+                  { label:'Revenue This Month', value:'\u00A3' + totalRevenue.toLocaleString() },
                   { label:'Total Bookings',     value:bookings.length                        },
                   { label:'Pending Bookings',   value:pendingCount                           },
                   { label:'Active Treatments',  value:activeServices                         },
@@ -582,7 +768,7 @@ export default function Dashboard({ user }) {
                   {REVENUE.map(function(r) {
                     return (
                       <div key={r.label} style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:4 }}>
-                        <div style={{ fontSize:9, color:T.inkFaint }}>GBP{(r.v/1000).toFixed(1)}k</div>
+                        <div style={{ fontSize:9, color:T.inkFaint }}>{'\u00A3'}{(r.v/1000).toFixed(1)}k</div>
                         <div style={{ width:'100%', background:r.v > 0 ? T.forest : T.border, borderRadius:'4px 4px 0 0', height:Math.round((r.v / maxR) * 90) + 'px', minHeight:4 }}/>
                         <div style={{ fontSize:9, color:T.inkSoft }}>{r.label}</div>
                       </div>
@@ -598,7 +784,10 @@ export default function Dashboard({ user }) {
           {tab === 'bookings' && (
             <div style={{ animation:'fadeUp 0.3s ease' }}>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:20, flexWrap:'wrap', gap:10 }}>
-                <div style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>Bookings</div>
+                <div style={{ display:'flex', alignItems:'center', gap:12, flexWrap:'wrap' }}>
+                  <div style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>Bookings</div>
+                  <Button variant="primary" size="sm" onClick={function() { setAddingBooking(true) }}>+ New Booking</Button>
+                </div>
                 <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
                   {['all','confirmed','pending','completed','cancelled','no_show'].map(function(s) {
                     return (
@@ -646,7 +835,7 @@ export default function Dashboard({ user }) {
                             <td style={{ padding:'12px 14px', fontSize:13, color:T.inkMid }}>{b.booking_date}</td>
                             <td style={{ padding:'12px 14px', fontSize:13, color:T.inkMid }}>{b.booking_time}</td>
                             <td style={{ padding:'12px 14px', fontSize:13, color:T.inkMid }}>{fmtDur(b.duration)}</td>
-                            <td style={{ padding:'12px 14px', fontSize:13, fontWeight:700, color:T.forest }}>GBP {b.amount}</td>
+                            <td style={{ padding:'12px 14px', fontSize:13, fontWeight:700, color:T.forest }}>{'\u00A3'}{b.amount}</td>
                             <td style={{ padding:'12px 14px' }}>
                               <StatusBadge status={b.status}/>
                               {hasFee && <div style={{ fontSize:9, color:T.error, fontWeight:700, marginTop:3 }}>FEE PENDING</div>}
@@ -710,7 +899,7 @@ export default function Dashboard({ user }) {
                           <div style={{ fontSize:12, color:T.inkSoft }}>{fmtDur(s.duration)}</div>
                         </div>
                         <div style={{ display:'flex', alignItems:'center', gap:14 }}>
-                          <span style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>GBP {s.price}</span>
+                          <span style={{ fontFamily:F.display, fontSize:22, color:T.forest }}>{'\u00A3'}{s.price}</span>
                           <button onClick={function() { setEditingService(s) }} style={{ padding:'6px 14px', background:T.offwhite, border:'1px solid ' + T.border, borderRadius:6, color:T.inkMid, fontSize:11, fontWeight:600, cursor:'pointer' }}>Edit</button>
                         </div>
                       </div>
@@ -798,7 +987,7 @@ export default function Dashboard({ user }) {
                             <td style={{ padding:'12px 14px', fontSize:12, color:T.inkSoft }}>{c.email}</td>
                             <td style={{ padding:'12px 14px', fontSize:12, color:T.inkSoft }}>{c.phone || '-'}</td>
                             <td style={{ padding:'12px 14px', fontSize:13, color:T.inkMid }}>{c.count}</td>
-                            <td style={{ padding:'12px 14px', fontSize:13, fontWeight:700, color:T.forest }}>GBP {c.spent}</td>
+                            <td style={{ padding:'12px 14px', fontSize:13, fontWeight:700, color:T.forest }}>{'\u00A3'}{c.spent}</td>
                             <td style={{ padding:'12px 14px', fontSize:12, color:T.inkSoft }}>{c.last}</td>
                           </tr>
                         )
@@ -899,10 +1088,10 @@ export default function Dashboard({ user }) {
               <div style={{ fontFamily:F.display, fontSize:22, color:T.forest, marginBottom:20 }}>Analytics</div>
               <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:16, marginBottom:24 }}>
                 {[
-                  { label:'Total Revenue',    value:'GBP ' + totalRevenue.toLocaleString() },
+                  { label:'Total Revenue',    value:'\u00A3' + totalRevenue.toLocaleString() },
                   { label:'Completed Bookings', value:bookings.filter(function(b) { return b.status === 'completed' }).length },
                   { label:'Cancellation Rate',  value:bookings.length > 0 ? Math.round((bookings.filter(function(b) { return b.status === 'cancelled' }).length / bookings.length) * 100) + '%' : '0%' },
-                  { label:'Avg Booking Value',  value:bookings.length > 0 ? 'GBP ' + Math.round(bookings.reduce(function(a,b) { return a + (b.amount||0) }, 0) / bookings.length) : 'GBP 0' },
+                  { label:'Avg Booking Value',  value:bookings.length > 0 ? '\u00A3' + Math.round(bookings.reduce(function(a,b) { return a + (b.amount||0) }, 0) / bookings.length) : '\u00A30' },
                 ].map(function(s, i) {
                   return (
                     <div key={i} style={{ background:T.white, borderRadius:12, padding:'20px', border:'1px solid ' + T.border }}>
@@ -922,7 +1111,7 @@ export default function Dashboard({ user }) {
                     return (
                       <div key={s.id} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'10px 0', borderBottom:'1px solid ' + T.border }}>
                         <span style={{ fontSize:13, color:T.ink }}>{s.name}</span>
-                        <span style={{ fontFamily:F.display, fontSize:16, color:T.forest }}>GBP {svcRevenue}</span>
+                        <span style={{ fontFamily:F.display, fontSize:16, color:T.forest }}>{'\u00A3'}{svcRevenue}</span>
                       </div>
                     )
                   })
@@ -965,12 +1154,12 @@ export default function Dashboard({ user }) {
                 <div style={{ fontFamily:F.display, fontSize:18, color:T.forest, marginBottom:14 }}>Current Plan</div>
                 <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:16 }}>
                   <PlanBadge plan={plan}/>
-                  <span style={{ fontSize:14, color:T.inkSoft }}>{plan === 'free' ? 'Free forever' : plan === 'standard' ? 'GBP 59 per month' : 'GBP 119 per month'}</span>
+                  <span style={{ fontSize:14, color:T.inkSoft }}>{plan === 'free' ? 'Free forever' : plan === 'standard' ? '\u00A359 per month' : '\u00A3119 per month'}</span>
                 </div>
                 {plan === 'free' && (
                   <div style={{ display:'flex', gap:12, flexWrap:'wrap' }}>
-                    <Button variant="primary" onClick={function() { alert('Stripe checkout coming soon') }}>Upgrade to Growth - GBP 59/mo</Button>
-                    <Button variant="secondary" onClick={function() { alert('Stripe checkout coming soon') }}>Upgrade to Premium - GBP 119/mo</Button>
+                    <Button variant="primary" onClick={function() { alert('Stripe checkout coming soon') }}>Upgrade to Growth - {'\u00A3'}59/mo</Button>
+                    <Button variant="secondary" onClick={function() { alert('Stripe checkout coming soon') }}>Upgrade to Premium - {'\u00A3'}119/mo</Button>
                   </div>
                 )}
               </div>
@@ -988,7 +1177,7 @@ export default function Dashboard({ user }) {
                     { label:'Free cancellation window', value:'24 hours before appointment' },
                     { label:'Late cancellation fee',    value:'Up to 50% at your discretion' },
                     { label:'Payout schedule',          value:'Every Monday via Stripe'      },
-                    { label:'Minimum payout',           value:'GBP 25'                       },
+                    { label:'Minimum payout',           value:'\u00A325'                       },
                     { label:'Platform commission',      value:'10% per booking'              },
                   ].map(function(r, i) {
                     return (
@@ -1067,6 +1256,18 @@ export default function Dashboard({ user }) {
           onClose={function() { setManagingBooking(null) }}
           onSave={function(u) { updateBooking(u); setManagingBooking(null) }}
           onCancelFee={function(b) { setManagingBooking(null); setCancelFeeBooking(b) }}
+        />
+      )}
+
+      {addingBooking && (
+        <AddBookingModal
+          services={services}
+          onClose={function() { setAddingBooking(false) }}
+          onSave={async function(nb) {
+            var ok = await addBooking(nb)
+            if (ok) setAddingBooking(false)
+            return ok
+          }}
         />
       )}
 
